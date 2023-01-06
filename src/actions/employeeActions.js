@@ -19,6 +19,7 @@ import {
 
 export const listEmployees = (page) => async (dispatch) => {
   try {
+    
     dispatch({ type: EMPLOYEE_LIST_REQUEST });
     const { data } = await axios.get(`http://127.0.0.1:8000/api/user/all?page=${page.toString()}`);
 

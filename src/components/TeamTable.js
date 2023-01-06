@@ -11,15 +11,19 @@ function TeamTable() {
   let [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [employeelist,setEmployeeList] = useState([])
+  
   const tbodyRef = useRef(null);
   const [scrollPos, setScrollPos] = useState(0);
+  
   const dispatch = useDispatch();
   const employeeList = useSelector((state) => state.employeeList);
   const { error, loading, employees } = employeeList;
-  const employee_results = employees && employees['results'] ? employees["results"] : null;
+  const employee_array = employees && employees['results'] ? employees["results"] : null;
+  const totalEmployeeCount = employees && employees['count'] ? employees["count"] : null;
   
-  if (employee_results && employee_results.length > 0){
-    employeelist.push(...employee_results)
+  if (employee_array && totalEmployeeCount && employeelist.length < totalEmployeeCount){
+    console.log(totalEmployeeCount)
+    employeelist.push(...employee_array)
   }
 
   useEffect(() => {
@@ -42,7 +46,7 @@ function TeamTable() {
 
   useEffect(() => {
     tbodyRef.current.scrollTop = scrollPos;
-  }, [employee_results]);
+  }, [employee_array]);
 
   // console.log(`page=${page},hasmore->${hasMore},employees->${employee_results && employee_results.length}`)
 
