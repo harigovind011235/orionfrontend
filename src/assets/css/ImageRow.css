@@ -1,0 +1,27 @@
+figcaption{
+    position: absolute;
+    bottom: 2rem;
+    margin:0 2em;
+    color: white;
+    font-size: 1em;
+    font-family: "MangoSans";
+    text-decoration: underline;
+    letter-spacing: 2px;
+    padding: 10px;
+}
+
+
+.image-categories{
+    position: absolute;
+    bottom: 7rem;
+    color: whitesmoke;
+    margin-left: 44px;
+    font-family: "MangoSans";
+    font-size: 30px;
+    text-decoration: none;
+    
+}
+
+.second-carousel{
+    margin-top: 2%;
+}

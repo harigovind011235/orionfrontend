@@ -1,0 +1,20 @@
+.carousel {
+    height: 100%;
+    width: 100%;
+    overflow:hidden;
+}
+
+.testdiv{
+    background-color: brown;
+    max-width: 100%;
+}
+
+img{
+  height: 100%;
+}
+
+.carousel-button{
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+  font-family: "MangoSans";
+  border-radius: 0;
+}
