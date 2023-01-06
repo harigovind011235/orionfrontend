@@ -31,7 +31,7 @@ function DailyHourTable(props) {
               </tr>
             </thead>
             <tbody>
-              {employeedailyhours ? employeedailyhours.map((each) => (
+              {employeedailyhours && Array.isArray(employeedailyhours) ? employeedailyhours.map((each) => (
                 <tr key={each.id}>
                   <td>{each.date_of_checkin}</td>
                   <td>{each.checkin}</td>

@@ -27,8 +27,8 @@ function Blog() {
                   {loading ? (
                     <Loader />
                   ) : error ? (
-                    <Message variant="danger">{error}</Message>
-                  ) : (
+                    <Message variant="danger">Backend Server Down Contact The Admin</Message>
+                  ) : Array.isArray(bloglist)  ?
                     bloglist.map((blogitem) => (
                       <Row className="mt-4 p-2" key={blogitem.id}>
                         <Col>
@@ -39,8 +39,8 @@ function Blog() {
                           </Button>
                         </Col>
                       </Row>
-                    ))
-                  )}
+                    )) : <Message variant="danger">Backend Server Down Contact The Admin</Message>
+                  }
                 </Container>
               </Card.Body>
             </Container>

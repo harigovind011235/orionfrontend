@@ -30,6 +30,7 @@ function News() {
         <Container className='mt-2'>
 
         { loading ? <Loader/> : error ? <Message variant="danger">{error}</Message> :
+        Array.isArray(newslist) ?
         newslist.map((newsItem) => (
           <Row className='mt-4 p-2' key={newsItem.id}>
           <Col>
@@ -40,7 +41,7 @@ function News() {
       <Button variant="primary" href={newsItem.target_link}>Read More</Button>
       </Col>
         </Row>
-        ))
+        )) : <Message variant="danger">Something's Broke</Message>
         }
           </Container>
       </Card.Body>

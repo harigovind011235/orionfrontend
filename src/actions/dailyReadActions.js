@@ -12,7 +12,7 @@ export const listBlogs = () => async (dispatch) => {
   try {
     dispatch({ type: BLOGS_LIST_REQUEST });
     const { data } = await axios.get(
-      "http://127.0.0.1:8000/api/dailyreads/blogs"
+      "/api/dailyreads/blogs"
     );
     dispatch({ type: BLOGS_LIST_SUCCESS, payload: data });
   } catch (error) {
@@ -30,7 +30,7 @@ export const listNews = () => async (dispatch) => {
   try {
     dispatch({ type: NEWS_LIST_REQUEST });
     const { data } = await axios.get(
-      "http://127.0.0.1:8000/api/dailyreads/news"
+      "/api/dailyreads/news"
     );
     dispatch({ type: NEWS_LIST_SUCCESS, payload: data });
   } catch (error) {

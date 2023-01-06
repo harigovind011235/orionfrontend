@@ -27,7 +27,7 @@ function LeaveStatus(props) {
         </tr>
       </thead>
       <tbody>
-      {employeeleavestatus.map((each) => (
+      {Array.isArray(employeeleavestatus) ? employeeleavestatus.map((each) => (
         <tr key={each.id}>
         <td>{each.leave_type === '1' ? 'Casual' : each.leave_type === '2' ? 'Sick Leave' : each.leave_type === '3' ? 'Emergency' : each.leave_type === '4' ? 'Compenstaion Off' :'optional holiday'}</td>
         <td>{each.date_of_leave}</td>
@@ -35,7 +35,7 @@ function LeaveStatus(props) {
         <td>{each.status === true ? "Approved" : "Pending"}</td>
       </tr>
 
-      ))}
+      )):<Message variant="danger">Backend Server Down Contact The Admin</Message>}
 
       </tbody>
     </Table>
