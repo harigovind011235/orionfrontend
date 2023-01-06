@@ -27,6 +27,7 @@ function TeamTable() {
   }
 
   useEffect(() => {
+    setEmployeeList([])
     dispatch(listEmployees(page));
   }, [dispatch]);
 
