@@ -19,7 +19,7 @@ export const login = (username, password) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      "/api/user/login/",
+      "http://194.163.159.41:8000/api/user/login/",
       { username: username, password: password },
       config1
     );
@@ -40,7 +40,7 @@ export const login = (username, password) => async (dispatch) => {
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     const loginDate = currentTime.toLocaleDateString('en-US', options);
     const body = {loginTime:loginTime,loginDate:loginDate,logoutTime:null}
-    axios.post(`/api/user/${userId}/dailyhours`,body,config2)
+    axios.post(`http://194.163.159.41:8000/api/user/${userId}/dailyhours`,body,config2)
       .then((response) => {
         console.log(loginTime,loginDate)
       })
@@ -72,7 +72,7 @@ export const logout = () => (dispatch) => {
     const seconds = currentTime.getSeconds();
     const logOutTime = `${hours}:${minutes}:${seconds}`;
     
-    axios.put(`/api/user/${userId}/dailyhours`,{logOutTime:logOutTime},config2)
+    axios.put(`http://194.163.159.41:8000/api/user/${userId}/dailyhours`,{logOutTime:logOutTime},config2)
       .then((response) => {
         console.log(logOutTime)
       })
