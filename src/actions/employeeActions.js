@@ -16,12 +16,13 @@ import {
   EMPLOYEE_LEAVEAPPLY_SUCCESS,
   EMPLOYEE_LEAVEAPPLY_FAIL
 } from "../constants/employeeConstants";
+const baseURL = process.env.REACT_APP_BACKEND_BASEURL;
 
 export const listEmployees = (page) => async (dispatch) => {
   try {
     
     dispatch({ type: EMPLOYEE_LIST_REQUEST });
-    const { data } = await axios.get(`http://194.163.159.41:8000/api/user/all?page=${page.toString()}`);
+    const { data } = await axios.get(`${baseURL}/api/user/all?page=${page.toString()}`);
 
     dispatch({
       type: EMPLOYEE_LIST_SUCCESS,
@@ -49,7 +50,7 @@ export const listRemainingLeaves = () => async (dispatch) => {
       headers: { Authorization: `Bearer ${token}` },
     };
     const { data } = await axios.get(
-      `http://194.163.159.41:8000/api/user/${userId}/remainingleaves`,
+      `${baseURL}/api/user/${userId}/remainingleaves`,
       config
     );
 
@@ -79,7 +80,7 @@ export const listLeaveStatus = () => async (dispatch) => {
       headers: { Authorization: `Bearer ${token}` },
     };
     const { data } = await axios.get(
-      `http://194.163.159.41:8000/api/user/${userId}/leavestatus`,
+      `${baseURL}/api/user/${userId}/leavestatus`,
       config
     );
 
@@ -108,7 +109,7 @@ export const listDailyHours = () => async (dispatch) => {
     const config = {
       headers: { Authorization: `Bearer ${token}` },
     };
-    const { data } = await axios.get(`http://194.163.159.41:8000/api/user/${userId}/dailyhours`,  config);
+    const { data } = await axios.get(`${baseURL}/api/user/${userId}/dailyhours`,  config);
 
     dispatch({
       type: EMPLOYEE_DAILYHOURS_SUCCESS,
@@ -137,7 +138,7 @@ export const EmployeeLeaveApply = (leaveDate,leaveType,leaveNotes,noOfLeaves) =>
       headers: { Authorization: `Bearer ${token}`, "Content-type": "application/json", },
     };
     const body = {leaveDate:leaveDate,leaveType:leaveType,leaveNotes:leaveNotes,noOfLeaves:noOfLeaves}
-    const data = await axios.post(`http://194.163.159.41:8000/api/user/${userId}/leavestatus`,body,config)
+    const data = await axios.post(`${baseURL}/api/user/${userId}/leavestatus`,body,config)
     dispatch({
       type: EMPLOYEE_LEAVEAPPLY_SUCCESS,
       payload: data,

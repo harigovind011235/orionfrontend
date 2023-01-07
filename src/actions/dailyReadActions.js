@@ -8,11 +8,13 @@ import {
   NEWS_LIST_FAIL,
 } from "../constants/dailyReadConstants";
 
+const baseURL = process.env.REACT_APP_BACKEND_BASEURL;
+
 export const listBlogs = () => async (dispatch) => {
   try {
     dispatch({ type: BLOGS_LIST_REQUEST });
     const { data } = await axios.get(
-      "http://194.163.159.41:8000/api/dailyreads/blogs"
+      `${baseURL}/api/dailyreads/blogs`
     );
     dispatch({ type: BLOGS_LIST_SUCCESS, payload: data });
   } catch (error) {
@@ -30,7 +32,7 @@ export const listNews = () => async (dispatch) => {
   try {
     dispatch({ type: NEWS_LIST_REQUEST });
     const { data } = await axios.get(
-      "http://194.163.159.41:8000/api/dailyreads/news"
+      `${baseURL}/api/dailyreads/news`
     );
     dispatch({ type: NEWS_LIST_SUCCESS, payload: data });
   } catch (error) {

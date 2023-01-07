@@ -18,7 +18,6 @@ function HomeScreen() {
             navigate('/')
         }
     },[navigate])
-
     return (
         <Container>
                 <Header/>
