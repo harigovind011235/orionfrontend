@@ -6,7 +6,7 @@ import {
   blogsListReducer,
   newsListReducer,
 } from "./reducers/dailyReadReducers";
-import { userLoginReducer } from "./reducers/userReducers";
+import { userLoginReducer,userMessageReducer } from "./reducers/userReducers";
 
 const reducer = combineReducers({
   employeeList: employeeListReducer,
@@ -17,6 +17,7 @@ const reducer = combineReducers({
   employeeLeaveStatus:employeeLeaveStatusReducer,
   employeeDailyHour:employeeDailyHoursReducer,
   employeeLeaveApply:employeeLeaveApplyReducer,
+  userMsgReducer:userMessageReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null

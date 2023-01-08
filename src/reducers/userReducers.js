@@ -3,6 +3,8 @@ import {
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAIL,
   USER_LOGOUT,
+  OPEN_MODAL,
+  CLOSE_MODAL
 } from "../constants/userConstants";
 
 export const userLoginReducer = (state={},action) => {
@@ -27,5 +29,32 @@ export const userLoginReducer = (state={},action) => {
     }
 
 }
+
+const initialState = {
+    isModalOpen: false,
+    modalMessage: '',
+  };
+  
+  export function userMessageReducer(state = initialState, action) {
+    switch (action.type) {
+      case OPEN_MODAL:
+        return {
+          isModalOpen: true,
+          modalMessage: action.modalMessage,
+        };
+      case CLOSE_MODAL:
+        return {
+          isModalOpen: false,
+          modalMessage: '',
+        };
+      default:
+        return state;
+    }
+  }
+  
+  
+  
+  
+  
 
 

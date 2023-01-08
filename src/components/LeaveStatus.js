@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container,Row,Col,Table } from 'react-bootstrap'
+import { Container,Row,Col,Table,Button } from 'react-bootstrap'
 import Message from './Message'
 import Loader from './Loader'
 
@@ -24,6 +24,7 @@ function LeaveStatus(props) {
           <th>Date</th>
           <th>Notes</th>
           <th>Status</th>
+          <th>Edit</th>
         </tr>
       </thead>
       <tbody>
@@ -32,7 +33,8 @@ function LeaveStatus(props) {
         <td>{each.leave_type === '1' ? 'Casual' : each.leave_type === '2' ? 'Sick Leave' : each.leave_type === '3' ? 'Emergency' : each.leave_type === '4' ? 'Compenstaion Off' :'optional holiday'}</td>
         <td>{each.date_of_leave}</td>
         <td>{each.leave_notes ? each.leave_notes : "null"}</td>
-        <td>{each.status === true ? "Approved" : "Pending"}</td>
+        <td>{each.status === true ? "Approved" : <p>Pending</p>}</td>
+        <td><Button variant="outline-dark" size="sm" disabled={each.status === true}>Cancel</Button></td>
       </tr>
 
       )):<Message variant="danger">Backend Server Down Contact The Admin</Message>}
