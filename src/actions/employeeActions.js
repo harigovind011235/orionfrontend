@@ -99,7 +99,7 @@ export const listLeaveStatus = () => async (dispatch) => {
   }
 };
 
-export const listDailyHours = () => async (dispatch) => {
+export const listDailyHours = (page) => async (dispatch) => {
   try {
     dispatch({ type: EMPLOYEE_DAILYHOURS_REQUEST });
     const userStrInfo = localStorage.getItem("userInfo");
@@ -109,7 +109,7 @@ export const listDailyHours = () => async (dispatch) => {
     const config = {
       headers: { Authorization: `Bearer ${token}` },
     };
-    const { data } = await axios.get(`${baseURL}/api/user/${userId}/dailyhours`,  config);
+    const { data } = await axios.get(`${baseURL}/api/user/${userId}/dailyhours?page=${page.toString()}`,  config);
 
     dispatch({
       type: EMPLOYEE_DAILYHOURS_SUCCESS,
