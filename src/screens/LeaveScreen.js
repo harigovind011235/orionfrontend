@@ -16,7 +16,6 @@ function LeaveScreen() {
 
   const secondComponent = () => {
     setComponent("leavestatus");
-    console.log(component);
   };
 
   const firstComponent = () => {

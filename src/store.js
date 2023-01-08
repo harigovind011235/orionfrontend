@@ -1,7 +1,7 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
-import { employeeListReducer,employeeRemainingLeavesReducer,employeeLeaveStatusReducer,employeeDailyHoursReducer,employeeLeaveApplyReducer } from "./reducers/employeeReducer";
+import { employeeListReducer,employeeRemainingLeavesReducer,employeeLeaveStatusReducer,employeeDailyHoursReducer,employeeLeaveApplyReducer,employeeDeleteLeaveReducer } from "./reducers/employeeReducer";
 import {
   blogsListReducer,
   newsListReducer,
@@ -18,6 +18,7 @@ const reducer = combineReducers({
   employeeDailyHour:employeeDailyHoursReducer,
   employeeLeaveApply:employeeLeaveApplyReducer,
   userMsgReducer:userMessageReducer,
+  employeeLeaveDeleted:employeeDeleteLeaveReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null
