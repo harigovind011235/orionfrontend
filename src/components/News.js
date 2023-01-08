@@ -24,7 +24,7 @@ function News() {
     <Card>
       <Container>
         <Row>
-      <Card.Header as="h5">Tech Reads</Card.Header>
+      <Card.Header as="h5">Health Reads</Card.Header>
       </Row>
       <Card.Body>
         <Container className='mt-2'>

@@ -71,7 +71,7 @@ export default function Header() {
             <MDBNavbarItem>
               <MDBDropdown>
                 <MDBDropdownToggle tag="a" className="nav-link" role="button">
-                  Attendence
+                <i class="fa-sharp fa-solid fa-user-tie"></i>
                 </MDBDropdownToggle>
                 <MDBDropdownMenu>
                   <LinkContainer to={'/dailyhours'}>

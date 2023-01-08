@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { login } from "../actions/userActions";
+import { login,showUserMessage } from "../actions/userActions";
 import Loader from "./Loader";
 import Message from "./Message";
 
@@ -18,6 +18,7 @@ function LoginForm() {
   useEffect(() => {
     if (userInfo) {
       navigate("/home");
+      dispatch(showUserMessage())
     }
   }, [userInfo, navigate]);
 

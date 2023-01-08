@@ -3,6 +3,8 @@ import {
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAIL,
   USER_LOGOUT,
+  OPEN_MODAL,
+  CLOSE_MODAL
 } from "../constants/userConstants";
 import axios from "axios";
 const baseURL = process.env.REACT_APP_BACKEND_BASEURL;
@@ -82,4 +84,15 @@ export const logout = () => (dispatch) => {
       });
   localStorage.removeItem("userInfo");
   dispatch({ type: USER_LOGOUT });
+  dispatch({type:OPEN_MODAL,modalMessage:`Day Is Still Young You Go Have Fun`})
 };
+
+
+
+export const showUserMessage = () => async(dispatch) => {
+  dispatch({type:OPEN_MODAL,modalMessage:`Quote Of The Day - It is never too late to be what you might have been`})
+}
+
+export const closeUserMessage = () => async(dispatch) => {
+  dispatch({type:CLOSE_MODAL,modalMessage:``})
+}
