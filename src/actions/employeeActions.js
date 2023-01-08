@@ -14,7 +14,10 @@ import {
   EMPLOYEE_DAILYHOURS_FAIL,
   EMPLOYEE_LEAVEAPPLY_REQUEST,
   EMPLOYEE_LEAVEAPPLY_SUCCESS,
-  EMPLOYEE_LEAVEAPPLY_FAIL
+  EMPLOYEE_LEAVEAPPLY_FAIL,
+  EMPLOYEE_DELETELEAVE_REQUEST,
+  EMPLOYEE_DELETELEAVE_SUCCESS,
+  EMPLOYEE_DELETELEAVE_FAIL
 } from "../constants/employeeConstants";
 const baseURL = process.env.REACT_APP_BACKEND_BASEURL;
 
@@ -38,6 +41,7 @@ export const listEmployees = (page) => async (dispatch) => {
     });
   }
 };
+
 
 export const listRemainingLeaves = () => async (dispatch) => {
   try {
@@ -69,6 +73,7 @@ export const listRemainingLeaves = () => async (dispatch) => {
   }
 };
 
+
 export const listLeaveStatus = () => async (dispatch) => {
   try {
     dispatch({ type: EMPLOYEE_LEAVES_REQUEST });
@@ -99,6 +104,7 @@ export const listLeaveStatus = () => async (dispatch) => {
   }
 };
 
+
 export const listDailyHours = (page) => async (dispatch) => {
   try {
     dispatch({ type: EMPLOYEE_DAILYHOURS_REQUEST });
@@ -127,6 +133,7 @@ export const listDailyHours = (page) => async (dispatch) => {
 };
 
 
+
 export const EmployeeLeaveApply = (leaveDate,leaveType,leaveNotes,noOfLeaves) => async (dispatch) => {
   try {
     dispatch({ type: EMPLOYEE_LEAVEAPPLY_REQUEST });
@@ -146,6 +153,33 @@ export const EmployeeLeaveApply = (leaveDate,leaveType,leaveNotes,noOfLeaves) =>
   } catch (error) {
     dispatch({
       type: EMPLOYEE_LEAVEAPPLY_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+
+
+export const EmployeeLeaveDelete = (leaveid) => async (dispatch) => {
+  try {
+    dispatch({ type: EMPLOYEE_DELETELEAVE_REQUEST });
+    const userStrInfo = localStorage.getItem("userInfo");
+    const userInfo = JSON.parse(userStrInfo);
+    const token = userInfo.access;
+    const config = {
+      headers: { Authorization: `Bearer ${token}`, "Content-type": "application/json", },
+    };
+    const data = await axios.delete(`${baseURL}/api/user/${leaveid}/deleteleave`,config)
+    dispatch({
+      type: EMPLOYEE_DELETELEAVE_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: EMPLOYEE_DELETELEAVE_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

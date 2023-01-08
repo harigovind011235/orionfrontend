@@ -13,7 +13,10 @@ import {
     EMPLOYEE_DAILYHOURS_FAIL,
     EMPLOYEE_LEAVEAPPLY_REQUEST,
     EMPLOYEE_LEAVEAPPLY_SUCCESS,
-    EMPLOYEE_LEAVEAPPLY_FAIL
+    EMPLOYEE_LEAVEAPPLY_FAIL,
+    EMPLOYEE_DELETELEAVE_REQUEST,
+    EMPLOYEE_DELETELEAVE_SUCCESS,
+    EMPLOYEE_DELETELEAVE_FAIL
 
  } from '../constants/employeeConstants'
 
@@ -112,6 +115,27 @@ export const employeeLeaveApplyReducer = (state={employeeleaveapplied:[]},action
             return {loading:false,employeeleaveapplied:action.payload}
         
         case EMPLOYEE_LEAVEAPPLY_FAIL:
+            return {loading:false,error:action.payload}
+        
+        default:
+            return state
+
+    }
+
+}
+
+
+export const employeeDeleteLeaveReducer = (state={leavedeleted:false},action) => {
+    
+    switch(action.type){
+
+        case EMPLOYEE_DELETELEAVE_REQUEST:
+            return {loading:true,leavedeleted:false}
+        
+        case EMPLOYEE_DELETELEAVE_SUCCESS:
+            return {loading:false,leavedeleted:action.payload}
+        
+        case EMPLOYEE_DELETELEAVE_FAIL:
             return {loading:false,error:action.payload}
         
         default:

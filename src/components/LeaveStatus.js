@@ -1,14 +1,24 @@
 import React from 'react'
 import { Container,Row,Col,Table,Button } from 'react-bootstrap'
+import { useDispatch } from 'react-redux'
+import { EmployeeLeaveDelete } from '../actions/employeeActions'
 import Message from './Message'
 import Loader from './Loader'
 
 function LeaveStatus(props) {
+  
+  const dispatch = useDispatch()
   const employeeLeaveStatus = props.employeeLeaveStatus;
   const { error, loading, employeeleavestatus } = employeeLeaveStatus;
+
+  const deleteLeave = (leaveid) => {
+    dispatch(EmployeeLeaveDelete(leaveid))
+    window.location.reload();
+  }
+
   return (
     <Container className='mt-4'>
-      {error && <Message>Something's Broke But You Are Lucky Its Not Your Heart So We Can Fix It</Message>}
+      {error && <Message variant="danger">Something's Broke But You Are Lucky Its Not Your Heart So We Can Fix It</Message>}
       {loading && <Loader/>}
         <Row md={6} className="justify-content-lg-center justify-content-md-center">
             <Col lg="4" md="3" className='offset-lg-1'>
@@ -34,7 +44,7 @@ function LeaveStatus(props) {
         <td>{each.date_of_leave}</td>
         <td>{each.leave_notes ? each.leave_notes : "null"}</td>
         <td>{each.status === true ? "Approved" : <p>Pending</p>}</td>
-        <td><Button variant="outline-dark" size="sm" disabled={each.status === true}>Cancel</Button></td>
+        <td><Button variant="outline-dark" size="sm" onClick={() => deleteLeave(each.id)} disabled={each.status === true}>Cancel</Button></td>
       </tr>
 
       )):<Message variant="danger">Backend Server Down Contact The Admin</Message>}
