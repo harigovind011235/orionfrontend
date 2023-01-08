@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React from 'react'
 import { Container,Modal } from 'react-bootstrap'
 import { useDispatch } from 'react-redux'
 import { closeUserMessage } from '../actions/userActions'
