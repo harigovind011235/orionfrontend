@@ -6,7 +6,7 @@ import {
   blogsListReducer,
   newsListReducer,
 } from "./reducers/dailyReadReducers";
-import { userLoginReducer,userMessageReducer } from "./reducers/userReducers";
+import { userLoginReducer,userMessageReducer,changePasswordReducer } from "./reducers/userReducers";
 
 const reducer = combineReducers({
   employeeList: employeeListReducer,
@@ -19,6 +19,7 @@ const reducer = combineReducers({
   employeeLeaveApply:employeeLeaveApplyReducer,
   userMsgReducer:userMessageReducer,
   employeeLeaveDeleted:employeeDeleteLeaveReducer,
+  changedPassWord:changePasswordReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null
