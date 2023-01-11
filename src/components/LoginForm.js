@@ -33,7 +33,7 @@ function LoginForm() {
     <div className="login-form p-2">
       {error && (
         <Message variant="danger">
-          No Account Found With This Credentials
+          Invalid Credentials
         </Message>
       )}
       {loading && <Loader></Loader>}
