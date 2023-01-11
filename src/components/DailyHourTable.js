@@ -41,6 +41,13 @@ function DailyHourTable() {
       dispatch(listDailyHours(current_page));
     }
   };
+
+  const checkWorkHour = (hours_perday) => {
+      const [hours] = hours_perday ? hours_perday.split(":") : null
+      const time = new Date()
+      time.setHours(hours)
+      return time.getHours() < 9 ? "text-danger" : "";
+  }
   
   return (
     <Container className="p-2 mt-4">
@@ -79,7 +86,7 @@ function DailyHourTable() {
                       <td>{each.date_of_checkin}</td>
                       <td>{each.checkin}</td>
                       <td>{each.checkout}</td>
-                      <td>{each.hours_perday}</td>
+                      <td className={each.hours_perday ? checkWorkHour(each.hours_perday) : ""}>{each.hours_perday}</td>
                     </tr>
                   ))
                 ) : (
