@@ -11,6 +11,9 @@ const ChangePasswordScreen = lazy(() =>
 );
 const ApplyLeaves = lazy(() => import("./screens/ApplyLeaves"));
 const LeaveScreen = lazy(() => import("./screens/LeaveScreen"));
+const EditLeaves = lazy(() => import("./screens/EditLeaves"));
+const EditProfiles = lazy(() => import("./screens/EditProfiles"));
+const AdminPendingLeaves = lazy(() => import("./screens/AdminPendingLeaves"));
 
 
 const routes = createBrowserRouter([
@@ -67,6 +70,30 @@ const routes = createBrowserRouter([
     element: (
       <Suspense fallback={<Loader></Loader>}>
         <ApplyLeaves />
+      </Suspense>
+    ),
+  },
+  {
+    path: "/edit-leaves",
+    element: (
+      <Suspense fallback={<Loader></Loader>}>
+        <EditLeaves />
+      </Suspense>
+    ),
+  },
+  {
+    path: "/edit-profiles",
+    element: (
+      <Suspense fallback={<Loader></Loader>}>
+        <EditProfiles />
+      </Suspense>
+    ),
+  },
+  {
+    path: "/all-pending-leaves",
+    element: (
+      <Suspense fallback={<Loader></Loader>}>
+        <AdminPendingLeaves />
       </Suspense>
     ),
   },
