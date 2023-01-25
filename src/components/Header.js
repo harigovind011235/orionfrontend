@@ -63,6 +63,24 @@ export default function Header() {
                 <MDBNavbarLink>Change Password</MDBNavbarLink>
               </MDBNavbarItem>
             </LinkContainer>
+            <MDBNavbarItem style={{ marginRight: "20px" }}>
+              <MDBDropdown>
+                <MDBDropdownToggle tag="a" className="nav-link" role="button">
+                  <i class="fa-sharp fa-solid fa-user-tie"></i>
+                </MDBDropdownToggle>
+                <MDBDropdownMenu>
+                  <LinkContainer to={"/dailyhours"}>
+                    <MDBNavbarLink>Daily Hours</MDBNavbarLink>
+                  </LinkContainer>
+                  <LinkContainer to={"/leaves"}>
+                    <MDBNavbarLink>Leaves</MDBNavbarLink>
+                  </LinkContainer>
+                  <LinkContainer to={"/applyleaves"}>
+                    <MDBNavbarLink>Apply Leave</MDBNavbarLink>
+                  </LinkContainer>
+                </MDBDropdownMenu>
+              </MDBDropdown>
+            </MDBNavbarItem>
             {is_staff ? (
               <MDBNavbarItem>
                 <MDBDropdown>
