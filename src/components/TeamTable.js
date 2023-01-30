@@ -11,13 +11,14 @@ import { listEmployees } from "../actions/employeeActions";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Loader from "./Loader";
 import Message from "./Message";
+import ReactPaginate from "react-paginate";
 const baseURL = process.env.REACT_APP_BACKEND_BASEURL;
 
 function TeamTable() {
   let [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [employeelist, setEmployeeList] = useState([]);
-
+ 
   const dispatch = useDispatch();
   const employeeList = useSelector((state) => state.employeeList);
   const { error, loading, employees } = employeeList;
@@ -35,22 +36,30 @@ function TeamTable() {
     employeelist.push(...employee_array);
   }
 
+  const totalPage = Math.ceil(parseInt(totalEmployeeCount) / 5);
+
+  const handlePagination = (data)=>{
+    console.log("data",data.selected)
+    setPage(data.selected+1)
+  }
+  
   useEffect(() => {
     setEmployeeList([]);
     dispatch(listEmployees(page));
-  }, [dispatch]);
+  }, [dispatch,page]);
 
-  const fetchData = () => {
-    var next_page = employees["next"];
-    if (!next_page) {
-      setHasMore(false);
-    } else {
-      setPage(page + 1);
-      const current_page = next_page ? page + 1 : null;
-      console.log(current_page);
-      dispatch(listEmployees(current_page));
-    }
-  };
+
+  // const fetchData = () => {
+  //   var next_page = employees["next"];
+  //   if (!next_page) {
+  //     setHasMore(false);
+  //   } else {
+  //     setPage(page + 1);
+  //     const current_page = next_page ? page + 1 : null;
+  //     console.log(current_page);
+  //     dispatch(listEmployees(current_page));
+  //   }
+  // };
 
   // console.log(`page=${page},hasmore->${hasMore},employees->${employee_results && employee_results.length}`)
 
@@ -62,7 +71,7 @@ function TeamTable() {
         className="justify-content-lg-center justify-content-md-center"
       >
         <Col lg="12" md="12">
-          <InfiniteScroll
+          {/* <InfiniteScroll
             dataLength={
               employeelist && employeelist.length > 0
                 ? employeelist.length
@@ -76,7 +85,7 @@ function TeamTable() {
                 <b>Yay! You have seen it all</b>
               </p>
             }
-          >
+          > */}
             <MDBTable align="middle">
               <MDBTableHead>
                 <tr>
@@ -137,7 +146,28 @@ function TeamTable() {
                 )}
               </MDBTableBody>
             </MDBTable>
-          </InfiniteScroll>
+          {/* </InfiniteScroll> */}
+          <ReactPaginate
+          previousLabel={"previous"}
+          nextLabel={"next"}
+          breakLabel={"..."}
+          pageCount={totalPage}
+          onPageChange={handlePagination}
+          containerClassName={"pagination justify-content-end"}
+          pageClassName={"page-item"}
+          pageLinkClassName={"page-link"}
+          previousClassName={"page-item"}
+          previousLinkClassName={"page-link"}
+          nextClassName={"page-item"}
+          nextLinkClassName={"page-link"}
+          breakClassName={"page-item"}
+          breakLinkClassName={"page-link"}
+          activeClassName={"active"}
+         />
+              <p style={{ textAlign: "center" }}>
+                <b>Yay! You have seen it all</b>
+              </p>
+     
         </Col>
       </Row>
     </Container>
