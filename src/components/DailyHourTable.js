@@ -35,7 +35,6 @@ function DailyHourTable() {
   const totalPage = Math.ceil(parseInt(totalDailyHourCount) / 5);
 
   const handlePagination = (data)=>{
-    console.log("data",data.selected)
     setPage(data.selected+1)
   }
   //   var next_page = employeedailyhours["next"];
