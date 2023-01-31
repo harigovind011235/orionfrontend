@@ -8,7 +8,7 @@ import {
 import { Container, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { listEmployees } from "../actions/employeeActions";
-import InfiniteScroll from "react-infinite-scroll-component";
+// import InfiniteScroll from "react-infinite-scroll-component";
 import Loader from "./Loader";
 import Message from "./Message";
 import ReactPaginate from "react-paginate";
@@ -39,7 +39,6 @@ function TeamTable() {
   const totalPage = Math.ceil(parseInt(totalEmployeeCount) / 5);
 
   const handlePagination = (data)=>{
-    console.log("data",data.selected)
     setPage(data.selected+1)
   }
   
@@ -164,10 +163,6 @@ function TeamTable() {
           breakLinkClassName={"page-link"}
           activeClassName={"active"}
          />
-              <p style={{ textAlign: "center" }}>
-                <b>Yay! You have seen it all</b>
-              </p>
-     
         </Col>
       </Row>
     </Container>
