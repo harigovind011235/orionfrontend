@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { listDailyHours } from "../actions/employeeActions";
 import Message from "./Message";
 import Loader from "./Loader";
+import ReactPaginate from "react-paginate";
 
 function DailyHourTable() {
   
