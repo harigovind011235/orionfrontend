@@ -22,7 +22,7 @@ function DailyHourTable() {
   ) {
     dailyhoursarray.push(...employeeDailyHour);
   }
-  const totalPage = Math.ceil(parseInt(totalDailyHourCount) / dailyhoursarray.length);
+  const totalPage = Math.ceil(parseInt(totalDailyHourCount) / 25);
   const handlePagination = (data)=>{
     setPage(data.selected+1)
   }
