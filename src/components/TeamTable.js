@@ -17,7 +17,7 @@ const baseURL = process.env.REACT_APP_BACKEND_BASEURL;
 function TeamTable() {
   let [page, setPage] = useState(1);
   const [employeelist, setEmployeeList] = useState([]);
- 
+
   const dispatch = useDispatch();
   const employeeList = useSelector((state) => state.employeeList);
   const { error, loading, employees } = employeeList;
@@ -35,16 +35,15 @@ function TeamTable() {
     employeelist.push(...employee_array);
   }
 
-  const totalPage = Math.ceil(parseInt(totalEmployeeCount) / 5);
+  const totalPage = Math.ceil(parseInt(totalEmployeeCount) / employeelist.length);
 
   const handlePagination = (data)=>{
     setPage(data.selected+1)
   }
-  
   useEffect(() => {
     setEmployeeList([]);
     dispatch(listEmployees(page));
-  }, [dispatch,page]);
+  }, [dispatch, page]);
 
 
   // const fetchData = () => {
@@ -84,66 +83,66 @@ function TeamTable() {
               </p>
             }
           > */}
-            <MDBTable align="middle">
-              <MDBTableHead>
-                <tr>
-                  <th scope="col">Name</th>
-                  <th scope="col">Title</th>
-                  <th scope="col">Status</th>
-                  <th scope="col">Date Of Joining</th>
-                  <th scope="col">Contact</th>
-                </tr>
-              </MDBTableHead>
-              <MDBTableBody>
-                {loading ? (
-                  <Loader />
-                ) : error ? (
-                  <Message variant="danger">
-                    Something Wrong Admin To The Rescue
-                  </Message>
-                ) : employeelist ? (
-                  employeelist.map((employee) => (
-                    <tr key={employee.id}>
-                      <td>
-                        <div className="d-flex align-items-center">
-                          <img
-                            src={`${baseURL}${employee.profile_image}`}
-                            alt=""
-                            style={{ width: "45px", height: "45px" }}
-                            className="rounded-circle"
-                          />
-                          <div className="ms-3">
-                            <p className="fw-bold mb-1">{employee.name}</p>
-                            <p className="text-muted mb-0">{employee.email}</p>
-                          </div>
+          <MDBTable align="middle">
+            <MDBTableHead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Title</th>
+                <th scope="col">Status</th>
+                <th scope="col">Date Of Joining</th>
+                <th scope="col">Contact</th>
+              </tr>
+            </MDBTableHead>
+            <MDBTableBody>
+              {loading ? (
+                <Loader />
+              ) : error ? (
+                <Message variant="danger">
+                  Something Wrong Admin To The Rescue
+                </Message>
+              ) : employeelist ? (
+                employeelist.map((employee) => (
+                  <tr key={employee.id}>
+                    <td>
+                      <div className="d-flex align-items-center">
+                        <img
+                          src={`${baseURL}${employee.profile_image}`}
+                          alt=""
+                          style={{ width: "45px", height: "45px" }}
+                          className="rounded-circle"
+                        />
+                        <div className="ms-3">
+                          <p className="fw-bold mb-1">{employee.name}</p>
+                          <p className="text-muted mb-0">{employee.email}</p>
                         </div>
-                      </td>
-                      <td>
-                        <p className="fw-normal mb-1">{employee.designation}</p>
-                        <p className="text-muted mb-0">{employee.location}</p>
-                      </td>
-                      <td>
-                        {employee && employee.status === true ? (
-                          <MDBBadge color="success" pill>
-                            Active
-                          </MDBBadge>
-                        ) : (
-                          <MDBBadge color="primary" pill>
-                            OnBoarding
-                          </MDBBadge>
-                        )}
-                      </td>
-                      <td>{employee.date_of_joining}</td>
-                      <td>{employee.contact_no}</td>
-                    </tr>
-                  ))
-                ) : (
-                  <Message variant="danger">
-                    Something Wrong Admin To The Rescue
-                  </Message>
-                )}
-              </MDBTableBody>
-            </MDBTable>
+                      </div>
+                    </td>
+                    <td>
+                      <p className="fw-normal mb-1">{employee.designation}</p>
+                      <p className="text-muted mb-0">{employee.location}</p>
+                    </td>
+                    <td>
+                      {employee && employee.status === true ? (
+                        <MDBBadge color="success" pill>
+                          Active
+                        </MDBBadge>
+                      ) : (
+                        <MDBBadge color="primary" pill>
+                          OnBoarding
+                        </MDBBadge>
+                      )}
+                    </td>
+                    <td>{employee.date_of_joining}</td>
+                    <td>{employee.contact_no}</td>
+                  </tr>
+                ))
+              ) : (
+                <Message variant="danger">
+                  Something Wrong Admin To The Rescue
+                </Message>
+              )}
+            </MDBTableBody>
+          </MDBTable>
           {/* </InfiniteScroll> */}
           <ReactPaginate
           previousLabel={"previous"}
