@@ -35,7 +35,7 @@ function TeamTable() {
     employeelist.push(...employee_array);
   }
 
-  const totalPage = Math.ceil(parseInt(totalEmployeeCount) / employeelist.length);
+  const totalPage = Math.ceil(parseInt(totalEmployeeCount) / 20);
 
   const handlePagination = (data)=>{
     setPage(data.selected+1)
