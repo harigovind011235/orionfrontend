@@ -4,6 +4,7 @@ import Table from "react-bootstrap/Table";
 import { useNavigate } from "react-router-dom";
 import { getPendingLeaves } from "../actions/adminActions";
 import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 
@@ -40,7 +41,11 @@ function AdminPendingLeaves() {
           ) : pendingleaves ? (
             pendingleaves.map((each) => (
               <tr>
-                <td>{each.employee_name}</td>
+                <td>
+                  <Link to={`/employee-pendingleaves/${each.employee_id}`} style={{ textDecoration: 'none' }}>
+                    {each.employee_name}
+                  </Link>
+                </td>
                 <td>{each.count}</td>
               </tr>
             ))
