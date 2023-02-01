@@ -9,7 +9,6 @@ import ReactPaginate from "react-paginate";
 function DailyHourTable() {
   
   let [page, setPage] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
   const [dailyhoursarray,setDailyhourArray] = useState([])
   const dispatch = useDispatch()
   const DailyHours = useSelector((state) => state.employeeDailyHour)

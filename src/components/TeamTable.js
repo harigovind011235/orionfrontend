@@ -16,7 +16,6 @@ const baseURL = process.env.REACT_APP_BACKEND_BASEURL;
 
 function TeamTable() {
   let [page, setPage] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
   const [employeelist, setEmployeeList] = useState([]);
  
   const dispatch = useDispatch();
