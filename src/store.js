@@ -18,7 +18,11 @@ import {
   userMessageReducer,
   changePasswordReducer,
 } from "./reducers/userReducers";
-import { adminAllLeavesReducer,adminIndividualPendingLeavesReducer } from './reducers/adminReducers'
+import {
+  adminAllLeavesReducer,
+  adminIndividualPendingLeavesReducer,
+  adminUpdateLeaveReducer,
+} from "./reducers/adminReducers";
 
 const reducer = combineReducers({
   employeeList: employeeListReducer,
@@ -32,8 +36,9 @@ const reducer = combineReducers({
   userMsgReducer: userMessageReducer,
   employeeLeaveDeleted: employeeDeleteLeaveReducer,
   changedPassWord: changePasswordReducer,
-  adminPendingLeaves:adminAllLeavesReducer,
-  individualPendingLeaves:adminIndividualPendingLeavesReducer,
+  adminPendingLeaves: adminAllLeavesReducer,
+  individualPendingLeaves: adminIndividualPendingLeavesReducer,
+  updatedEmployeeLeave: adminUpdateLeaveReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")
