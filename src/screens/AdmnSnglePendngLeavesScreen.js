@@ -73,6 +73,8 @@ function AdmnSnglePendngLeavesScreen() {
                     ? "Comp Off"
                     : each.leave_type && each.leave_type === "5"
                     ? "Optional Holiday"
+                    : each.leave_type && each.leave_type === "6"
+                    ? "Half Day"
                     : null}
                 </td>
                 <td>

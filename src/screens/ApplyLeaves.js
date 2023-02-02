@@ -69,6 +69,7 @@ function ApplyLeaves() {
       <option value="3">Emergency Leave</option>
       <option value="4">Comp OFF</option>
       <option value="5">Optional Holiday</option>
+      <option value="6">Half Day</option>
     </Form.Select>
     <Form.Group controlId="formNumber" className="mt-3">
     <Form.Label>No Of Leaves</Form.Label>
