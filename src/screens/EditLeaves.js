@@ -68,11 +68,7 @@ function EditLeaves() {
                   employeelist.map((employee) => (
                     <tr key={employee.id}>
                       <td>
-                        <div className="d-flex align-items-center">
-                          <div className="ms-3">
-                            <p className="fw-bold mb-1" style={{fontSize:"18px",fontWeight:'bold'}}>{employee.name.substring(0,1).toUpperCase()+employee.name.substring(1,employee.name.length)}</p>
-                          </div>
-                        </div>
+                        <p className="fw-bold mb-1" style={{fontSize:"15px",fontWeight:'bold'}}>{employee.name.substring(0,1).toUpperCase()+employee.name.substring(1,employee.name.length)}</p>
                       </td>
                       <td>
                         <button
@@ -81,17 +77,17 @@ function EditLeaves() {
                          
                           style={{
                             background: "#232E48",
-                            width: "85px",
-                            height: "40px",
+                            width: "65px",
+                            height: "35px",
                             color: "white",
-                            fontSize:"13px",
+                            fontSize:"10px",
                           }}
                         >
                          
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
+                            width="12"
+                            height="12"
                             fill="currentColor"
                             class="bi bi-pen"
                             viewBox="0 0 16 16"
