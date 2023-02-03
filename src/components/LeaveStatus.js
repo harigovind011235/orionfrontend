@@ -1,18 +1,35 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Container, Row, Col, Table, Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { EmployeeLeaveDelete } from "../actions/employeeActions";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import Message from "./Message";
 import Loader from "./Loader";
 
 function LeaveStatus(props) {
+  
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const employeeLeaveStatus = props.employeeLeaveStatus;
   const { error, loading, employeeleavestatus } = employeeLeaveStatus;
+  const employeeLeaveDeleted = useSelector(
+    (state) => state.employeeLeaveDeleted
+  );
+  const { leavedeleted } = employeeLeaveDeleted;
+  
+  useEffect(() => {
+    const userData = localStorage.getItem("userInfo");
+    if (!userData) {
+      navigate("/");
+    }
+    if (leavedeleted) {
+      window.location.reload();
+    }
+  }, [navigate, leavedeleted]);
 
   const deleteLeave = (leaveid) => {
     dispatch(EmployeeLeaveDelete(leaveid));
-    window.location.reload();
   };
 
   return (
