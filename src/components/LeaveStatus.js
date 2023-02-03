@@ -62,9 +62,9 @@ function LeaveStatus(props) {
                         : each.leave_type === "4"
                         ? "Compenstaion Off"
                         : each.leave_type === "5"
-                        ? "optional holiday"
-                        : each.leave_type === "6"
                         ? "Optional Holiday"
+                        : each.leave_type === "6"
+                        ? "Half Day"
                         : null}
                     </td>
                     <td>{each.date_of_leave}</td>
