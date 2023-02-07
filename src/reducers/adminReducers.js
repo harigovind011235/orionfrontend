@@ -7,7 +7,13 @@ import {
   ADMIN_PENDINGLEAVES_FAIL,
   ADMIN_UPDATE_REQUEST,
   ADMIN_UPDATE_SUCCESS,
-  ADMIN_UPDATE_FAIL
+  ADMIN_UPDATE_FAIL,
+  ADMIN_GETINDIVIDUALPROFILE_SUCCESS,
+  ADMIN_GETINDIVIDUALPROFILE_REQUEST,
+  ADMIN_GETINDIVIDUALPROFILE_FAIL,
+  ADMIN_UPDATEPROFILE_SUCCESS,
+  ADMIN_UPDATEPROFILE_REQUEST,
+  ADMIN_UPDATEPROFILE_FAIL
 
 } from "../constants/AdminConstants";
 
@@ -70,3 +76,46 @@ export const adminUpdateLeaveReducer = (
       return state;
   }
 };
+
+export const admingetIndividualprofileReducer = (
+  state = { updateProfiles: []},
+  action
+) => {
+  
+  switch (action.type) {
+    case  ADMIN_GETINDIVIDUALPROFILE_REQUEST:
+      return { loading: true, updateProfiles:[] };
+
+    case ADMIN_GETINDIVIDUALPROFILE_SUCCESS:
+      return { loading: false, updateProfiles: action.payload };
+  
+    case  ADMIN_GETINDIVIDUALPROFILE_FAIL:
+      return { loading: false, error: action.payload };
+
+    default:
+      return state;
+     
+  }
+  
+};
+
+export const adminUpdateProfileReducer=(state = { update: []},
+action
+) => {
+  switch (action.type) {
+    case ADMIN_UPDATEPROFILE_REQUEST:
+      return { loading: true, update:[] };
+
+    case ADMIN_UPDATEPROFILE_SUCCESS:
+      console.log("msg",action.payload)
+      return { loading: false, update: action.payload };
+  
+    case ADMIN_UPDATEPROFILE_FAIL:
+      return { loading: false, error: action.payload };
+
+    default:
+      return state;
+  }
+
+
+}

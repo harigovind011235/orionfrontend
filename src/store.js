@@ -1,4 +1,4 @@
-import { createStore, combineReducers, applyMiddleware } from "redux";
+import {  createStore , combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import {
@@ -22,6 +22,8 @@ import {
   adminAllLeavesReducer,
   adminIndividualPendingLeavesReducer,
   adminUpdateLeaveReducer,
+  admingetIndividualprofileReducer,
+  adminUpdateProfileReducer
 } from "./reducers/adminReducers";
 
 const reducer = combineReducers({
@@ -39,6 +41,9 @@ const reducer = combineReducers({
   adminPendingLeaves: adminAllLeavesReducer,
   individualPendingLeaves: adminIndividualPendingLeavesReducer,
   updatedEmployeeLeave: adminUpdateLeaveReducer,
+  getIndividualEmployeeProfiles:admingetIndividualprofileReducer,
+  updateProfiles:adminUpdateProfileReducer
+  
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")
