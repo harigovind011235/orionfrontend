@@ -14,8 +14,10 @@ const LeaveScreen = lazy(() => import("./screens/LeaveScreen"));
 const EditLeaves = lazy(() => import("./screens/EditLeaves"));
 const EditProfiles = lazy(() => import("./screens/EditProfiles"));
 const AdminPendingLeaves = lazy(() => import("./screens/AdminPendingLeaves"));
-const AdminSnglePendngLeavesScreen = lazy(() => import("./screens/AdmnSnglePendngLeavesScreen"));
-
+const AdminSnglePendngLeavesScreen = lazy(() =>
+  import("./screens/AdmnSnglePendngLeavesScreen")
+);
+const AdminUpdateprofiles = lazy(() => import("./screens/AdminUpdateprofiles.js"));
 
 const routes = createBrowserRouter([
   {
@@ -102,7 +104,15 @@ const routes = createBrowserRouter([
     path: "/employee-pendingleaves/:employeeId",
     element: (
       <Suspense fallback={<Loader></Loader>}>
-        <AdminSnglePendngLeavesScreen/>
+        <AdminSnglePendngLeavesScreen />
+      </Suspense>
+    ),
+  },
+  {
+    path: "/admin-editprofiles/:employeeId",
+    element: (
+      <Suspense fallback={<Loader></Loader>}>
+        <AdminUpdateprofiles />
       </Suspense>
     ),
   },
