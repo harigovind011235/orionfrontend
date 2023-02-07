@@ -15,6 +15,7 @@ const EditLeaves = lazy(() => import("./screens/EditLeaves"));
 const EditProfiles = lazy(() => import("./screens/EditProfiles"));
 const AdminPendingLeaves = lazy(() => import("./screens/AdminPendingLeaves"));
 const AdminSnglePendngLeavesScreen = lazy(() => import("./screens/AdmnSnglePendngLeavesScreen"));
+const AdminEditLeaves = lazy(()=>import("./screens/AdminEditLeaves"))
 
 
 const routes = createBrowserRouter([
@@ -106,6 +107,14 @@ const routes = createBrowserRouter([
       </Suspense>
     ),
   },
+  {
+    path: "/employee-editleaves/:employeeId",
+    element: (
+      <Suspense fallback={<Loader></Loader>}>
+        <AdminEditLeaves/>
+      </Suspense>
+    )
+  }
 ]);
 
 export default routes;

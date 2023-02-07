@@ -7,6 +7,7 @@ import Header from "../components/Header";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 import ReactPaginate from "react-paginate";
+import { useNavigate } from "react-router-dom";
 const baseURL = process.env.REACT_APP_BACKEND_BASEURL;
 
 function EditLeaves() {
@@ -14,7 +15,9 @@ function EditLeaves() {
   const [employeelist, setEmployeeList] = useState([]);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   const employeeList = useSelector((state) => state.employeeList);
+  
   const { error, loading, employees } = employeeList;
   const employee_array =
     employees && employees["results"] ? employees["results"] : null;
@@ -35,6 +38,10 @@ function EditLeaves() {
   const handlePagination = (data) => {
     setPage(data.selected + 1);
   };
+
+  const handleEditButton = (id) => {
+    navigate(`/employee-editleaves/${id}`)
+  }
 
   useEffect(() => {
     setEmployeeList([]);
@@ -74,6 +81,7 @@ function EditLeaves() {
                         <button
                           type="submit"
                           class="rounded-pill "
+                          onClick={()=>handleEditButton(employee.id)}
                          
                           style={{
                             background: "#232E48",
