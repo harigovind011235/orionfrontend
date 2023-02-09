@@ -7,32 +7,34 @@ import { Container, Row, Col, Table } from "react-bootstrap";
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 
+
 function AdminEditLeaves() {
   const { employeeId } = useParams()
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [inputvalue, setInputvalue] = useState({})
  
-
+  
   const employeesEditLeaves = useSelector(
     (state) => state.getIndividualEditLeaves
   );
 
   const { error, loading, individualEditLeave } = employeesEditLeaves;
-
+  
   const handleInputChange = (e) => {
     setInputvalue({ ...inputvalue, [e.target.name]: e.target.value })
   }
-  
-  const handleSave = () => {
-    let data=[]
-    data.push({no_of_leaves:inputvalue.casual_leave,leave_type:1},{no_of_leaves:inputvalue.sick_leave,leave_type:2},{no_of_leaves:inputvalue.emergency_leave,leave_type:3},
-      {no_of_leaves:inputvalue.comp_off,leave_type:4},{no_of_leaves:inputvalue.optional_holidays,leave_type:5})
-    dispatch(adminIndividualEditLeaves(employeeId,data))
-  }
 
+  const handleSave = () => {
+    let data = []
+    data.push({ no_of_leaves: inputvalue.casual_leave && inputvalue.casual_leave, leave_type: 1 }, { no_of_leaves: inputvalue.sick_leave && inputvalue.sick_leave, leave_type: 2 }, { no_of_leaves: inputvalue.emergency_leave && inputvalue.emergency_leave, leave_type: 3 },
+      { no_of_leaves: inputvalue.comp_off && inputvalue.comp_off, leave_type: 4 }, { no_of_leaves: inputvalue.optional_holidays && inputvalue.optional_holidays, leave_type: 5 })
+    dispatch(adminIndividualEditLeaves(employeeId, data))
+    window.location.reload()
+  }
+ 
   useEffect(() => {
-    setInputvalue(employeesEditLeaves.individualEditLeave)
+      setInputvalue(individualEditLeave)
   }, [individualEditLeave])
 
   useEffect(() => {
@@ -71,23 +73,23 @@ function AdminEditLeaves() {
                 </tr>
               </thead>
               <tbody>
-                <tr class={individualEditLeave.casual_leave >= 1 ? (individualEditLeave.casual_leave === 1 ? "table-warning" : "table-success") : "table-danger"}>
+                <tr class={inputvalue.casual_leave >= 1  ? (inputvalue.casual_leave == 1 ? "table-warning" : "table-success") : inputvalue.casual_leave <= 0 ?"table-danger":""}>
                   <td>Casual Leave</td>
                   <td><input type="number" name="casual_leave" value={inputvalue.casual_leave} onChange={handleInputChange} /></td>
                 </tr>
-                <tr class={individualEditLeave.sick_leave >= 1 ? (individualEditLeave.sick_leave === 1 ? "table-warning" : "table-success") : "table-danger"}>
+                <tr class={inputvalue.sick_leave >= 1 ? (inputvalue.sick_leave == 1 ? "table-warning" : "table-success") : inputvalue.sick_leave <= 0 ? "table-danger":""}>
                   <td>Sick Leave</td>
                   <td><input type="number" name="sick_leave" value={inputvalue.sick_leave} onChange={handleInputChange} /></td>
                 </tr>
-                <tr class={individualEditLeave.emergency_leave >= 1 ? (individualEditLeave.emergency_leave === 1 ? "table-warning" : "table-success") : "table-danger"}>
+                <tr class={inputvalue.emergency_leave >= 1 ? (inputvalue.emergency_leave == 1 ? "table-warning" : "table-success") : inputvalue.emergency_leave <= 0? "table-danger":""}>
                   <td>Emergency Leave</td>
                   <td><input type="number" name="emergency_leave" value={inputvalue.emergency_leave} onChange={handleInputChange} /></td>
                 </tr>
-                <tr class={individualEditLeave.comp_off >= 1 ? (individualEditLeave.comp_off === 1 ? "table-warning" : "table-success") : "table-danger"}>
+                <tr class={inputvalue.comp_off >= 1 ? (inputvalue.comp_off == 1 ? "table-warning" : "table-success") : inputvalue.comp_off <= 0 ? "table-danger":""}>
                   <td>Compensation Off</td>
                   <td><input type="number" name="comp_off" value={inputvalue.comp_off} onChange={handleInputChange} /></td>
                 </tr>
-                <tr class={individualEditLeave.optional_holidays >= 1 ? (individualEditLeave.optional_holidays === 1 ? "table-warning" : "table-success") : "table-danger"}>
+                <tr class={inputvalue.optional_holidays >= 1 ? (inputvalue.optional_holidays == 1 ? "table-warning" : "table-success") :inputvalue.optional_holidays <= 0? "table-danger":""}>
                   <td>Optional Holidays</td>
                   <td><input type="number" name="optional_holidays" value={inputvalue.optional_holidays} onChange={handleInputChange} /></td>
                 </tr>

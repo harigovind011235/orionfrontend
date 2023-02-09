@@ -39,10 +39,11 @@ const reducer = combineReducers({
   employeeLeaveDeleted: employeeDeleteLeaveReducer,
   changedPassWord: changePasswordReducer,
   adminPendingLeaves: adminAllLeavesReducer,
-  individualPendingLeaves: adminIndividualPendingLeavesReducer,
-  updatedEmployeeLeave: adminUpdateLeaveReducer,
   getIndividualEditLeaves: adminIndividualEditLeavesReducer,
-  adminIndividualEditLeaves:adminIndividualLeavesReducer
+  adminIndividualEditLeaves:adminIndividualLeavesReducer,
+  individualPendingLeaves: adminIndividualPendingLeavesReducer,
+  updatedEmployeeLeave: adminUpdateLeaveReducer
+ 
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

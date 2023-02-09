@@ -84,6 +84,14 @@ const routes = createBrowserRouter([
     ),
   },
   {
+    path: "/employee-editleaves/:employeeId",
+    element: (
+      <Suspense fallback={<Loader></Loader>}>
+        <AdminEditLeaves/>
+      </Suspense>
+    )
+  },
+  {
     path: "/edit-profiles",
     element: (
       <Suspense fallback={<Loader></Loader>}>
@@ -106,15 +114,8 @@ const routes = createBrowserRouter([
         <AdminSnglePendngLeavesScreen/>
       </Suspense>
     ),
-  },
-  {
-    path: "/employee-editleaves/:employeeId",
-    element: (
-      <Suspense fallback={<Loader></Loader>}>
-        <AdminEditLeaves/>
-      </Suspense>
-    )
   }
+
 ]);
 
 export default routes;
