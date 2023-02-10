@@ -135,7 +135,7 @@ export const listDailyHours = (page) => async (dispatch) => {
 
 
 
-export const EmployeeLeaveApply = (leaveDate,leaveType,leaveNotes,noOfLeaves) => async (dispatch) => {
+export const EmployeeLeaveApply = (leaveDate,leaveType,leaveNotes,noOfLeaves,halfday) => async (dispatch) => {
   try {
     dispatch({ type: EMPLOYEE_LEAVEAPPLY_REQUEST });
     const userStrInfo = localStorage.getItem("userInfo");
@@ -145,7 +145,8 @@ export const EmployeeLeaveApply = (leaveDate,leaveType,leaveNotes,noOfLeaves) =>
     const config = {
       headers: { Authorization: `Bearer ${token}`, "Content-type": "application/json", },
     };
-    const body = {leaveDate:leaveDate,leaveType:leaveType,leaveNotes:leaveNotes,noOfLeaves:noOfLeaves}
+    const body = {leaveDate:leaveDate,leaveType:leaveType,leaveNotes:leaveNotes,noOfLeaves:noOfLeaves,half_day:halfday}
+    console.log(body)
     const data = await axios.post(`${baseURL}/api/user/${userId}/leavestatus`,body,config)
     dispatch({
       type: EMPLOYEE_LEAVEAPPLY_SUCCESS,

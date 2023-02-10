@@ -8,7 +8,6 @@ import Message from "./Message";
 import Loader from "./Loader";
 
 function LeaveStatus(props) {
-  
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const employeeLeaveStatus = props.employeeLeaveStatus;
@@ -17,7 +16,7 @@ function LeaveStatus(props) {
     (state) => state.employeeLeaveDeleted
   );
   const { leavedeleted } = employeeLeaveDeleted;
-  
+
   useEffect(() => {
     const userData = localStorage.getItem("userInfo");
     if (!userData) {
@@ -70,7 +69,11 @@ function LeaveStatus(props) {
                 employeeleavestatus.map((each) => (
                   <tr key={each.id}>
                     <td>
-                      {each.leave_type === "1"
+                      {each.leave_type === "1" && each.half_day == true
+                        ? "Casual (Half Day)"
+                        : each.leave_type === "2" && each.half_day == true
+                        ? "Sick Leave (Half Day)"
+                        : each.leave_type === "1"
                         ? "Casual"
                         : each.leave_type === "2"
                         ? "Sick Leave"
@@ -80,8 +83,6 @@ function LeaveStatus(props) {
                         ? "Compenstaion Off"
                         : each.leave_type === "5"
                         ? "Optional Holiday"
-                        : each.leave_type === "6"
-                        ? "Half Day"
                         : null}
                     </td>
                     <td>{each.date_of_leave}</td>
