@@ -8,7 +8,7 @@ import Loader from "../components/Loader";
 import Message from "../components/Message";
 import ReactPaginate from "react-paginate";
 import { useNavigate } from "react-router-dom";
-const baseURL = process.env.REACT_APP_BACKEND_BASEURL;
+
 
 function EditLeaves() {
   let [page, setPage] = useState(1);

@@ -52,7 +52,6 @@ export const getIndividualEditLeaves = (employeeId) => async (dispatch) => {
       headers: { Authorization: `Bearer ${token}` },
     };
     const { data } = await axios.get(`${baseURL}/api/user/${employeeId}/remainingleaves`,config);
-    console.log("data",data)
     dispatch({ type: ADMIN_EDITLEAVES_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
