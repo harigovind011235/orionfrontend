@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+
 import {
   adminUpdateEmployeeProfiles,
   getIndividualEmployeeProfiles,
@@ -17,43 +18,73 @@ export default function AdminUpdateprofiles() {
   const updateprofiles = useSelector(
     (state) => state.getIndividualEmployeeProfiles
   );
-  const responseStatus=useSelector((state)=>state. updateProfiles.update)
-
   const { error, loading, updateProfiles } = updateprofiles;
   const employeeUpdateprofiles = updateProfiles ? updateProfiles : null;
+
+  const [getApicall, setGetApicall] = useState(false);
+  const [errormsg, setErrormsg] = useState();
   const [getIndividualdata, setgetIndividualdata] = useState({});
+  const [checkedValue, setCheckedValue] = useState(
+    employeeUpdateprofiles.status
+  );
+
   const [image, setImage] = useState({ profile_image: "" });
   const [editProfiles, setEditprofiles] = useState({});
 
   const handleImage = (e) => {
-    setEditprofiles({ ...editProfiles, profile_image: e.target.files[0].name });
     setImage(e.target.files[0]);
   };
-
+  const handleUploadimage = () => {
+    if (image && image.name) {
+      let formData = new FormData();
+      formData.append("profile_image", image, image.name);
+      dispatch(adminUpdateEmployeeProfiles(employeeId, formData));
+    }
+  };
+  const isValidEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
   const handleChange = (e) => {
+    {
+      e.target.name !== "email" &&
+        setEditprofiles({ ...editProfiles, [e.target.name]: e.target.value });
+    }
+    if (
+      e.target.name == "email" &&
+      e.target.value &&
+      e.target.value.match(isValidEmail)
+    ) {
+      setEditprofiles({ ...editProfiles, [e.target.name]: e.target.value });
+      setErrormsg("");
+    } else {
+      e.target.name == "email" && setErrormsg("email is not valid");
+    }
+
+    e.target.name!="email" &&setEditprofiles({ ...editProfiles, [e.target.name]: e.target.value });
+
     setgetIndividualdata(e.target.value);
-    setEditprofiles({ ...editProfiles, [e.target.name]: e.target.value });
+  };
+
+  const handleCheckbox = () => {
+    setCheckedValue(!checkedValue);
+    setEditprofiles({ ...editProfiles, status: !checkedValue });
   };
 
   const handleClick = () => {
-    if (image && image.name) {
-      setEditprofiles({ ...editProfiles, profile_image: image.name });
-
-      dispatch(adminUpdateEmployeeProfiles(employeeId, editProfiles));
-    } else {
-      setEditprofiles(editProfiles);
-      dispatch(adminUpdateEmployeeProfiles(employeeId, editProfiles));
-       
-    }
+    setGetApicall(!getApicall);
+    setEditprofiles(editProfiles);
+    dispatch(adminUpdateEmployeeProfiles(employeeId, editProfiles));
   };
 
   useEffect(() => {
     setgetIndividualdata(updateprofiles.updateProfiles);
+    setCheckedValue(updateprofiles.updateProfiles.status);
   }, [updateprofiles]);
 
   useEffect(() => {
+    if (getApicall) {
+      dispatch(getIndividualEmployeeProfiles(employeeId));
+    }
     dispatch(getIndividualEmployeeProfiles(employeeId));
-  }, [dispatch,responseStatus]);
+  }, [dispatch, getApicall]);
 
   return (
     <div class="row">
@@ -88,7 +119,7 @@ export default function AdminUpdateprofiles() {
                 <div
                   style={{
                     marginLeft: "-300px",
-                    marginTop: "60px",
+                    marginTop: "150px",
                     textAlign: "center",
                   }}
                   class="container-lg"
@@ -113,26 +144,34 @@ export default function AdminUpdateprofiles() {
                     <p>{employeeUpdateprofiles["email"]}</p>
                     <div class="custom-file">
                       <input
-                        style={{ maxWidth: "100px" }}
+                        style={{ marginLeft: "100px" }}
                         type="file"
-                        class="custom-file-input"
-                        id="inputGroupFile01"
+                        id="avatar"
+                        accept="image/png, image/jpeg,image/jpg"
                         aria-describedby="inputGroupFileAddon01"
                         name="profile_image"
                         onChange={handleImage}
-                        value={image.profile_image}
                       />
-                      <label
-                        class="form-label"
-                        for="form3Example1cg"
-                        style={{ color: "black" }}
+
+                      <br />
+                      <br />
+                      <button
+                        class="rounded-pill"
+                        style={{
+                          backgroundColor: "black",
+                          width: "90px",
+                          height: "42px",
+                          color: "white",
+                          fontSize: "12px",
+                        }}
+                        onClick={handleUploadimage}
                       >
-                        profileImage
-                      </label>
+                        upload image
+                      </button>
                     </div>
                   </div>
                 </div>
-                <div style={{ marginLeft: "450px", marginTop: "-350px" }}>
+                <div style={{ marginLeft: "450px", marginTop: "-500px" }}>
                   <div class=" col-md-8">
                     <label class="form-label" for="form3Example1cg">
                       Username
@@ -152,15 +191,16 @@ export default function AdminUpdateprofiles() {
                     class=" col-md-8"
                     style={{ marginLeft: "250px", marginTop: "-75px" }}
                   >
-                    <label>Email</label>
+                    <label>employee_id</label>
                     <br />
                     <input
-                      type="email"
-                      name="email"
+                      name="employeeid"
+                      type="number"
                       class="border border-dark p-2 mb-2"
                       id="exampleFormControlInput1"
-                      value={getIndividualdata["email"]}
+                      value={getIndividualdata["employee_id"]}
                       onChange={handleChange}
+                      maxLength={8}
                     />
                   </div>
                   <div>
@@ -174,11 +214,13 @@ export default function AdminUpdateprofiles() {
                       id="exampleFormControlInput1"
                       value={getIndividualdata["location"]}
                       onChange={handleChange}
+                      maxLength={50}
                     />
                   </div>
                   <div>
                     <label>Designation</label>
                     <br />
+
                     <input
                       style={{ width: "474px" }}
                       name="designation"
@@ -187,13 +229,14 @@ export default function AdminUpdateprofiles() {
                       id="exampleFormControlInput1"
                       value={getIndividualdata["designation"]}
                       onChange={handleChange}
+                      maxLength={50}
                     />
                   </div>
 
                   <div>
                     <label>Bio</label>
                     <br />
-                    <input
+                    <textarea
                       style={{ width: "474px" }}
                       name="bio"
                       type="text"
@@ -201,12 +244,14 @@ export default function AdminUpdateprofiles() {
                       id="exampleFormControlInput1"
                       value={getIndividualdata["bio"]}
                       onChange={handleChange}
+                      maxLength={200}
                     />
                   </div>
                   <div>
                     <label>Contact.no</label>
                     <br />
                     <input
+                      className="n"
                       name="contact_no"
                       style={{ width: "474px" }}
                       type="number"
@@ -214,44 +259,83 @@ export default function AdminUpdateprofiles() {
                       id="exampleFormControlInput1"
                       value={getIndividualdata["contact_no"]}
                       onChange={handleChange}
+                      maxLength={10}
                     />
                   </div>
                   <div>
-                    <label>EmployeeId</label>
+                    <br />
+                    <label>Email</label>
                     <br />
                     <input
-                      name="employeeid"
+                      type="Email"
+                      name="email"
                       style={{ width: "474px" }}
-                      type="text"
-                      class="border border-dark p-2 mb-2"
+                      class="border border-dark p-2 mb-2 ,form-control"
                       id="exampleFormControlInput1"
-                      value={getIndividualdata["employee_id"]}
+                      value={getIndividualdata["email"]}
                       onChange={handleChange}
+                      pattern=" /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i"
+                      required
                     />
+                    <p style={{ color: "red" }}> {errormsg}</p>
                   </div>
+                  <br />
                   <div>
                     <label>DOB</label>
                     <br />
+
                     <input
                       name="dob"
                       style={{ width: "474px" }}
-                      type="dob"
-                      class="border border-dark p-2 mb-2"
+                      type="date"
+                      class="date form-control"
+                      className="border border-dark p-2 mb-2"
                       id="exampleFormControlInput1"
                       value={getIndividualdata["dob"]}
                       onChange={handleChange}
                     />
                   </div>
+                  <br />
+                  <div>
+                    <label>Date of joining</label>
+                    <br />
+
+                    <input
+                      name="date_of_joining"
+                      style={{ width: "474px" }}
+                      type="date"
+                      class="date form-control"
+                      className="border border-dark p-2 mb-2"
+                      id="exampleFormControlInput1"
+                      value={getIndividualdata["date_of_joining"]}
+                      onChange={handleChange}
+                    />
+                  </div>
+                  <br />
+                  <div>
+                    <label>status</label>
+                    &nbsp;
+                    <input
+                      type="checkbox"
+                      id="coding"
+                      name="status"
+                      value={checkedValue}
+                      checked={checkedValue}
+                      onChange={handleCheckbox}
+                    />
+                  </div>
+                  <br />
                   <div class=" col-md-6">
                     <label>Alternate_contact</label>
                     <br />
                     <input
                       name="alternate_contact"
-                      type="text"
+                      type="number"
                       class="border border-dark p-2 mb-2"
                       id="exampleFormControlInput1"
                       value={getIndividualdata["alternate_contact"]}
                       onChange={handleChange}
+                      maxLength={10}
                     />
                   </div>
                   <div
@@ -267,6 +351,7 @@ export default function AdminUpdateprofiles() {
                       id="exampleFormControlInput1"
                       value={getIndividualdata["blood_group"]}
                       onChange={handleChange}
+                      maxLength={20}
                     />
                   </div>
                   <br />
