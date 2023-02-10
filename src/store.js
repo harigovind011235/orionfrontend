@@ -20,6 +20,8 @@ import {
 } from "./reducers/userReducers";
 import {
   adminAllLeavesReducer,
+  adminIndividualEditLeavesReducer,
+  adminIndividualLeavesReducer,
   adminIndividualPendingLeavesReducer,
   adminUpdateLeaveReducer,
   admingetIndividualprofileReducer,
@@ -39,6 +41,8 @@ const reducer = combineReducers({
   employeeLeaveDeleted: employeeDeleteLeaveReducer,
   changedPassWord: changePasswordReducer,
   adminPendingLeaves: adminAllLeavesReducer,
+  getIndividualEditLeaves: adminIndividualEditLeavesReducer,
+  adminIndividualEditLeaves:adminIndividualLeavesReducer,
   individualPendingLeaves: adminIndividualPendingLeavesReducer,
   updatedEmployeeLeave: adminUpdateLeaveReducer,
   getIndividualEmployeeProfiles:admingetIndividualprofileReducer,
