@@ -12,6 +12,7 @@ const ChangePasswordScreen = lazy(() =>
 const ApplyLeaves = lazy(() => import("./screens/ApplyLeaves"));
 const LeaveScreen = lazy(() => import("./screens/LeaveScreen"));
 const EditLeaves = lazy(() => import("./screens/EditLeaves"));
+const AdminEditLeaves = lazy(()=>import("./screens/AdminEditLeaves"))
 const EditProfiles = lazy(() => import("./screens/EditProfiles"));
 const AdminPendingLeaves = lazy(() => import("./screens/AdminPendingLeaves"));
 const AdminSnglePendngLeavesScreen = lazy(() =>
@@ -83,6 +84,14 @@ const routes = createBrowserRouter([
         <EditLeaves />
       </Suspense>
     ),
+  },
+  {
+    path: "/employee-editleaves/:employeeId",
+    element: (
+      <Suspense fallback={<Loader></Loader>}>
+        <AdminEditLeaves/>
+      </Suspense>
+    )
   },
   {
     path: "/edit-profiles",
