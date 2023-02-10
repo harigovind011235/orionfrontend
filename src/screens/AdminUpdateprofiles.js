@@ -22,7 +22,11 @@ export default function AdminUpdateprofiles() {
   const employeeUpdateprofiles = updateProfiles ? updateProfiles : null;
 
   const [getApicall, setGetApicall] = useState(false);
-  const [errormsg, setErrormsg] = useState();
+  const [errormsg, setErrormsg] = useState({
+    email: "",
+    contact_no: "",
+    alternate_contact: "",
+  });
   const [getIndividualdata, setgetIndividualdata] = useState({});
   const [checkedValue, setCheckedValue] = useState(
     employeeUpdateprofiles.status
@@ -41,24 +45,42 @@ export default function AdminUpdateprofiles() {
       dispatch(adminUpdateEmployeeProfiles(employeeId, formData));
     }
   };
-  const isValidEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+
+  const isValidEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
   const handleChange = (e) => {
-    {
-      e.target.name !== "email" &&
-        setEditprofiles({ ...editProfiles, [e.target.name]: e.target.value });
-    }
     if (
-      e.target.name == "email" &&
+      e.target.name === "email" &&
       e.target.value &&
       e.target.value.match(isValidEmail)
     ) {
       setEditprofiles({ ...editProfiles, [e.target.name]: e.target.value });
-      setErrormsg("");
-    } else {
-      e.target.name == "email" && setErrormsg("email is not valid");
+      setErrormsg({ ...errormsg, [e.target.name]: "" });
+    } else if (
+      e.target.name === "email" &&
+      e.target.value &&
+      !e.target.value.match(isValidEmail)
+    ) {
+      setErrormsg({ ...errormsg, [e.target.name]: "enter the valid email" });
+    } else if (
+      (e.target.name === "contact_no" && e.target.value.length > 10) ||
+      (e.target.name === "contact_no" && e.target.value.length < 10) ||
+      (e.target.name === "alternate_contact" && e.target.value.length > 10) ||
+      (e.target.name === "alternate_contact" && e.target.value.length < 10)
+    ) {
+      setErrormsg({ ...errormsg, [e.target.name]: "enter the valid number" });
+    } else if (
+      (e.target.name === "contact_no" && e.target.value.length === 10) ||
+      (e.target.name === "alternate_contact" && e.target.value.length === 10)
+    ) {
+      setErrormsg({ ...errormsg, [e.target.name]: "" });
+      setEditprofiles({ ...editProfiles, [e.target.name]: e.target.value });
+    } else if (
+      e.target.name !== "email" &&
+      e.target.name !== "contact_no" &&
+      e.target.name !== "alternate_contact"
+    ) {
+      setEditprofiles({ ...editProfiles, [e.target.name]: e.target.value });
     }
-
-    e.target.name!="email" &&setEditprofiles({ ...editProfiles, [e.target.name]: e.target.value });
 
     setgetIndividualdata(e.target.value);
   };
@@ -69,9 +91,22 @@ export default function AdminUpdateprofiles() {
   };
 
   const handleClick = () => {
-    setGetApicall(!getApicall);
     setEditprofiles(editProfiles);
-    dispatch(adminUpdateEmployeeProfiles(employeeId, editProfiles));
+    if (
+      Object.keys(editProfiles).length > 0 &&
+      Object.values(errormsg).filter((el) => el !== "").length === 0
+    ) {
+      dispatch(adminUpdateEmployeeProfiles(employeeId, editProfiles));
+      setErrormsg({});
+      setEditprofiles({});
+      setGetApicall(!getApicall);
+    } else if (
+      image &&
+      image.name &&
+      Object.values(errormsg).filter((el) => el !== "").length === 0
+    ) {
+      setGetApicall(!getApicall);
+    }
   };
 
   useEffect(() => {
@@ -194,8 +229,8 @@ export default function AdminUpdateprofiles() {
                     <label>employee_id</label>
                     <br />
                     <input
-                      name="employeeid"
-                      type="number"
+                      name="employee_id"
+                      type="text"
                       class="border border-dark p-2 mb-2"
                       id="exampleFormControlInput1"
                       value={getIndividualdata["employee_id"]}
@@ -259,9 +294,9 @@ export default function AdminUpdateprofiles() {
                       id="exampleFormControlInput1"
                       value={getIndividualdata["contact_no"]}
                       onChange={handleChange}
-                      maxLength={10}
                     />
                   </div>
+                  <p style={{ color: "red" }}>{errormsg.contact_no}</p>
                   <div>
                     <br />
                     <label>Email</label>
@@ -277,7 +312,7 @@ export default function AdminUpdateprofiles() {
                       pattern=" /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i"
                       required
                     />
-                    <p style={{ color: "red" }}> {errormsg}</p>
+                    <p style={{ color: "red" }}> {errormsg.email}</p>
                   </div>
                   <br />
                   <div>
@@ -354,6 +389,7 @@ export default function AdminUpdateprofiles() {
                       maxLength={20}
                     />
                   </div>
+                  <p style={{ color: "red" }}>{errormsg.alternate_contact}</p>
                   <br />
                   <button
                     type="submit"
