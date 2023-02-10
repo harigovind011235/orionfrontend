@@ -63,7 +63,11 @@ function AdmnSnglePendngLeavesScreen() {
                 <td>{each.leave_notes}</td>
                 <td>{each.no_of_leaves}</td>
                 <td>
-                  {each.leave_type && each.leave_type === "1"
+                  {each.leave_type && each.leave_type === "1" && each.half_day == true
+                    ? "Casual (Half Day)"
+                    : each.leave_type &&  each.leave_type === "2" && each.half_day == true
+                    ? "Sick Leave (Half Day)"
+                    : each.leave_type && each.leave_type === "1"
                     ? "Casual"
                     : each.leave_type && each.leave_type === "2"
                     ? "Sick Leave"
