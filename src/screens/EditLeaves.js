@@ -13,11 +13,11 @@ import { useNavigate } from "react-router-dom";
 function EditLeaves() {
   let [page, setPage] = useState(1);
   const [employeelist, setEmployeeList] = useState([]);
-
+  const [searchdata,setSearchdata]=useState("")
   const dispatch = useDispatch();
   const navigate = useNavigate()
   const employeeList = useSelector((state) => state.employeeList);
-  
+
   const { error, loading, employees } = employeeList;
   const employee_array =
     employees && employees["results"] ? employees["results"] : null;
@@ -42,7 +42,15 @@ function EditLeaves() {
   const handleEditButton = (id) => {
     navigate(`/employee-editleaves/${id}`)
   }
+  const sortedData = employeelist.sort((element1,element2)=>
+  element1["name"].toLowerCase()<element2["name"].toLowerCase()?-1:1)
 
+  const handleSearch = (e) => {
+    setSearchdata(e.target.value)
+    }
+
+  const filterdata = sortedData.filter((item)=>item.name.toLowerCase().startsWith(searchdata.toLowerCase()))
+  
   useEffect(() => {
     setEmployeeList([]);
     dispatch(listEmployees(page));
@@ -50,6 +58,17 @@ function EditLeaves() {
   return (
     <div>
       <Header />
+      <br />
+    <div class= "d-flex justify-content-around" style={{marginLeft:"700px"}}>
+      <div class="input-group" style={{maxWidth:"250px"}}>
+        <input
+          type="search"
+          class="form-control rounded border border-dark"
+          placeholder="Search Employee Name"
+          onChange={handleSearch}
+        />
+        </div>
+      </div>
       <Container className="mt-4">
         <Row
           md={5}
@@ -71,17 +90,17 @@ function EditLeaves() {
                   <Message variant="danger">
                     Something Wrong Admin To The Rescue
                   </Message>
-                ) : employeelist ? (
-                  employeelist.map((employee) => (
+                ) : filterdata.length !==0 ? (
+                  filterdata.map((employee) => (
                     <tr key={employee.id}>
                       <td>
-                        <p className="fw-bold mb-1" style={{fontSize:"15px",fontWeight:'bold'}}>{employee.name.substring(0,1).toUpperCase()+employee.name.substring(1,employee.name.length)}</p>
+                        <p className="fw-bold mb-1" style={{ fontSize: "15px", fontWeight: 'bold' }}>{employee.name.substring(0, 1).toUpperCase() + employee.name.substring(1, employee.name.length)}</p>
                       </td>
                       <td>
                         <button
                           type="submit"
                           class="rounded-pill "
-                          onClick={()=>handleEditButton(employee.id)}
+                          onClick={() => handleEditButton(employee.id)}
                           style={{
                             background: "#232E48",
                             width: "65px",

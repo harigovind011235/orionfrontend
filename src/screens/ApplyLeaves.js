@@ -83,7 +83,7 @@ function ApplyLeaves() {
               value={leaveType}
               onChange={(e) => setLeaveType(e.target.value)}
             >
-              <option value="1">Causal Leave</option>
+              <option value="1">Casual Leave</option>
               <option value="2">Sick Leave</option>
               <option value="3">Emergency Leave</option>
               <option value="4">Comp OFF</option>
