@@ -12,33 +12,48 @@ import { useNavigate } from "react-router-dom";
 function EditProfiles() {
   let [page, setPage] = useState(1);
   const [employeelist, setEmployeeList] = useState([]);
+  const [searchData, setSearchData] = useState([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const employeeList = useSelector((state) => state.employeeList);
   const { error, loading, employees } = employeeList;
- 
+
   const employee_array =
     employees && employees["results"] ? employees["results"] : null;
   const totalEmployeeCount =
     employees && employees["count"] ? employees["count"] : null;
-  
+  const sortingData =
+    employee_array &&
+    employee_array.sort((element1, element2) => {
+      return element1.name >= element2.name ? 1 : -1;
+    });
+
   if (
     employee_array &&
     totalEmployeeCount &&
-    employeelist.length < totalEmployeeCount
+    employeelist.length < totalEmployeeCount && searchData.length==0
   ) {
-   
-    employeelist.push(...employee_array);
-   
-    
+    employeelist.push(...sortingData);
+    searchData.push(...employeelist)
   }
-
   const totalPage = Math.ceil(parseInt(totalEmployeeCount) / 20);
   const handlePagination = (data) => {
     setPage(data.selected + 1);
   };
- 
 
+  const handleChangeSearchFilter = (e) => {
+    if (e.target.value !== "") {
+      const filteredValues =
+        sortingData &&
+        sortingData.filter((item) =>
+          item["name"].toLowerCase().startsWith(e.target.value.toLowerCase())
+        );
+      setSearchData(filteredValues);
+    }
+     else {
+      setSearchData(sortingData);
+    }
+  };
   const handleEditprofiles = (id) => {
     navigate(`/admin-editprofiles/${id}`);
   };
@@ -51,6 +66,23 @@ function EditProfiles() {
   return (
     <div>
       <Header />
+      <div class="row height d-flex justify-content-center align-items-center">
+        <div
+          class="input-group"
+          style={{ maxWidth: "300px", marginLeft: "690px" }}
+        >
+          <input
+            type="search"
+            class="form-control rounded border border-dark"
+            placeholder="Search Employee Name"
+            aria-label="Search"
+            aria-describedby="search-addon"
+            onChange={handleChangeSearchFilter}
+          />
+          &nbsp;&nbsp;
+        </div>
+      </div>
+
       <Container className="mt-4">
         <Row
           md={5}
@@ -72,8 +104,8 @@ function EditProfiles() {
                   <Message variant="danger">
                     Something Wrong Admin To The Rescue
                   </Message>
-                ) : employeelist ? (
-                  employeelist.map((employee) => (
+                ) : searchData.length !== 0 ? (
+                  searchData.map((employee) => (
                     <tr key={employee.id}>
                       <td>
                         <p
@@ -113,8 +145,8 @@ function EditProfiles() {
                     </tr>
                   ))
                 ) : (
-                  <Message variant="danger">
-                    Something Wrong Admin To The Rescue
+                  <Message variant="info">
+                   Employee not found!
                   </Message>
                 )}
               </tbody>
