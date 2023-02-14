@@ -126,8 +126,8 @@ function EditLeaves() {
                     </tr>
                   ))
                 ) : (
-                  <Message variant="danger">
-                    Something Wrong Admin To The Rescue
+                  <Message variant="info">
+                    Employee not found!
                   </Message>
                 )}
               </tbody>
