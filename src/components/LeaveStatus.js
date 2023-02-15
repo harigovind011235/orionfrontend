@@ -55,10 +55,11 @@ function LeaveStatus(props) {
       >
         <Col lg="12" md="12">
           <Table striped bordered hover>
-            <thead>
+            <thead class="table-dark">
               <tr>
                 <th>Type Of Leave</th>
-                <th>Date</th>
+                <th>From Date</th>
+                <th>To Date</th>
                 <th>Notes</th>
                 <th>Status</th>
                 <th>Edit</th>
@@ -86,6 +87,7 @@ function LeaveStatus(props) {
                         : null}
                     </td>
                     <td>{each.date_of_leave}</td>
+                    <td>{each.end_date_of_leave}</td>
                     <td>{each.leave_notes ? each.leave_notes : "null"}</td>
                     <td>
                       {each.status === true ? "Approved" : <p>Pending</p>}
