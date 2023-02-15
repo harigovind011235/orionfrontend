@@ -18,6 +18,7 @@ function ApplyLeaves() {
   }, [navigate]);
 
   const [leaveDate, setLeaveDate] = useState("");
+  const [EndleaveDate, setEndleaveDate] = useState("")
   const [leaveType, setLeaveType] = useState("1");
   const [halfday, setHalfday] = useState(false);
   const [leaveNotes, setLeaveNotes] = useState("");
@@ -29,10 +30,11 @@ function ApplyLeaves() {
   const submitHandler = (event) => {
     event.preventDefault();
     dispatch(
-      EmployeeLeaveApply(leaveDate, leaveType, leaveNotes, noofleaves, halfday)
+      EmployeeLeaveApply(leaveType, leaveNotes, leaveDate, EndleaveDate, noofleaves, halfday)
     );
 
     setLeaveDate("");
+    setEndleaveDate("")
     setLeaveType("");
     setLeaveNotes("");
     setNoOfLeave(1);
@@ -67,49 +69,72 @@ function ApplyLeaves() {
           {loading && <Loader />}
           {error && <Message variant="danger">Leave Submission Failed</Message>}
           <Form className="mt-4 p-4" onSubmit={submitHandler}>
-            <Form.Group className="mb-3">
-              <Form.Label>Date</Form.Label>
-              <Form.Control
-                type="date"
-                placeholder="Enter the date"
-                value={leaveDate}
-                onChange={(e) => setLeaveDate(e.target.value)}
-              />
-            </Form.Group>
-
-            <Form.Label>Type Of Leave</Form.Label>
-            <Form.Select
-              aria-label="Default select example"
-              value={leaveType}
-              onChange={(e) => setLeaveType(e.target.value)}
-            >
-              <option value="1">Casual Leave</option>
-              <option value="2">Sick Leave</option>
-              <option value="3">Emergency Leave</option>
-              <option value="4">Comp OFF</option>
-              <option value="5">Optional Holiday</option>
-            </Form.Select>
-            {(leaveType && leaveType == "1") ||
-            (leaveType && leaveType == "2") ? (
-              <Form.Check
-                type="switch"
-                id="custom-switch"
-                label="Half Day"
-                className="mt-3"
-                checked={halfday}
-                onChange={(e) => setHalfday(e.target.checked)}
-              />
-            ) : (
-              <Form.Check
-                disabled
-                type="switch"
-                id="custom-switch"
-                label="Half Day"
-                className="mt-3"
-                checked={halfday}
-                onChange={(e) => setHalfday(e.target.checked)}
-              />
-            )}
+            <div class="row">
+              <Form.Group className="mb-3 col-md-6">
+                <Form.Label>From</Form.Label>
+                <Form.Control
+                  type="date"
+                  placeholder="Enter the date"
+                  value={leaveDate}
+                  max={ EndleaveDate}
+                  onChange={(e) => {
+                    setLeaveDate(e.target.value)
+                  }}
+                />
+              </Form.Group>
+              <Form.Group className="mb-3 col-md-6">
+                <Form.Label>To</Form.Label>
+                <Form.Control
+                  type="date"
+                  placeholder="Enter the date"
+                  value={EndleaveDate}
+                  min={leaveDate}
+                  onChange={(e) => {
+                    setEndleaveDate(e.target.value)
+                  }}
+                />
+              </Form.Group>
+            </div>
+            <div class="row">
+              <Form.Group className="mb-3 col-md-6">
+                <Form.Label>Type Of Leave</Form.Label>
+                <Form.Select
+                  aria-label="Default select example"
+                  value={leaveType}
+                  onChange={(e) => setLeaveType(e.target.value)}
+                >
+                  <option value="1">Casual Leave</option>
+                  <option value="2">Sick Leave</option>
+                  <option value="3">Emergency Leave</option>
+                  <option value="4">Comp OFF</option>
+                  <option value="5">Optional Holiday</option>
+                </Form.Select>
+              </Form.Group>
+              <Form.Group className="mb-3 col-md-6" >
+                <br />
+                {(leaveDate && leaveDate === EndleaveDate && EndleaveDate) && (leaveType && leaveType == "1") ||
+                  (leaveDate && leaveDate === EndleaveDate && EndleaveDate) && (leaveType && leaveType == "2") ? (
+                  <Form.Check
+                    type="switch"
+                    id="custom-switch"
+                    label="Half Day"
+                    className="mt-3"
+                    checked={halfday}
+                    onChange={(e) => setHalfday(e.target.checked)}
+                  />
+                ) : (
+                  <Form.Check
+                    disabled
+                    type="switch"
+                    id="custom-switch"
+                    label="Half Day"
+                    className="mt-3"
+                    checked={halfday}
+                    onChange={(e) => setHalfday(e.target.checked)}
+                  />
+                )}
+              </Form.Group>
+            </div>
             <Form.Group controlId="formNumber" className="mt-3">
               <Form.Label>No Of Leaves</Form.Label>
               <Form.Control
@@ -129,24 +154,26 @@ function ApplyLeaves() {
               value={leaveNotes}
               onChange={(e) => setLeaveNotes(e.target.value)}
             />
-            {leaveDate && leaveType && leaveNotes && noofleaves ? (
-              <Button
-                variant="primary"
-                type="submit"
-                className="mt-4 offset-lg-3"
-              >
-                Submit
-              </Button>
-            ) : (
-              <Button
-                disabled
-                variant="primary"
-                type="submit"
-                className="mt-4 offset-lg-3"
-              >
-                Submit
-              </Button>
-            )}
+            <div style={{ marginLeft: "80px" }}>
+              {leaveDate && EndleaveDate && leaveType && leaveNotes && noofleaves ? (
+                <Button
+                  variant="primary"
+                  type="submit"
+                  className="mt-4 offset-lg-3"
+                >
+                  Submit
+                </Button>
+              ) : (
+                <Button
+                  disabled
+                  variant="primary"
+                  type="submit"
+                  className="mt-4 offset-lg-3"
+                >
+                  Submit
+                </Button>
+              )}
+            </div>
           </Form>
         </Col>
       </Row>
