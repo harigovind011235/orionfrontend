@@ -78,6 +78,9 @@ export default function Header() {
                   <LinkContainer to={"/applyleaves"}>
                     <MDBNavbarLink>Apply Leave</MDBNavbarLink>
                   </LinkContainer>
+                  <LinkContainer to={"/holidays-details"}>
+                    <MDBNavbarLink>Holidays</MDBNavbarLink>
+                  </LinkContainer>
                 </MDBDropdownMenu>
               </MDBDropdown>
             </MDBNavbarItem>
