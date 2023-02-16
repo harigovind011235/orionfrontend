@@ -9,6 +9,7 @@ const DailyHoursScreen = lazy(() => import("./screens/DailyHoursScreen"));
 const ChangePasswordScreen = lazy(() =>
   import("./screens/ChangePasswordScreen")
 );
+const HolidaysTable=lazy(()=>import("./screens/HolidaysTable"));
 const ApplyLeaves = lazy(() => import("./screens/ApplyLeaves"));
 const LeaveScreen = lazy(() => import("./screens/LeaveScreen"));
 const EditLeaves = lazy(() => import("./screens/EditLeaves"));
@@ -108,6 +109,14 @@ const routes = createBrowserRouter([
         <AdminPendingLeaves />
       </Suspense>
     ),
+  },
+  {
+    path:"/holidays-details",
+    element:(
+      <Suspense fallback={<Loader></Loader>}>
+        <HolidaysTable/>
+      </Suspense>
+    )
   },
   {
     path: "/employee-pendingleaves/:employeeId",

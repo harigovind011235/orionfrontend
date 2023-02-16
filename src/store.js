@@ -6,6 +6,7 @@ import {
   employeeRemainingLeavesReducer,
   employeeLeaveStatusReducer,
   employeeDailyHoursReducer,
+  employeeHolidaysReducer,
   employeeLeaveApplyReducer,
   employeeDeleteLeaveReducer,
 } from "./reducers/employeeReducer";
@@ -44,6 +45,7 @@ const reducer = combineReducers({
   getIndividualEditLeaves: adminIndividualEditLeavesReducer,
   adminIndividualEditLeaves:adminIndividualLeavesReducer,
   individualPendingLeaves: adminIndividualPendingLeavesReducer,
+  employeeHolidays:employeeHolidaysReducer,
   updatedEmployeeLeave: adminUpdateLeaveReducer,
   getIndividualEmployeeProfiles:admingetIndividualprofileReducer,
   updateProfiles:adminUpdateProfileReducer

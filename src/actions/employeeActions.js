@@ -6,6 +6,9 @@ import {
   EMPLOYEE_LEAVES_REQUEST,
   EMPLOYEE_LEAVES_SUCCESS,
   EMPLOYEE_LEAVES_FAIL,
+  EMPLOYEE_HOLIDAYS_REQUEST,
+  EMPLOYEE_HOLIDAYS_SUCCESS,
+  EMPLOYEE_HOLIDAYS_FAIL,
   EMPLOYEE_REMAININGLEAVES_REQUEST,
   EMPLOYEE_REMAININGLEAVES_SUCCESS,
   EMPLOYEE_REMAININGLEAVES_FAIL,
@@ -158,6 +161,31 @@ export const EmployeeLeaveApply = (leaveType, leaveNotes,leaveDate,EndleaveDate,
         error.response && error.response.data.message
           ? error.response.data.message
           : error.message,
+    });
+  }
+};
+
+export const EmployeeHolidays = () => async (dispatch) => {
+  try {
+    dispatch({ type: EMPLOYEE_HOLIDAYS_REQUEST });
+    const userStrInfo = localStorage.getItem("userInfo");
+    const userInfo = JSON.parse(userStrInfo);
+    const token = userInfo.access;
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+    const { data } = await axios.get(`${baseURL}/api/user/holidays`, config);
+    dispatch({
+      type: EMPLOYEE_HOLIDAYS_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: EMPLOYEE_HOLIDAYS_FAIL,
+      payload:
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message,
     });
   }
 };
