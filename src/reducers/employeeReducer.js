@@ -8,6 +8,9 @@ import {
     EMPLOYEE_REMAININGLEAVES_REQUEST,
     EMPLOYEE_REMAININGLEAVES_SUCCESS,
     EMPLOYEE_REMAININGLEAVES_FAIL,
+    EMPLOYEE_HOLIDAYS_REQUEST,
+    EMPLOYEE_HOLIDAYS_SUCCESS,
+    EMPLOYEE_HOLIDAYS_FAIL,
     EMPLOYEE_DAILYHOURS_REQUEST,
     EMPLOYEE_DAILYHOURS_SUCCESS,
     EMPLOYEE_DAILYHOURS_FAIL,
@@ -99,6 +102,25 @@ export const employeeDailyHoursReducer = (state={employeedailyhours:[]},action) 
         default:
             return state
 
+    }
+
+}
+
+export const employeeHolidaysReducer=(state={holidayslist:[]},action)=>{
+
+    switch(action.type){
+
+        case EMPLOYEE_HOLIDAYS_REQUEST:
+            return {loading:true,holidayslist:[]}
+
+        case EMPLOYEE_HOLIDAYS_SUCCESS:
+            return {loading:true,holidayslist:action.payload}
+
+        case EMPLOYEE_HOLIDAYS_FAIL:
+            return({loading:false,error:action.payload})
+
+        default :
+          return state
     }
 
 }
