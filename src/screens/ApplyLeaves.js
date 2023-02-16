@@ -76,7 +76,7 @@ function ApplyLeaves() {
                   type="date"
                   placeholder="Enter the date"
                   value={leaveDate}
-                  max={ EndleaveDate}
+                  max={EndleaveDate}
                   onChange={(e) => {
                     setLeaveDate(e.target.value)
                   }}
@@ -112,8 +112,7 @@ function ApplyLeaves() {
               </Form.Group>
               <Form.Group className="mb-3 col-md-6" >
                 <br />
-                {(leaveDate && leaveDate === EndleaveDate && EndleaveDate) && (leaveType && leaveType == "1") ||
-                  (leaveDate && leaveDate === EndleaveDate && EndleaveDate) && (leaveType && leaveType == "2") ? (
+                {(leaveDate === EndleaveDate)&& (leaveType ==="1" || leaveType === "2") ? (
                   <Form.Check
                     type="switch"
                     id="custom-switch"

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import {
   MDBContainer,
   MDBNavbar,
@@ -18,8 +18,12 @@ import { LinkContainer } from "react-router-bootstrap";
 import { logout } from "../actions/userActions";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+
 
 export default function Header() {
+  const location = useLocation()
+  const [date, setDate] = useState(new Date());
   const [showBasic, setShowBasic] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -32,6 +36,13 @@ export default function Header() {
     dispatch(logout());
     navigate("/");
   };
+
+  useEffect(() => {
+    var timerID = setInterval( () => setDate(new Date()), 1000 );
+    return function cleanup() {
+        clearInterval(timerID);
+      };
+   });
 
   return (
     <MDBNavbar expand="lg">
@@ -108,7 +119,11 @@ export default function Header() {
               </MDBNavbarItem>
             ) : null}
           </MDBNavbarNav>
-
+          {location.pathname === "/home" &&
+          <div style={{marginRight:"20px",marginTop:"15px"}} >
+              <h4>{date.toLocaleTimeString()}</h4>
+          </div>
+          }
           <MDBBtn color="danger" onClick={logoutHandler}>
             CheckOut
           </MDBBtn>

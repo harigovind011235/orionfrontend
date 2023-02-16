@@ -70,9 +70,9 @@ function LeaveStatus(props) {
                 employeeleavestatus.map((each) => (
                   <tr key={each.id}>
                     <td>
-                      {each.leave_type === "1" && each.half_day == true
+                      {each.leave_type === "1" && each.half_day === true
                         ? "Casual (Half Day)"
-                        : each.leave_type === "2" && each.half_day == true
+                        : each.leave_type === "2" && each.half_day === true
                         ? "Sick Leave (Half Day)"
                         : each.leave_type === "1"
                         ? "Casual"
