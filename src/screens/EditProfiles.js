@@ -31,7 +31,7 @@ function EditProfiles() {
   if (
     employee_array &&
     totalEmployeeCount &&
-    employeelist.length < totalEmployeeCount && searchData.length==0
+    employeelist.length < totalEmployeeCount && searchData.length===0
   ) {
     employeelist.push(...sortingData);
     searchData.push(...employeelist)
