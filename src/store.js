@@ -25,7 +25,9 @@ import {
   adminIndividualPendingLeavesReducer,
   adminUpdateLeaveReducer,
   admingetIndividualprofileReducer,
-  adminUpdateProfileReducer
+  adminUpdateProfileReducer,
+  adminLeaveSearchReducer,
+  adminPendingLeavesReducer,
 } from "./reducers/adminReducers";
 
 const reducer = combineReducers({
@@ -46,7 +48,9 @@ const reducer = combineReducers({
   individualPendingLeaves: adminIndividualPendingLeavesReducer,
   updatedEmployeeLeave: adminUpdateLeaveReducer,
   getIndividualEmployeeProfiles:admingetIndividualprofileReducer,
-  updateProfiles:adminUpdateProfileReducer
+  updateProfiles:adminUpdateProfileReducer,
+  adminLeaveSearchResults:adminLeaveSearchReducer,
+  employeeLeaveList:adminPendingLeavesReducer,
   
 });
 

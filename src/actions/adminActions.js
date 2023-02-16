@@ -20,6 +20,12 @@ import {
   ADMIN_UPDATEPROFILE_SUCCESS,
   ADMIN_UPDATEPROFILE_FAIL,
   ADMIN_UPDATEPROFILE_REQUEST,
+  ADMIN_LEAVESEARCH_REQUEST,
+  ADMIN_LEAVESEARCH_SUCCESS,
+  ADMIN_LEAVESEARCH_FAIL,
+  ADMIN_ALLPENDINGLEAVES_REQUEST,
+  ADMIN_ALLPENDINGLEAVES_SUCCESS,
+  ADMIN_ALLPENDINGLEAVES_FAIL,
 
 } from "../constants/AdminConstants";
 import axios from "axios";
@@ -104,16 +110,11 @@ export const getIndividualPendingLeaves = (employeeId) => async (dispatch) => {
   }
 };
 
-export const updateEmployeeLeave = (leaveId) => async (dispatch) => {
+export const updateEmployeeLeave = (leaveId,status) => async (dispatch) => {
   try {
     dispatch({ type: ADMIN_UPDATE_REQUEST });
-    const { data } = await axios.put(
-      `${baseURL}/api/user/${leaveId}/update-leave`,
-      {
-        updateleave: true,
-      }
-    );
-    dispatch({ type: ADMIN_UPDATE_SUCCESS, payload: true });
+    const { data } = await axios.put(`${baseURL}/api/user/${leaveId}/update-leave`,{leavestatus: status,});
+    dispatch({ type: ADMIN_UPDATE_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
       type: ADMIN_UPDATE_FAIL,
@@ -173,6 +174,45 @@ export const adminUpdateEmployeeProfiles = (employeeId, updateData) => async (
   } catch (error) {
     dispatch({
       type: ADMIN_UPDATEPROFILE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+
+export const getEmployeeLeaveResults = (leaveType,leaveStatus,employeeName) => async (dispatch) => {
+  try {
+    dispatch({ type: ADMIN_LEAVESEARCH_REQUEST });
+    const { data } = await axios.put(
+      `${baseURL}/api/user/${leaveType}/update-leave`,
+      {
+        updateleave: true,
+      }
+    );
+    dispatch({ type: ADMIN_LEAVESEARCH_SUCCESS, payload: true });
+  } catch (error) {
+    dispatch({
+      type: ADMIN_LEAVESEARCH_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+
+export const listEmployeeLeaves = (page) => async (dispatch) => {
+  try {
+    dispatch({ type: ADMIN_ALLPENDINGLEAVES_REQUEST });
+    const { data } = await axios.get(`${baseURL}/api/user/all-leaves?page=${page}`);
+    dispatch({ type: ADMIN_ALLPENDINGLEAVES_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: ADMIN_ALLPENDINGLEAVES_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

@@ -97,8 +97,8 @@ export default function Header() {
                     <LinkContainer to={"/edit-profiles"}>
                       <MDBNavbarLink>Edit Profiles</MDBNavbarLink>
                     </LinkContainer>
-                    <LinkContainer to={"/edit-profiles"}>
-                      <MDBNavbarLink>Add Profiles</MDBNavbarLink>
+                    <LinkContainer to={"/admin/leave-requests/all"}>
+                      <MDBNavbarLink>All Leaves</MDBNavbarLink>
                     </LinkContainer>
                   </MDBDropdownMenu>
                 </MDBDropdown>
