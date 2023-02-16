@@ -114,7 +114,7 @@ export const employeeHolidaysReducer=(state={holidayslist:[]},action)=>{
             return {loading:true,holidayslist:[]}
 
         case EMPLOYEE_HOLIDAYS_SUCCESS:
-            return {loading:true,holidayslist:action.payload}
+            return {loading:false,holidayslist:action.payload}
 
         case EMPLOYEE_HOLIDAYS_FAIL:
             return({loading:false,error:action.payload})
