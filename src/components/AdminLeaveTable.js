@@ -12,50 +12,34 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "./Loader";
 import Message from "./Message";
-import ReactPaginate from "react-paginate";
-import { listEmployeeLeaves } from "../actions/adminActions";
 import {
   getEmployeeLeaveResults,
   updateEmployeeLeave,
 } from "../actions/adminActions";
 
-
 function AdminLeaveTable() {
-  let [page, setPage] = useState(1);
-  const [employeeleavelist, setEmployeeLeaveList] = useState([]);
+  //   const [employeeleavelist, setEmployeeLeaveList] = useState([]);
 
   const dispatch = useDispatch();
-  const employeeLeaveList = useSelector((state) => state.employeeLeaveList);
-  const { error, loading, employeependingleaves } = employeeLeaveList;
-  const employee_leaves_array =
-    employeependingleaves && employeependingleaves["data"]
-      ? employeependingleaves["data"]
-      : null;
-  const totalLeaveCount = employee_leaves_array
-    ? employee_leaves_array.length
-    : null;
+  const employeeLeaveList = useSelector(
+    (state) => state.adminLeaveSearchResults
+  );
+  const { error, loading, leavesearchresults } = employeeLeaveList;
 
-  if (
-    employee_leaves_array &&
-    totalLeaveCount &&
-    employeeleavelist.length < totalLeaveCount
-  ) {
-    employeeleavelist.push(...employee_leaves_array);
-  }
-
-  const totalPage = Math.ceil(parseInt(totalLeaveCount) / 20);
-
-  const handlePagination = (data) => {
-    setPage(data.selected + 1);
-  };
   useEffect(() => {
-    setEmployeeLeaveList([]);
-    dispatch(listEmployeeLeaves(page));
-  }, [dispatch, page]);
+    // setEmployeeLeaveList([]);
+    dispatch(
+      getEmployeeLeaveResults(
+        (leaveType = null),
+        (leaveStatus = "3"),
+        (employeeName = null)
+      )
+    );
+  }, []);
 
-  const [leaveType, setLeaveType] = useState("");
-  const [leaveStatus, setLeaveStatus] = useState("");
-  const [employeeName, setEmployeeName] = useState("");
+  let [leaveType, setLeaveType] = useState("");
+  let [leaveStatus, setLeaveStatus] = useState("");
+  let [employeeName, setEmployeeName] = useState("");
 
   const handleLeaveType = (event) => {
     setLeaveType(event.target.value);
@@ -114,7 +98,7 @@ function AdminLeaveTable() {
             <option>Leave Status</option>
             <option value="1">Approved</option>
             <option value="2">Rejected</option>
-            <option value="2">Pending</option>
+            <option value="3">Pending</option>
           </Form.Select>
         </Col>
         <Col lg="3" md="3" className="mt-4">
@@ -147,7 +131,7 @@ function AdminLeaveTable() {
               Pending Requests
             </Card.Title>
             <Card.Body className="text-center text-danger">
-              {employeependingleaves.total_pending_leaves}
+              {leavesearchresults.total_pending_leaves}
             </Card.Body>
           </Card>
         </Col>
@@ -164,6 +148,7 @@ function AdminLeaveTable() {
                 <th scope="col">Employee</th>
                 <th scope="col">Leave Type</th>
                 <th scope="col">Applied Date</th>
+                <th scope="col">End Date</th>
                 <th scope="col">No Of Days</th>
                 <th scope="col">Reason</th>
                 <th scope="col">Status</th>
@@ -176,15 +161,13 @@ function AdminLeaveTable() {
                 <Message variant="danger">
                   Something Wrong Admin To The Rescue
                 </Message>
-              ) : employeeleavelist ? (
-                employeeleavelist.map((employeeleave) => (
+              ) : leavesearchresults ? (
+                leavesearchresults.map((employeeleave) => (
                   <tr key={employeeleave.id}>
                     <td>
                       <div className="d-flex align-items-center">
                         <div className="ms-3">
-                          <p className="fw-bold mb-1">
-                            {employeeleave.employee_details.employee_name}
-                          </p>
+                          <p className="fw-bold mb-1">{employeeleave.name}</p>
                           <p className="text-muted mb-0"></p>
                         </div>
                       </div>
@@ -212,24 +195,31 @@ function AdminLeaveTable() {
                       </p>
                     </td>
                     <td>
-                      <p>{employeeleave.date_of_leave}</p>
+                      <p>{employeeleave.leave_applied}</p>
                     </td>
-                    <td>{employeeleave.no_of_leaves_required}</td>
+                    <td>
+                      <p>{employeeleave.end_date_of_leave}</p>
+                    </td>
+                    <td>{employeeleave.no_of_leaves}</td>
                     <td>{employeeleave.leave_notes}</td>
                     <td>
-                      {employeeleave.status === false && (
+                      {employeeleave.status === false &&
+                      employeeleave.rejected === false ? (
                         <Form.Select
                           size="sm"
                           variant="dark"
                           onChange={(event) =>
-                            handleSelectedLeaveStatus(event, employeeleave.id)
+                            handleSelectedLeaveStatus(
+                              event,
+                              employeeleave.leave_id
+                            )
                           }
                         >
                           <option>Pending</option>
                           <option>Approved</option>
                           <option>Rejected</option>
                         </Form.Select>
-                      )}
+                      ) : null}
                       {employeeleave.status === false &&
                       employeeleave.rejected === true ? (
                         <Badge bg="danger">Rejected</Badge>
@@ -247,23 +237,6 @@ function AdminLeaveTable() {
               )}
             </MDBTableBody>
           </MDBTable>
-          <ReactPaginate
-            previousLabel={"previous"}
-            nextLabel={"next"}
-            breakLabel={"..."}
-            pageCount={totalPage}
-            onPageChange={handlePagination}
-            containerClassName={"pagination justify-content-end"}
-            pageClassName={"page-item"}
-            pageLinkClassName={"page-link"}
-            previousClassName={"page-item"}
-            previousLinkClassName={"page-link"}
-            nextClassName={"page-item"}
-            nextLinkClassName={"page-link"}
-            breakClassName={"page-item"}
-            breakLinkClassName={"page-link"}
-            activeClassName={"active"}
-          />
         </Col>
       </Row>
     </Container>

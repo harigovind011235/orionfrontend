@@ -186,13 +186,29 @@ export const adminUpdateEmployeeProfiles = (employeeId, updateData) => async (
 export const getEmployeeLeaveResults = (leaveType,leaveStatus,employeeName) => async (dispatch) => {
   try {
     dispatch({ type: ADMIN_LEAVESEARCH_REQUEST });
-    const { data } = await axios.put(
-      `${baseURL}/api/user/${leaveType}/update-leave`,
-      {
-        updateleave: true,
-      }
-    );
-    dispatch({ type: ADMIN_LEAVESEARCH_SUCCESS, payload: true });
+    let url = `${baseURL}/api/user/searchapi?`;
+    
+    if (leaveType) {
+      url += `leave_type=${leaveType}&`;
+    }
+    
+    if (leaveStatus && leaveStatus === '1') {
+      url += `status=True&`;
+    }
+
+    if (leaveStatus && leaveStatus === '2') {
+      url += `rejected=True&`;
+    }
+
+    if (leaveStatus && leaveStatus === '3') {
+      url += `status=False&rejected=False&`;
+    }
+    
+    if (employeeName) {
+      url += `name=${employeeName}&`;
+    }
+    const { data } = await axios.get(url.slice(0, -1));
+    dispatch({ type: ADMIN_LEAVESEARCH_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
       type: ADMIN_LEAVESEARCH_FAIL,
