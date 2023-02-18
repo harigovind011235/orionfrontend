@@ -19,7 +19,13 @@ import {
   ADMIN_GETINDIVIDUALPROFILE_FAIL,
   ADMIN_UPDATEPROFILE_SUCCESS,
   ADMIN_UPDATEPROFILE_REQUEST,
-  ADMIN_UPDATEPROFILE_FAIL
+  ADMIN_UPDATEPROFILE_FAIL,
+  ADMIN_LEAVESEARCH_REQUEST,
+  ADMIN_LEAVESEARCH_SUCCESS,
+  ADMIN_LEAVESEARCH_FAIL,
+  ADMIN_ALLPENDINGLEAVES_REQUEST,
+  ADMIN_ALLPENDINGLEAVES_SUCCESS,
+  ADMIN_ALLPENDINGLEAVES_FAIL,
 
 } from "../constants/AdminConstants";
 
@@ -165,3 +171,43 @@ action
 
 
 }
+
+
+export const adminLeaveSearchReducer = (
+  state = { leavesearchresults: [] },
+  action
+) => {
+  switch (action.type) {
+    case ADMIN_LEAVESEARCH_REQUEST:
+      return { loading: true, leavesearchresults: [] };
+
+    case ADMIN_LEAVESEARCH_SUCCESS:
+      return { loading: false, leavesearchresults: action.payload };
+
+    case ADMIN_LEAVESEARCH_FAIL:
+      return { loading: false, error: action.payload };
+
+    default:
+      return state;
+  }
+};
+
+
+export const adminPendingLeavesReducer = (
+  state = { employeependingleaves: [] },
+  action
+) => {
+  switch (action.type) {
+    case ADMIN_ALLPENDINGLEAVES_REQUEST:
+      return { loading: true, employeependingleaves: [] };
+
+    case ADMIN_ALLPENDINGLEAVES_SUCCESS:
+      return { loading: false, employeependingleaves: action.payload };
+
+    case ADMIN_ALLPENDINGLEAVES_FAIL:
+      return { loading: false, error: action.payload };
+
+    default:
+      return state;
+  }
+};

@@ -20,6 +20,7 @@ const AdminSnglePendngLeavesScreen = lazy(() =>
   import("./screens/AdmnSnglePendngLeavesScreen")
 );
 const AdminUpdateprofiles = lazy(() => import("./screens/AdminUpdateprofiles.js"));
+const NewAdminLeaveScreen = lazy(() => import("./screens/NewAdminLeaveScreen"));
 
 const routes = createBrowserRouter([
   {
@@ -131,6 +132,14 @@ const routes = createBrowserRouter([
     element: (
       <Suspense fallback={<Loader></Loader>}>
         <AdminUpdateprofiles />
+      </Suspense>
+    ),
+  },
+  {
+    path: "/admin/leave-requests/all",
+    element: (
+      <Suspense fallback={<Loader></Loader>}>
+        <NewAdminLeaveScreen />
       </Suspense>
     ),
   },
