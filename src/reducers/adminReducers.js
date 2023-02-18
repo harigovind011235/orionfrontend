@@ -52,7 +52,6 @@ export const adminIndividualEditLeavesReducer = (
       return { loading: true, individualEditLeave: [] };
 
     case ADMIN_EDITLEAVES_SUCCESS:
-      console.log("in",action.payload)
       return { loading: false, individualEditLeave: action.payload };
 
     case ADMIN_EDITLEAVES_FAIL:
