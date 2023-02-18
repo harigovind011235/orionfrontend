@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   MDBContainer,
   MDBNavbar,
@@ -23,26 +23,36 @@ import { useLocation } from "react-router-dom";
 
 export default function Header() {
   const location = useLocation()
-  const [date, setDate] = useState(new Date());
+  const storedTime = JSON.parse(localStorage.getItem('timer')) || { hours: 0, minutes: 0, seconds: 0 };
+  const [time, setTime] = useState(storedTime);
   const [showBasic, setShowBasic] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const userInfo = localStorage.getItem("userInfo");
   const userJson = userInfo ? JSON.parse(userInfo) : null;
   const is_staff = userJson ? userJson["is_staff"] : null;
 
   const logoutHandler = () => {
     dispatch(logout());
+    localStorage.clear("timer")
     navigate("/");
   };
+ 
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setTime(prevTime => {
+        const seconds = prevTime.seconds + 1;
+        const minutes = prevTime.minutes + (seconds === 60 ? 1 : 0);
+        const hours = prevTime.hours + (minutes === 60 ? 1 : 0);
+        return { hours, minutes: minutes % 60, seconds: seconds % 60 };
+      });
+    }, 1000);
+    return () => clearInterval(intervalId);
+  }, []);
 
   useEffect(() => {
-    var timerID = setInterval( () => setDate(new Date()), 1000 );
-    return function cleanup() {
-        clearInterval(timerID);
-      };
-   });
+    localStorage.setItem('timer', JSON.stringify(time));
+  }, [time]);
 
   return (
     <MDBNavbar expand="lg">
@@ -120,9 +130,9 @@ export default function Header() {
             ) : null}
           </MDBNavbarNav>
           {location.pathname === "/home" &&
-          <div style={{marginRight:"20px",marginTop:"15px"}} >
-              <h4>{date.toLocaleTimeString()}</h4>
-          </div>
+            <div style={{ marginRight: "30px", marginTop: "15px",color:"#0C0B0B" }} >
+              <h5><span>{time.hours}:{time.minutes < 10 ? '0' + time.minutes : time.minutes}:{time.seconds < 10 ? '0' + time.seconds : time.seconds}</span></h5>
+            </div>
           }
           <MDBBtn color="danger" onClick={logoutHandler}>
             CheckOut
