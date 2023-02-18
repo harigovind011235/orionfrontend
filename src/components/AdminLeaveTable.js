@@ -84,8 +84,9 @@ function AdminLeaveTable() {
             <option>Leave Type</option>
             <option value="1">Casual</option>
             <option value="2">Sick Leave</option>
-            <option value="3">Optional Holiday</option>
-            <option value="4">Emergency Leave</option>
+            <option value="3">Emergency Leave</option>
+            <option value="4">Compensation Off</option>
+            <option value="5">Optional Holiday</option>
           </Form.Select>
         </Col>
         <Col lg="2" md="3" className="mt-4">
