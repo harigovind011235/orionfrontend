@@ -112,7 +112,7 @@ export default function Header() {
                     Admin
                   </MDBDropdownToggle>
                   <MDBDropdownMenu>
-                    <LinkContainer to={"/all-pending-leaves"}>
+                  <LinkContainer to={"/admin/leave-requests/all"}>
                       <MDBNavbarLink>Leave Requests</MDBNavbarLink>
                     </LinkContainer>
                     <LinkContainer to={"/edit-leaves"}>
@@ -120,9 +120,6 @@ export default function Header() {
                     </LinkContainer>
                     <LinkContainer to={"/edit-profiles"}>
                       <MDBNavbarLink>Edit Profiles</MDBNavbarLink>
-                    </LinkContainer>
-                    <LinkContainer to={"/admin/leave-requests/all"}>
-                      <MDBNavbarLink>All Leaves</MDBNavbarLink>
                     </LinkContainer>
                   </MDBDropdownMenu>
                 </MDBDropdown>

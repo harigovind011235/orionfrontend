@@ -131,7 +131,7 @@ function AdminLeaveTable() {
               Pending Requests
             </Card.Title>
             <Card.Body className="text-center text-danger">
-              {leavesearchresults.total_pending_leaves}
+              {leavesearchresults && leavesearchresults.length > 0 ? leavesearchresults[0]['total_pending_leaves'] : null}
             </Card.Body>
           </Card>
         </Col>
@@ -155,6 +155,7 @@ function AdminLeaveTable() {
               </tr>
             </MDBTableHead>
             <MDBTableBody>
+              {leavesearchresults.length === 0 && <Message variant="info">No Leaves Found</Message> }
               {loading ? (
                 <Loader />
               ) : error ? (
