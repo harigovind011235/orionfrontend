@@ -18,16 +18,14 @@ import {
 } from "../actions/adminActions";
 
 function AdminLeaveTable() {
-  //   const [employeeleavelist, setEmployeeLeaveList] = useState([]);
 
   const dispatch = useDispatch();
   const employeeLeaveList = useSelector(
     (state) => state.adminLeaveSearchResults
   );
   const { error, loading, leavesearchresults } = employeeLeaveList;
-
+  const leaves_data = leavesearchresults && leavesearchresults['data'] ? leavesearchresults['data'] : null ;
   useEffect(() => {
-    // setEmployeeLeaveList([]);
     dispatch(
       getEmployeeLeaveResults(
         (leaveType = null),
@@ -132,7 +130,7 @@ function AdminLeaveTable() {
               Pending Requests
             </Card.Title>
             <Card.Body className="text-center text-danger">
-              {leavesearchresults && leavesearchresults.length > 0 ? leavesearchresults[0]['total_pending_leaves'] : null}
+              {leavesearchresults ? leavesearchresults['total_pending_leaves'] : null}
             </Card.Body>
           </Card>
         </Col>
@@ -156,15 +154,15 @@ function AdminLeaveTable() {
               </tr>
             </MDBTableHead>
             <MDBTableBody>
-              {leavesearchresults.length === 0 && <Message variant="info">No Leaves Found</Message> }
+              {Array.isArray(leaves_data) && leaves_data.length === 0 ? <Message variant="info">No Leaves Found</Message> : null}
               {loading ? (
                 <Loader />
               ) : error ? (
                 <Message variant="danger">
                   Something Wrong Admin To The Rescue
                 </Message>
-              ) : leavesearchresults ? (
-                leavesearchresults.map((employeeleave) => (
+              ) : leaves_data ? (
+                leaves_data.map((employeeleave) => (
                   <tr key={employeeleave.id}>
                     <td>
                       <div className="d-flex align-items-center">
