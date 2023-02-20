@@ -90,14 +90,20 @@ function LeaveStatus(props) {
                     <td>{each.end_date_of_leave}</td>
                     <td>{each.leave_notes ? each.leave_notes : "null"}</td>
                     <td>
-                      {each.status === true ? "Approved" : <p>Pending</p>}
+                      {each.status === true && each.rejected === false
+                        ? "Approved"
+                        : each.status === false && each.rejected === true
+                        ? "Rejected"
+                        : each.status === false && each.rejected === false
+                        ? "Pending"
+                        : null}
                     </td>
                     <td>
                       <Button
                         variant="outline-dark"
                         size="sm"
                         onClick={() => deleteLeave(each.id)}
-                        disabled={each.status === true}
+                        disabled={each.status === true || each.rejected === true}
                       >
                         Cancel
                       </Button>
