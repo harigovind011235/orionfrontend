@@ -38,6 +38,8 @@ function AdminLeaveTable() {
   let [leaveType, setLeaveType] = useState("");
   let [leaveStatus, setLeaveStatus] = useState("");
   let [employeeName, setEmployeeName] = useState("");
+  const [load,setLoad]=useState(false)
+
 
   const handleLeaveType = (event) => {
     setLeaveType(event.target.value);
@@ -61,7 +63,9 @@ function AdminLeaveTable() {
     const selectedStatus = event.target.value;
     setLeaveSelectedStatus(selectedStatus);
     dispatch(updateEmployeeLeave(leaveid, selectedStatus));
+    setLoad(true)
   };
+
 
   useEffect(() => {
     if (updatedleave) {
@@ -142,7 +146,7 @@ function AdminLeaveTable() {
       >
         <Col lg="12" md="12">
           <MDBTable align="middle">
-            <MDBTableHead>
+            <MDBTableHead class="table-dark">
               <tr>
                 <th scope="col">Employee</th>
                 <th scope="col">Leave Type</th>
@@ -155,7 +159,7 @@ function AdminLeaveTable() {
             </MDBTableHead>
             <MDBTableBody>
               {Array.isArray(leaves_data) && leaves_data.length === 0 ? <Message variant="info">No Leaves Found</Message> : null}
-              {loading ? (
+              {loading || load === true ? (
                 <Loader />
               ) : error ? (
                 <Message variant="danger">
