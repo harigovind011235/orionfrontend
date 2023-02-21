@@ -171,7 +171,7 @@ function AdminLeaveTable() {
                     <td>
                       <div className="d-flex align-items-center">
                         <div className="ms-3">
-                          <p className="fw-bold mb-1">{employeeleave.name}</p>
+                          <p className="fw-bold mb-1" style={{marginLeft:"-20px"}}>{employeeleave.name}</p>
                           <p className="text-muted mb-0"></p>
                         </div>
                       </div>
@@ -199,13 +199,13 @@ function AdminLeaveTable() {
                       </p>
                     </td>
                     <td>
-                      <p>{employeeleave.leave_applied}</p>
+                      <p style={{paddingTop:"20px"}}>{employeeleave.leave_applied}</p>
                     </td>
                     <td>
-                      <p>{employeeleave.end_date_of_leave}</p>
+                      <p style={{paddingTop:"20px"}}>{employeeleave.end_date_of_leave}</p>
                     </td>
-                    <td>{employeeleave.no_of_leaves}</td>
-                    <td>{employeeleave.leave_notes}</td>
+                    <td style={{paddingLeft:"60px",paddingTop:"30px"}}>{employeeleave.no_of_leaves}</td>
+                    <td style={{maxWidth:"100px",whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>{employeeleave.leave_notes}</td>
                     <td>
                       {employeeleave.status === false &&
                       employeeleave.rejected === false ? (

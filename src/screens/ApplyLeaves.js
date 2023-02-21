@@ -150,6 +150,7 @@ function ApplyLeaves() {
               className="form-control mt-3"
               id="exampleFormControlTextarea1"
               rows="6"
+              cols={20}
               value={leaveNotes}
               onChange={(e) => setLeaveNotes(e.target.value)}
             />
