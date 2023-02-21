@@ -13,7 +13,8 @@ function Footer() {
             className="text-center p-3"
           >
             &copy; {new Date().getFullYear()} Copyright:{" "}
-            <a className="text-dark" href="https://mdbootstrap.com/">
+            <a className="text-dark" href="https://labglo.com/"  target="_blank"
+        rel="noreferrer">
               orion.labglo.com
             </a>
           </div>
