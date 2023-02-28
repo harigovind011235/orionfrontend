@@ -8,3 +8,11 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+
+.image:hover,.image:focus,.image.active{
+cursor: pointer;
+-webkit-transform: scale(1.1);
+  transform: scale(1.1);
+  top:-1 rem;
+  
+}
