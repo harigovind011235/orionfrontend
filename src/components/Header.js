@@ -23,37 +23,81 @@ import { useLocation } from "react-router-dom";
 
 export default function Header() {
   const location = useLocation()
-  const storedTime = JSON.parse(localStorage.getItem('timer')) || { hours: 0, minutes: 0, seconds: 0 };
-  const [time, setTime] = useState(storedTime);
   const [showBasic, setShowBasic] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userInfo = localStorage.getItem("userInfo");
   const userJson = userInfo ? JSON.parse(userInfo) : null;
   const is_staff = userJson ? userJson["is_staff"] : null;
+  const [startTime, setStartTime] = useState(null);
+  const [stopTime, setStopTime] = useState(null);
+  const [elapsedTime, setElapsedTime] = useState(0);
+  const [isRunning, setIsRunning] = useState(false);
 
   const logoutHandler = () => {
     dispatch(logout());
-    localStorage.clear("timer")
+    setStartTime(null);
+    setStopTime(null);
+    setElapsedTime(0);
+    setIsRunning(false);
+    localStorage.removeItem("startTime");
+    localStorage.removeItem("stopTime");
     navigate("/");
   };
- 
+
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      setTime(prevTime => {
-        const seconds = prevTime.seconds + 1;
-        const minutes = prevTime.minutes + (seconds === 60 ? 1 : 0);
-        const hours = prevTime.hours + (minutes === 60 ? 1 : 0);
-        return { hours, minutes: minutes % 60, seconds: seconds % 60 };
-      });
-    }, 1000);
-    return () => clearInterval(intervalId);
+    const storedStartTime = localStorage.getItem("startTime");
+    const storedStopTime = localStorage.getItem("stopTime");
+    if (storedStartTime && storedStopTime) {
+      setStartTime(parseInt(storedStartTime));
+      setStopTime(parseInt(storedStopTime));
+      setElapsedTime(parseInt(storedStopTime) - parseInt(storedStartTime));
+      setIsRunning(false);
+    } else if (storedStartTime) {
+      setStartTime(parseInt(storedStartTime));
+      setElapsedTime(Date.now() - parseInt(storedStartTime));
+      setIsRunning(true);
+    } else {
+      handleStart();
+    }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('timer', JSON.stringify(time));
-  }, [time]);
+    if (isRunning) {
+      const intervalId = setInterval(() => {
+        setElapsedTime(Date.now() - startTime);
+      }, 1000);
+      return () => clearInterval(intervalId);
+    }
+  }, [isRunning, startTime]);
 
+  useEffect(() => {
+    if (startTime && stopTime) {
+      localStorage.setItem("startTime", startTime);
+      localStorage.setItem("stopTime", stopTime);
+    } else if (startTime) {
+      localStorage.setItem("startTime", startTime);
+      localStorage.removeItem("stopTime");
+    } else {
+      localStorage.removeItem("startTime");
+      localStorage.removeItem("stopTime");
+    }
+  }, [startTime, stopTime]);
+
+  const handleStart = () => {
+    setStartTime(Date.now());
+    setIsRunning(true);
+  };
+
+  const formatTime = (time) => {
+    const seconds = Math.floor((time / 1000) % 60);
+    const minutes = Math.floor((time / 1000 / 60) % 60);
+    const hours = Math.floor(time / 1000 / 60 / 60);
+    return `${hours.toString().padStart(2, "0")}:${minutes
+      .toString()
+      .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+  };
+ 
   return (
     <MDBNavbar expand="lg">
       <MDBContainer>
@@ -128,7 +172,7 @@ export default function Header() {
           </MDBNavbarNav>
           {location.pathname === "/home" &&
             <div style={{ marginRight: "30px", marginTop: "15px",color:"#0C0B0B" }} >
-              <h5><span>{time.hours}:{time.minutes < 10 ? '0' + time.minutes : time.minutes}:{time.seconds < 10 ? '0' + time.seconds : time.seconds}</span></h5>
+            <h5><span>{formatTime(elapsedTime)}</span></h5>
             </div>
           }
           <MDBBtn color="danger" onClick={logoutHandler}>
