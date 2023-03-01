@@ -9,6 +9,8 @@ import UserMessage from '../components/UserMessage'
 import {Container} from 'react-bootstrap'
 import {useNavigate} from "react-router-dom"
 import { useSelector } from 'react-redux'
+
+import UpcomingEvents from '../components/UpcomingEvents'
 function HomeScreen() {
     
     const navigate = useNavigate();
@@ -38,6 +40,7 @@ function HomeScreen() {
                 <HomeCarousel/>
                 <Blog/>
                 <News/>
+                <UpcomingEvents/>
                 <Footer/>
         </Container>
     )
