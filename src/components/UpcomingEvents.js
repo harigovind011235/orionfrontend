@@ -1,12 +1,20 @@
-import React  from "react";
+import React, { useState } from "react";
 
 import { Card, Container, Row, Col } from "react-bootstrap";
+import Loader from "./Loader";
+import Message from "./Message";
 
 import UpcomingBirthdays from "./UpcomingBirthdays";
 import UpcomingHolidays from "./UpcomingHolidays";
 import UpcomingWorkAnniversary from "./UpcomingWorkAnniversary";
 
 function UpcomingEvents() {
+  const [birthday, setBirthday] = useState({ loading: "", error: "" });
+  const [workAnniversary, setWorkAnniversary] = useState({
+    loading: "",
+    error: "",
+  });
+  const [holiday, setHoliday] = useState({ loading: "", error: "" });
 
   return (
     <>
@@ -19,14 +27,44 @@ function UpcomingEvents() {
                   <Card.Header as="h5">Upcoming Events</Card.Header>
                 </Row>
                 <Card.Body>
+                  {holiday.loading === true &&
+                  birthday.loading === true &&
+                  workAnniversary.loading === true ? (
+                    <Loader />
+                  ) : (
+                    <>
+                      {(holiday.error !== undefined ||
+                        birthday.error !== undefined ||
+                        workAnniversary.error !== undefined) && (
+                        <Message variant="danger">
+                          Something Wrong Admin To The Rescue
+                        </Message>
+                      )}
+                    </>
+                  )}
                   <Container
                     className="mt-2"
                     style={{ display: "flex", float: "left" }}
                   >
                     <>
-                      <UpcomingBirthdays />
-                      <UpcomingWorkAnniversary />
-                      <UpcomingHolidays />
+                      <UpcomingBirthdays
+                        holiday={holiday}
+                        birthday={birthday}
+                        setBirthday={setBirthday}
+                        workAnniversary={workAnniversary}
+                      />
+                      <UpcomingWorkAnniversary
+                        workAnniversary={workAnniversary}
+                        setWorkAnniversary={setWorkAnniversary}
+                        birthday={birthday}
+                        holiday={holiday}
+                      />
+                      <UpcomingHolidays
+                        birthday={birthday}
+                        holiday={holiday}
+                        setHoliday={setHoliday}
+                        workAnniversary={workAnniversary}
+                      />
                     </>
                   </Container>
                 </Card.Body>
