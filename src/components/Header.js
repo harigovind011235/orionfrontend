@@ -29,70 +29,33 @@ export default function Header() {
   const userInfo = localStorage.getItem("userInfo");
   const userJson = userInfo ? JSON.parse(userInfo) : null;
   const is_staff = userJson ? userJson["is_staff"] : null;
-  const [startTime, setStartTime] = useState(null);
-  const [stopTime, setStopTime] = useState(null);
+  let intervalId;
+  const [startTime, setStartTime] = useState(localStorage.getItem('startTime') || Date.now().toString());
   const [elapsedTime, setElapsedTime] = useState(0);
-  const [isRunning, setIsRunning] = useState(false);
+
+  useEffect(() => {
+    localStorage.setItem('startTime', startTime);
+    intervalId = setInterval(() => {
+   
+      setElapsedTime(Date.now() - parseInt(startTime));
+    }, 1000);
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [startTime]);
 
   const logoutHandler = () => {
     dispatch(logout());
-    setStartTime(null);
-    setStopTime(null);
-    setElapsedTime(0);
-    setIsRunning(false);
-    localStorage.removeItem("startTime");
-    localStorage.removeItem("stopTime");
+    clearInterval(intervalId);
+    localStorage.removeItem('startTime');
     navigate("/");
   };
 
-  useEffect(() => {
-    const storedStartTime = localStorage.getItem("startTime");
-    const storedStopTime = localStorage.getItem("stopTime");
-    if (storedStartTime && storedStopTime) {
-      setStartTime(parseInt(storedStartTime));
-      setStopTime(parseInt(storedStopTime));
-      setElapsedTime(parseInt(storedStopTime) - parseInt(storedStartTime));
-      setIsRunning(false);
-    } else if (storedStartTime) {
-      setStartTime(parseInt(storedStartTime));
-      setElapsedTime(Date.now() - parseInt(storedStartTime));
-      setIsRunning(true);
-    } else {
-      handleStart();
-    }
-  }, []);
-
-  useEffect(() => {
-    if (isRunning) {
-      const intervalId = setInterval(() => {
-        setElapsedTime(Date.now() - startTime);
-      }, 1000);
-      return () => clearInterval(intervalId);
-    }
-  }, [isRunning, startTime]);
-
-  useEffect(() => {
-    if (startTime && stopTime) {
-      localStorage.setItem("startTime", startTime);
-      localStorage.setItem("stopTime", stopTime);
-    } else if (startTime) {
-      localStorage.setItem("startTime", startTime);
-      localStorage.removeItem("stopTime");
-    } else {
-      localStorage.removeItem("startTime");
-      localStorage.removeItem("stopTime");
-    }
-  }, [startTime, stopTime]);
-
-  const handleStart = () => {
-    setStartTime(Date.now());
-    setIsRunning(true);
-  };
-
   const formatTime = (time) => {
-    const seconds = Math.floor((time / 1000) % 60);
-    const minutes = Math.floor((time / 1000 / 60) % 60);
-    const hours = Math.floor(time / 1000 / 60 / 60);
+    const hours = Math.floor(time / (1000 * 60 * 60));
+    const minutes = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((time % (1000 * 60)) / 1000);
     return `${hours.toString().padStart(2, "0")}:${minutes
       .toString()
       .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
