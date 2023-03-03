@@ -107,7 +107,7 @@ function UpcomingWorkAnniversary({ workAnniversary, setWorkAnniversary,birthday,
               >
                
                 <div class="card-up aqua-gradient"></div>
-                <center> <Card.Header style={{fontWeight:"bold"}}>Upcoming Working Anniversary</Card.Header></center>
+                <center> <Card.Header style={{fontWeight:"bold"}}>Upcoming Work Anniversary</Card.Header></center>
                 <div class="avatar mx-auto white">
                   <br />
                   <center>
@@ -259,7 +259,7 @@ function UpcomingWorkAnniversary({ workAnniversary, setWorkAnniversary,birthday,
                     new Date(samedate[0].date_of_joining).getDate()) ? (
                     <p
                       class="card-body text-center card-title font-weight-bold"
-                      style={{ color: "#55595c", marginTop: "-10px" }}
+                      style={{ color: "#55595c", marginTop: "-20px" }}
                     >
                        <i class="fa fa-calendar"></i>&nbsp;
                       {samedate[0] && 
@@ -268,8 +268,9 @@ function UpcomingWorkAnniversary({ workAnniversary, setWorkAnniversary,birthday,
                       {samedate[0] &&
                         new Date(samedate[0].date_of_joining).getDate()}
                       <br />
+                      <p className="animate-charcter">
                       <i class="fa fa-trophy"></i>&nbsp;Work Anniversary&nbsp;
-                      <i class="fa fa-trophy"></i>
+                      <i class="fa fa-trophy"></i></p>
                     </p>
                   ) : (
                     <p
