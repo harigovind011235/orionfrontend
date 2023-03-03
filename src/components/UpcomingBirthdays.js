@@ -149,7 +149,7 @@ export default function UpcomingBirthdays({ birthday,setBirthday,holiday,workAnn
                 </div>
                 <hr />
                 <div class="card-body text-center" style={{color: "#55595c"}}>
-                  <p style={{marginTop: "-10px" }}>
+                  <p style={{marginTop: "-20px" }}>
                     {Upcomingdate[0] &&
                     new Date(Upcomingdate[0].dob).getDate() ===
                       date.getDate() &&
@@ -160,13 +160,15 @@ export default function UpcomingBirthdays({ birthday,setBirthday,holiday,workAnn
                           <i class="fa fa-calendar"></i>&nbsp;
                           {month[new Date(Upcomingdate[0].dob).getMonth()]},
                           {new Date(Upcomingdate[0].dob).getDate()}
+                          <br/>
                           {Upcomingdate.length > 1 ? (
-                            <p>
+                            <p  className="animate-charcter">
                               Today birthdays{" "}
                               <i class="fa fa-birthday-cake"></i>
+                              
                             </p>
                           ) : (
-                            <p class="text-capitalize">
+                            <p class="text-capitalize" className="animate-charcter" >
                               Today's {Upcomingdate[0].name} birthday{" "}
                               <i class="fa fa-birthday-cake"></i>
                             </p>
