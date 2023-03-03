@@ -1,7 +1,6 @@
 
 import React,{useEffect} from 'react'
 import HomeCarousel from '../components/HomeCarousel'
-import Blog from '../components/Blog'
 import News from '../components/News'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
@@ -38,9 +37,8 @@ function HomeScreen() {
                 <Header/>
                 <UserMessage employeeName={employeeName} modalShow={isModalOpen} message={modalMessage}></UserMessage>
                 <HomeCarousel/>
-                <Blog/>
-                <News/>
                 <UpcomingEvents/>
+                <News/>
                 <Footer/>
         </Container>
     )

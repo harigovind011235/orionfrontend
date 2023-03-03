@@ -24,11 +24,10 @@ function News() {
     <Card>
       <Container>
         <Row>
-      <Card.Header as="h5">Health Reads</Card.Header>
+      <Card.Header as="h5">Quick Reads</Card.Header>
       </Row>
       <Card.Body>
         <Container className='mt-2'>
-
         { loading ? <Loader/> : error ? <Message variant="danger">{error}</Message> :
         Array.isArray(newslist) ?
         newslist.map((newsItem) => (

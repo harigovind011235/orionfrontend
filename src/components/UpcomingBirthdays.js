@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { OverlayTrigger, Tooltip } from "react-bootstrap";
+import { Card, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 
 import { listEmployees } from "../actions/employeeActions";
@@ -105,19 +105,9 @@ export default function UpcomingBirthdays({ birthday,setBirthday,holiday,workAnn
                 }}
               >
                 <div class="card-up aqua-gradient"></div>
+                <center><Card.Header style={{fontWeight:"bold"}}>Upcoming  Birthdays</Card.Header></center>
                 <div class="avatar mx-auto white"></div>
                 <div class="avatar mx-auto white">
-                  <div
-                    class="hovtxt"
-                    style={{
-                      marginTop: "20px",
-                      color: "black",
-                      fontSize: "18px",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    Upcoming Birthdays
-                  </div>
                   <br />
                   <center>
                     <div>
@@ -158,8 +148,8 @@ export default function UpcomingBirthdays({ birthday,setBirthday,holiday,workAnn
                   </center>
                 </div>
                 <hr />
-                <div class="card-body text-center">
-                  <p style={{ color: "black", marginTop: "-10px" }}>
+                <div class="card-body text-center" style={{color: "#55595c"}}>
+                  <p style={{marginTop: "-10px" }}>
                     {Upcomingdate[0] &&
                     new Date(Upcomingdate[0].dob).getDate() ===
                       date.getDate() &&
@@ -192,7 +182,7 @@ export default function UpcomingBirthdays({ birthday,setBirthday,holiday,workAnn
                               {month[new Date(Upcomingdate[0].dob).getMonth()]}
                               {new Date(Upcomingdate[0].dob).getDate()}
                               <br />
-                              Upcoming {Upcomingdate.length > 1 ? "birthdays":"birthday"} <i class="far fa-bell"></i>
+                              Upcoming {Upcomingdate.length > 1 ? "birthdays":"birthday"}  <i class="fa fa-birthday-cake"></i>
                             </p>
                           )}
                         </p>

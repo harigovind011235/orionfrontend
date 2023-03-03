@@ -15,10 +15,9 @@ function UpcomingEvents() {
     error: "",
   });
   const [holiday, setHoliday] = useState({ loading: "", error: "" });
-
   return (
     <>
-      <Container className="mt-4">
+      <Container className="mt-1">
         <Row>
           <Col lg={12} md={12}>
             <Card>
@@ -43,7 +42,6 @@ function UpcomingEvents() {
                     </>
                   )}
                   <Container
-                    className="mt-2"
                     style={{ display: "flex", float: "left" }}
                   >
                     <>
