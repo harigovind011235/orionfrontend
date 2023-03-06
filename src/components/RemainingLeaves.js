@@ -25,8 +25,8 @@ function RemainingLeaves(props) {
         className="justify-content-lg-center justify-content-md-center mt-4"
       >
         <Col lg="12" md="12">
-          <Table striped bordered hover>
-            <thead>
+          <Table striped bordered hover >
+            <thead class="table-dark">
               <tr>
                 <th>Type Of Leave</th>
                 <th>Leaves Left</th>

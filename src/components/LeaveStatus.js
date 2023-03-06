@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect} from "react";
 import { Container, Row, Col, Table, Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { EmployeeLeaveDelete } from "../actions/employeeActions";
@@ -16,6 +16,8 @@ function LeaveStatus(props) {
     (state) => state.employeeLeaveDeleted
   );
   const { leavedeleted } = employeeLeaveDeleted;
+
+
 
   useEffect(() => {
     const userData = localStorage.getItem("userInfo");
@@ -67,7 +69,7 @@ function LeaveStatus(props) {
             </thead>
             <tbody>
               {Array.isArray(employeeleavestatus) ? (
-                employeeleavestatus.map((each) => (
+                employeeleavestatus.filter((ele)=>ele.status===false && ele.rejected === false).map((each) => (
                   <tr key={each.id}>
                     <td>
                       {each.leave_type === "1" && each.half_day === true
@@ -88,7 +90,7 @@ function LeaveStatus(props) {
                     </td>
                     <td>{each.date_of_leave}</td>
                     <td>{each.end_date_of_leave}</td>
-                    <td>{each.leave_notes ? each.leave_notes : "null"}</td>
+                    <td style={{maxWidth:"100px",whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>{each.leave_notes ? each.leave_notes : "null"}</td>
                     <td>
                       {each.status === true && each.rejected === false
                         ? "Approved"

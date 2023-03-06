@@ -67,7 +67,7 @@ function DailyHourTable() {
       }
     > */}
           <Table striped bordered hover>
-            <thead>
+            <thead class="table-dark">
               <tr>
                 <th>Date</th>
                 <th>CheckIn</th>
