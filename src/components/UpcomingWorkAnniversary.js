@@ -1,11 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { listEmployees } from "../actions/employeeActions";
-import { OverlayTrigger, Tooltip, PopoverBody, Popover, Card } from "react-bootstrap";
+import {
+  OverlayTrigger,
+  Tooltip,
+  PopoverBody,
+  Popover,
+  Card,
+} from "react-bootstrap";
 
 const baseURL = process.env.REACT_APP_BACKEND_BASEURL;
 
-function UpcomingWorkAnniversary({ workAnniversary, setWorkAnniversary,birthday,holiday}) {
+function UpcomingWorkAnniversary({
+  workAnniversary,
+  setWorkAnniversary,
+  birthday,
+  holiday,
+}) {
+  console.log(workAnniversary,
+    setWorkAnniversary,
+    birthday,
+    holiday)
   let [page, setPage] = useState(1);
   const [employeelist, setEmployeeList] = useState([]);
   const data = [];
@@ -78,7 +93,7 @@ function UpcomingWorkAnniversary({ workAnniversary, setWorkAnniversary,birthday,
     );
 
   useEffect(() => {
-   setWorkAnniversary({loading:loading,error:error})
+    setWorkAnniversary({ loading: loading, error: error });
     setEmployeeList(employee_array);
   }, [employeeList]);
 
@@ -94,22 +109,16 @@ function UpcomingWorkAnniversary({ workAnniversary, setWorkAnniversary,birthday,
         workAnniversary.error === undefined &&
         birthday.error === undefined && (
           <div class="container">
-             <div class="card-deck row">
-            <section class="mx-auto my-5" style={{ maxWidth: "23rem" }}>
+            <div class="card-deck">
               <div
-                class="card testimonial-card mt-2 mb-3"
-                style={{
-                  maxWidth: "350px",
-                  height: "230px",
-                  borderRadius: "20px",
-                  border: "ridge",
-                }}
+                class="card mb-4"
+                style={{ borderRadius: "20px", border: "ridge" }}
               >
-               
-                <div class="card-up aqua-gradient"></div>
-                <center> <Card.Header style={{fontWeight:"bold"}}>Upcoming Work Anniversary</Card.Header></center>
-                <div class="avatar mx-auto white">
-                  <br />
+                <center>
+                  <Card.Header>Upcoming Work Anniversary</Card.Header>
+                </center>
+
+                <div class="card-body">
                   <center>
                     {samedate && samedate.length > 3 ? (
                       <>
@@ -153,7 +162,13 @@ function UpcomingWorkAnniversary({ workAnniversary, setWorkAnniversary,birthday,
                                       id="popover-basic"
                                       style={{ borderRadius: "20px" }}
                                     >
-                                      <PopoverBody style={{  height: "100px",overflowY: "auto",whiteSpace:"pre-wrap"}}>
+                                      <PopoverBody
+                                        style={{
+                                          height: "100px",
+                                          overflowY: "auto",
+                                          whiteSpace: "pre-wrap",
+                                        }}
+                                      >
                                         <strong>
                                           <table>
                                             <thead>
@@ -253,41 +268,48 @@ function UpcomingWorkAnniversary({ workAnniversary, setWorkAnniversary,birthday,
                       </>
                     )}
                   </center>
-                  <hr/>
+                  <hr />
+                </div>
+
+                <p class="card-text">
                   {date.getDate() ===
                   (samedate[0] &&
                     new Date(samedate[0].date_of_joining).getDate()) ? (
                     <p
-                      class="card-body text-center card-title font-weight-bold"
-                      style={{ color: "#55595c", marginTop: "-20px" }}
+                      class="card-body text-center card-title font-weight-bold card-text"
+                      style={{ color: "#55595c", marginTop: "-35px" }}
                     >
-                       <i class="fa fa-calendar"></i>&nbsp;
-                      {samedate[0] && 
-                       month[new Date(samedate[0].date_of_joining).getMonth()]},
-                      
+                      <i class="fa fa-calendar"></i>&nbsp;
+                      {samedate[0] &&
+                        month[new Date(samedate[0].date_of_joining).getMonth()]}
+                      ,
                       {samedate[0] &&
                         new Date(samedate[0].date_of_joining).getDate()}
                       <br />
                       <p className="animate-charcter">
-                      <i class="fa fa-trophy"></i>&nbsp;Work Anniversary&nbsp;
-                      <i class="fa fa-trophy"></i></p>
+                        <i class="fa fa-trophy"></i>&nbsp;Work Anniversary&nbsp;
+                        <i class="fa fa-trophy"></i>
+                      </p>
                     </p>
                   ) : (
                     <p
-                      class="card-body text-center card-title font-weight-bold"
-                      style={{ color: "#55595c" }}
+                      class="card-body text-center card-title font-weight-bold card-text"
+                      style={{ color: "#55595c", marginTop: "-33px" }}
                     >
-                      <i class="fa fa-calendar"></i>&nbsp;Work Anniversary on{" "}
+                      <i class="fa fa-calendar"></i>&nbsp;
                       {samedate[0] &&
                         month[new Date(samedate[0].date_of_joining).getMonth()]}
                       {samedate[0] &&
                         new Date(samedate[0].date_of_joining).getDate()}
-                      &nbsp;<i class="fa fa-calendar"></i>
+                      <br />
+                      <p>
+                        {" "}
+                        Work Anniversary &nbsp;<i class="fa fa-calendar"></i>
+                      </p>
                     </p>
                   )}
-                </div>
+                </p>
               </div>
-            </section>
             </div>
           </div>
         )}

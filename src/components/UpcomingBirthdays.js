@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from "react";
 
-import { Card, OverlayTrigger, Tooltip } from "react-bootstrap";
+import {OverlayTrigger, Tooltip } from "react-bootstrap";
+import CardHeader from "react-bootstrap/esm/CardHeader";
 import { useDispatch, useSelector } from "react-redux";
 
 import { listEmployees } from "../actions/employeeActions";
 
 const baseURL = process.env.REACT_APP_BACKEND_BASEURL;
 
-export default function UpcomingBirthdays({ birthday,setBirthday,holiday,workAnniversary }) {
-  
+export default function UpcomingBirthdays({
+  birthday,
+  setBirthday,
+  holiday,
+  workAnniversary,
+}) {
   const month = [
     "January",
     "February",
@@ -27,7 +32,7 @@ export default function UpcomingBirthdays({ birthday,setBirthday,holiday,workAnn
   const dispatch = useDispatch();
   const listOfemployees = useSelector((state) => state.employeeList);
   const { loading, error, employees } = listOfemployees;
-  
+
   const employee_array =
     employees && employees["results"] ? employees["results"] : null;
   const date = new Date();
@@ -75,12 +80,11 @@ export default function UpcomingBirthdays({ birthday,setBirthday,holiday,workAnn
 
   useEffect(() => {
     setEmployeeList(employee_array && employee_array);
-    setBirthday({loading:loading,error:error})
-    
+    setBirthday({ loading: loading, error: error });
   }, [listOfemployees]);
- 
+
   useEffect(() => {
-    setEmployeeList([])
+    setEmployeeList([]);
     dispatch(listEmployees(1));
   }, [dispatch]);
 
@@ -89,26 +93,22 @@ export default function UpcomingBirthdays({ birthday,setBirthday,holiday,workAnn
       {birthday &&
         birthday.loading === false &&
         holiday.error === undefined &&
-       workAnniversary.error === undefined &&
+        workAnniversary.error === undefined &&
         birthday.error === undefined &&
         Upcomingdate && (
           <div class="container">
-            <div class="card-deck row">
-            <section class="mx-auto my-5" style={{ maxWidth: "23rem" }}>
+            <div class="card-deck">
               <div
-                class="card testimonial-card mt-2 mb-3 "
-                style={{
-                  maxWidth: "350px",
-                  height: "230px",
-                  borderRadius: "20px",
-                  border: "ridge",
-                }}
+                class="card mb-4"
+                style={{ borderRadius: "20px", border: "ridge" }}
               >
-                <div class="card-up aqua-gradient"></div>
-                <center><Card.Header style={{fontWeight:"bold"}}>Upcoming  Birthdays</Card.Header></center>
-                <div class="avatar mx-auto white"></div>
-                <div class="avatar mx-auto white">
-                  <br />
+                <div class="w-100 d-none d-sm-block d-md-none"></div>
+                <div class="w-100 d-none d-lg-block d-xl-none"></div>
+                <center>
+                  <CardHeader>Upcoming Birthdays</CardHeader>
+                </center>
+
+                <div class="card-body">
                   <center>
                     <div>
                       {filteredUpcomingDate &&
@@ -146,57 +146,69 @@ export default function UpcomingBirthdays({ birthday,setBirthday,holiday,workAnn
                         })}
                     </div>
                   </center>
-                </div>
-                <hr />
-                <div class="card-body text-center" style={{color: "#55595c"}}>
-                  <p style={{marginTop: "-20px" }}>
-                    {Upcomingdate[0] &&
-                    new Date(Upcomingdate[0].dob).getDate() ===
-                      date.getDate() &&
-                    new Date(Upcomingdate[0].dob).getMonth() ===
-                      date.getMonth() ? (
-                      <>
-                        <p>
-                          <i class="fa fa-calendar"></i>&nbsp;
-                          {month[new Date(Upcomingdate[0].dob).getMonth()]},
-                          {new Date(Upcomingdate[0].dob).getDate()}
-                          <br/>
-                          {Upcomingdate.length > 1 ? (
-                            <p  className="animate-charcter">
-                              Today birthdays{" "}
-                              <i class="fa fa-birthday-cake"></i>
-                              
-                            </p>
-                          ) : (
-                            <p class="text-capitalize" className="animate-charcter" >
-                              Today's {Upcomingdate[0].name} birthday{" "}
-                              <i class="fa fa-birthday-cake"></i>
-                            </p>
-                          )}
-                        </p>
-                      </>
-                    ) : (
-                      <>
-                        <p>
-                          {Upcomingdate[0] && (
-                            <p>
-                              <i class="fa fa-calendar"></i> &nbsp;
-                              {month[new Date(Upcomingdate[0].dob).getMonth()]}
-                              {new Date(Upcomingdate[0].dob).getDate()}
-                              <br />
-                              Upcoming {Upcomingdate.length > 1 ? "birthdays":"birthday"}  <i class="fa fa-birthday-cake"></i>
-                            </p>
-                          )}
-                        </p>
-                      </>
-                    )}
+
+                  <hr />
+
+                  <p class="card-text" style={{ textAlign: "center" }}>
+                    <p class="card-text">
+                      {Upcomingdate[0] &&
+                      new Date(Upcomingdate[0].dob).getDate() ===
+                        date.getDate() &&
+                      new Date(Upcomingdate[0].dob).getMonth() ===
+                        date.getMonth() ? (
+                        <>
+                          <p class="card-text">
+                            <i class="fa fa-calendar"></i>&nbsp;
+                            {month[new Date(Upcomingdate[0].dob).getMonth()]},
+                            {new Date(Upcomingdate[0].dob).getDate()}
+                            <br />
+                            {Upcomingdate.length > 1 ? (
+                              <p class="card-text" className="animate-charcter">
+                                Today birthdays{" "}
+                                <i class="fa fa-birthday-cake"></i>
+                              </p>
+                            ) : (
+                              <p
+                                class="text-capitalize"
+                                className="animate-charcter"
+                              >
+                                Today's {Upcomingdate[0].name} birthday{" "}
+                                <i class="fa fa-birthday-cake"></i>
+                              </p>
+                            )}
+                          </p>
+                        </>
+                      ) : (
+                        <>
+                          <p>
+                            {Upcomingdate[0] && (
+                              <p class="card-text">
+                                <i class="fa fa-calendar"></i> &nbsp;
+                                {
+                                  month[
+                                    new Date(Upcomingdate[0].dob).getMonth()
+                                  ]
+                                }
+                                {new Date(Upcomingdate[0].dob).getDate()}
+                                <br />
+                                Upcoming{" "}
+                                {Upcomingdate.length > 1
+                                  ? "birthdays"
+                                  : "birthday"}{" "}
+                                <i class="fa fa-birthday-cake"></i>
+                              </p>
+                            )}
+                          </p>
+                        </>
+                      )}
+                    </p>
                   </p>
                 </div>
               </div>
-            </section>
             </div>
           </div>
-        )}
+        )
+      }
     </>
   );
 }

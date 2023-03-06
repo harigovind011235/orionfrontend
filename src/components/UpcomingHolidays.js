@@ -46,29 +46,21 @@ export default function UpcomingHolidays({
 
   return (
     <>
-      {holiday &&
+    {holiday &&
         holiday.loading === false &&
         holiday.error === undefined &&
         workAnniversary.error === undefined &&
         birthday.error === undefined && (
-          <div class="container">
-            <div class="card-deck row">
-              <section class="mx-auto my-5" style={{ maxWidth: "23rem" }}>
-                <div
-                  class="card testimonial-card mt-2 mb-3"
-                  style={{
-                    maxWidth: "350px",
-                    height: "230px",
-                    borderRadius: "20px",
-                    border: "ridge",
-                  }}
-                >
-                  <div class="card-up aqua-gradient"></div>
-                  <center><Card.Header style={{fontWeight:"bold"}}>Upcoming  Holidays</Card.Header></center>
-                  <div class="avatar mx-auto white">
-                    <br />
-                    <center>
-                      {filteredUpcomingDate &&
+    <div class="container" >
+    <div class="card-deck">
+      
+        <div class="card mb-4" style={{borderRadius:"20px",border:"ridge"}} >
+        <center> <Card.Header>Upcoming Holidays</Card.Header></center>
+            <div class="card-body">
+              
+                <p class="card-text" style={{marginLeft:"35px"}}>
+                  <br/>
+                {filteredUpcomingDate &&
                         filteredUpcomingDate.slice(0, 2).map((el) => {
                           return (
                             <>
@@ -76,10 +68,11 @@ export default function UpcomingHolidays({
                                 style={{
                                   color: "#55595c",
                                   textAlign: "left",
+                                  marginTop:"20px"
                                  
-                                  marginTop: "25px",
+                                 
                                 }}
-                                class="text-capitalize"
+                                class="card-text"
                               >
                                 <i
                                   class="fas fa-stop-circle"
@@ -94,13 +87,12 @@ export default function UpcomingHolidays({
                             </>
                           );
                         })}
-                    </center>
-                  </div>
-                </div>
-              </section>
+                </p>
+              <br/>
             </div>
-          </div>
-        )}
+        </div>
+        </div>
+        </div>)}
     </>
   );
 }
