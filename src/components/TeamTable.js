@@ -84,7 +84,7 @@ function TeamTable() {
             }
           > */}
           <MDBTable align="middle">
-            <MDBTableHead>
+            <MDBTableHead class="table-dark">
               <tr>
                 <th scope="col">Name</th>
                 <th scope="col">Title</th>
@@ -108,8 +108,9 @@ function TeamTable() {
                         <img
                           src={`${baseURL}${employee.profile_image}`}
                           alt=""
-                          style={{ width: "45px", height: "45px" }}
+                          style={{ width: "55px", height: "55px",borderRadius:"55px" }}
                           className="rounded-circle"
+                          class="images"
                         />
                         <div className="ms-3">
                           <p className="fw-bold mb-1">{employee.name}</p>
