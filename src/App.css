@@ -16,6 +16,13 @@ cursor: pointer;
   top:-1 rem;
   
 }
+.images:hover,.image:focus,.image.active{
+  cursor: pointer;
+  -webkit-transform: scale(1.1);
+    transform: scale(1.3);
+    top:-1 rem;
+    
+  }
 
 .animate-charcter
 {
