@@ -69,7 +69,7 @@ export const login = (username, password) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: USER_LOGIN_FAIL,
-      error:error.data && error.data.detail ? error.data.detail : "Wrong Credentials",
+      error: error.data && error.data.detail ? error.data.detail : "Wrong Credentials",
     });
   }
 };
@@ -108,15 +108,15 @@ export const logout = () => (dispatch) => {
   });
 };
 
+export const closeUserMessage = () => async (dispatch) => {
+  dispatch({ type: CLOSE_MODAL, modalMessage: `` });
+};
+
 export const showUserMessage = () => async (dispatch) => {
   dispatch({
     type: OPEN_MODAL,
-    modalMessage: `Quote Of The Day - It is never too late to be what you might have been`,
+    modalMessage: await axios.get(`${baseURL}/api/dailyreads/quote`)
   });
-};
-
-export const closeUserMessage = () => async (dispatch) => {
-  dispatch({ type: CLOSE_MODAL, modalMessage: `` });
 };
 
 
@@ -137,10 +137,10 @@ export const changePassWord = (
       const config3 = {
         headers: { Authorization: `Bearer ${token}` },
       };
-      const password_data = {current_password:current_password,new_password:new_password}
-      const {data} = await axios.post(`${baseURL}/api/user/${userId}/changepassword`,password_data,config3)
+      const password_data = { current_password: current_password, new_password: new_password }
+      const { data } = await axios.post(`${baseURL}/api/user/${userId}/changepassword`, password_data, config3)
 
-      if (data === "Password doesn't match"){
+      if (data === "Password doesn't match") {
         throw new Error("Password doesn't match");
       }
     }

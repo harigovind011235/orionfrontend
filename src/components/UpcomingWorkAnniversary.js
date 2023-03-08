@@ -17,10 +17,6 @@ function UpcomingWorkAnniversary({
   birthday,
   holiday,
 }) {
-  console.log(workAnniversary,
-    setWorkAnniversary,
-    birthday,
-    holiday)
   let [page, setPage] = useState(1);
   const [employeelist, setEmployeeList] = useState([]);
   const data = [];
@@ -255,7 +251,7 @@ function UpcomingWorkAnniversary({
                                     className="image"
                                     style={{
                                       width: "55px",
-                                      marginLeft: "-30px",
+                                      marginLeft: "-20px",
                                       height: "55px",
                                       cursor: "pointer",
                                       borderRadius: "55px",
