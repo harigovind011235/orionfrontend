@@ -29,6 +29,25 @@ export const userLoginReducer = (state = {}, action) => {
   }
 };
 
+export const changePasswordReducer = (state = false, action) => {
+  switch (action.type) {
+    case USER_CHANGEPASSWORD_REQUEST:
+      return { loading: true,changedpassword:state };
+
+    case USER_CHANGEPASSWORD_SUCCESS:
+      return { loading: false, changedpassword: action.payload };
+
+    case USER_CHANGEPASSWORD_FAIL:
+      return { loading: false, error: action.errormessage };
+
+    case USER_LOGOUT:
+      return {};
+
+    default:
+      return state;
+  }
+};
+
 const initialState = {
   isModalOpen: false,
   modalMessage: [],
@@ -51,22 +70,3 @@ export function userMessageReducer(state = initialState, action) {
   }
 }
 
-
-export const changePasswordReducer = (state = false, action) => {
-  switch (action.type) {
-    case USER_CHANGEPASSWORD_REQUEST:
-      return { loading: true,changedpassword:state };
-
-    case USER_CHANGEPASSWORD_SUCCESS:
-      return { loading: false, changedpassword: action.payload };
-
-    case USER_CHANGEPASSWORD_FAIL:
-      return { loading: false, error: action.errormessage };
-
-    case USER_LOGOUT:
-      return {};
-
-    default:
-      return state;
-  }
-};
