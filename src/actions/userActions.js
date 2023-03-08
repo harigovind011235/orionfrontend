@@ -111,7 +111,7 @@ export const logout = () => (dispatch) => {
 export const showUserMessage = () => async (dispatch) => {
   dispatch({
     type: OPEN_MODAL,
-    modalMessage: `Quote Of The Day - It is never too late to be what you might have been`,
+    modalMessage: await axios.get(`${baseURL}/api/dailyreads/quote`)
   });
 };
 

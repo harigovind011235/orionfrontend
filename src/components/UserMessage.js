@@ -21,7 +21,8 @@ function UserMessage(props) {
            {name ? `Hi ${name}` : 'Thanks'}
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body>{message}</Modal.Body>
+        {name ? <Modal.Body><i class="fas fa-quote-left fa-md me-2"></i>&nbsp;<i>{message&&message.data&&message.data.quote_text}</i>&nbsp;<i class="fas fa-quote-right fa-md me-2"></i>
+        <br/> <br/><figcaption class="blockquote-footer" style={{textAlign:"right",color:"black"}}>{message&&message.data&&message.data.author}</figcaption></Modal.Body> :  <Modal.Body><i>{message}</i></Modal.Body> }
       </Modal>
     </Container>
   )

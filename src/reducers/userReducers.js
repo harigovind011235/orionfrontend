@@ -31,7 +31,7 @@ export const userLoginReducer = (state = {}, action) => {
 
 const initialState = {
   isModalOpen: false,
-  modalMessage: "",
+  modalMessage: [],
 };
 
 export function userMessageReducer(state = initialState, action) {
