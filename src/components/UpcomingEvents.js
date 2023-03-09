@@ -28,9 +28,9 @@ function UpcomingEvents() {
                 </Row>
                 <Row>
                   <Card.Body>
-                    {holiday.loading === true &&
-                    birthday.loading === true &&
-                    workAnniversary.loading === true ? (
+                    {(holiday.loading === true||holiday.error==="") &&
+                    (birthday.loading === true|| birthday.error==="")&&
+                    (workAnniversary.loading === true||workAnniversary.error==="" )? (
                       <Loader />
                     ) : (
                       <>

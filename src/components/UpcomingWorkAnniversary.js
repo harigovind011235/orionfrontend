@@ -278,7 +278,7 @@ function UpcomingWorkAnniversary({
                       <i class="fa fa-calendar"></i>&nbsp;
                       {samedate[0] &&
                         month[new Date(samedate[0].date_of_joining).getMonth()]}
-                      ,
+                      &nbsp;
                       {samedate[0] &&
                         new Date(samedate[0].date_of_joining).getDate()}
                       <br />
@@ -294,7 +294,7 @@ function UpcomingWorkAnniversary({
                     >
                       <i class="fa fa-calendar"></i>&nbsp;
                       {samedate[0] &&
-                        month[new Date(samedate[0].date_of_joining).getMonth()]}
+                        month[new Date(samedate[0].date_of_joining).getMonth()]}&nbsp;
                       {samedate[0] &&
                         new Date(samedate[0].date_of_joining).getDate()}
                       <br />
