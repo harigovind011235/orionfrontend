@@ -18,7 +18,7 @@ function ApplyLeaves() {
   }, [navigate]);
 
   const [leaveDate, setLeaveDate] = useState("");
-  const [EndleaveDate, setEndleaveDate] = useState("")
+  const [EndleaveDate, setEndleaveDate] = useState("");
   const [leaveType, setLeaveType] = useState("1");
   const [halfday, setHalfday] = useState(false);
   const [leaveNotes, setLeaveNotes] = useState("");
@@ -29,23 +29,32 @@ function ApplyLeaves() {
   const { loading, error, employeeleaveapplied } = applyLeaveStatus;
   const submitHandler = (event) => {
     event.preventDefault();
-    dispatch(
-      EmployeeLeaveApply(leaveType, leaveNotes, leaveDate, EndleaveDate, noofleaves, halfday)
-    );
-
-    setLeaveDate("");
-    setEndleaveDate("")
-    setLeaveType("");
-    setLeaveNotes("");
-    setNoOfLeave(1);
-    setHalfday(false);
+    if (leaveDate && EndleaveDate && leaveType && leaveNotes && noofleaves) {
+      dispatch(
+        EmployeeLeaveApply(
+          leaveType,
+          leaveNotes,
+          leaveDate,
+          EndleaveDate,
+          noofleaves,
+          halfday
+        )
+      );
+      setLeaveDate("");
+      setEndleaveDate("");
+      setLeaveType("");
+      setLeaveNotes("");
+      setNoOfLeave(1);
+      setHalfday(false);
+    }
   };
-
+  
   useEffect(() => {
     if (employeeleaveapplied && employeeleaveapplied.status === 200) {
       setLeaveApplyStatus(true);
     }
   }, [leaveapplied, employeeleaveapplied]);
+
   return (
     <Container>
       <Header />
@@ -77,9 +86,12 @@ function ApplyLeaves() {
                   placeholder="Enter the date"
                   value={leaveDate}
                   max={EndleaveDate}
-                  onChange={(e) => {
-                    setLeaveDate(e.target.value)
+                  onChange={(event) => {
+                    setLeaveDate(event.target.value);
                   }}
+                  onInvalid={e => e.target.setCustomValidity("Please Fill out this Field")}
+                  onInput={F => F.target.setCustomValidity('')} 
+                 required
                 />
               </Form.Group>
               <Form.Group className="mb-3 col-md-6">
@@ -90,8 +102,11 @@ function ApplyLeaves() {
                   value={EndleaveDate}
                   min={leaveDate}
                   onChange={(e) => {
-                    setEndleaveDate(e.target.value)
+                    setEndleaveDate(e.target.value);
                   }}
+                  onInvalid={e => e.target.setCustomValidity("Please Fill out this Field")}
+                 onInput={F => F.target.setCustomValidity('')} 
+                required
                 />
               </Form.Group>
             </div>
@@ -110,9 +125,10 @@ function ApplyLeaves() {
                   <option value="5">Optional Holiday</option>
                 </Form.Select>
               </Form.Group>
-              <Form.Group className="mb-3 col-md-6" >
+              <Form.Group className="mb-3 col-md-6">
                 <br />
-                {(leaveDate === EndleaveDate)&& (leaveType ==="1" || leaveType === "2") ? (
+                {leaveDate === EndleaveDate &&
+                (leaveType === "1" || leaveType === "2") ? (
                   <Form.Check
                     type="switch"
                     id="custom-switch"
@@ -143,36 +159,32 @@ function ApplyLeaves() {
                 onChange={(e) => setNoOfLeave(e.target.value)}
               />
             </Form.Group>
-            <label htmlFor="specialrequesttextarea" className="mt-4">
-              Reason
-            </label>
-            <textarea
-              className="form-control mt-3"
-              id="exampleFormControlTextarea1"
-              rows="6"
-              cols={20}
-              value={leaveNotes}
-              onChange={(e) => setLeaveNotes(e.target.value)}
-            />
+            <div style={{ width: "450px" }}>
+              <label htmlFor="specialrequesttextarea" className="mt-4">
+                Reason
+              </label>
+              <textarea
+                className="form-control mt-3"
+                id="exampleFormControlTextarea1"
+                rows="6"
+                cols={20}
+                value={leaveNotes}
+                onChange={(e) => {
+                  setLeaveNotes(e.target.value);
+                }}
+                 onInvalid={e => e.target.setCustomValidity("Please Fill out this Field")}
+                 onInput={F => F.target.setCustomValidity('')} 
+                required
+              />
+            </div>
             <div style={{ marginLeft: "80px" }}>
-              {leaveDate && EndleaveDate && leaveType && leaveNotes && noofleaves ? (
-                <Button
-                  variant="primary"
-                  type="submit"
-                  className="mt-4 offset-lg-3"
-                >
-                  Submit
-                </Button>
-              ) : (
-                <Button
-                  disabled
-                  variant="primary"
-                  type="submit"
-                  className="mt-4 offset-lg-3"
-                >
-                  Submit
-                </Button>
-              )}
+              <Button
+                variant="primary"
+                type="submit"
+                className="mt-4 offset-lg-3"
+              >
+                Submit
+              </Button>
             </div>
           </Form>
         </Col>
