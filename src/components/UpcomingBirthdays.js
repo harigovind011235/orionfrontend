@@ -159,7 +159,7 @@ export default function UpcomingBirthdays({
                         <>
                           <p class="card-text">
                             <i class="fa fa-calendar"></i>&nbsp;
-                            {month[new Date(Upcomingdate[0].dob).getMonth()]},
+                            {month[new Date(Upcomingdate[0].dob).getMonth()]}&nbsp;
                             {new Date(Upcomingdate[0].dob).getDate()}
                             <br />
                             {Upcomingdate.length > 1 ? (
@@ -188,7 +188,7 @@ export default function UpcomingBirthdays({
                                   month[
                                     new Date(Upcomingdate[0].dob).getMonth()
                                   ]
-                                }
+                                }&nbsp;
                                 {new Date(Upcomingdate[0].dob).getDate()}
                                 <br />
                                 Upcoming{" "}

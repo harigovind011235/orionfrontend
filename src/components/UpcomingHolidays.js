@@ -41,6 +41,7 @@ export default function UpcomingHolidays({
   }, [holidaysList]);
 
   useEffect(() => {
+    setEmployeeHolidaysList([])
     dispatch(EmployeeHolidays());
   }, [dispatch]);
 
