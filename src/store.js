@@ -1,8 +1,6 @@
-import { createStore , combineReducers, applyMiddleware } from "redux";
+import {  createStore , combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
-import storage from "redux-persist/lib/storage";
-import { persistStore, persistReducer } from 'redux-persist'
 import {
   employeeListReducer,
   employeeRemainingLeavesReducer,
@@ -64,18 +62,13 @@ const userInfoFromStorage = localStorage.getItem("userInfo")
 const initialState = {
   userLogin: { userInfo: userInfoFromStorage },
 };
-const persistConfig={
-  key:"root",
-  storage,
-  
-}
 
 const middleware = [thunk];
-const persistreducer=persistReducer(persistConfig,reducer)
 
-export  const store = createStore(
-  persistreducer,
+const store = createStore(
+  reducer,
   initialState,
   composeWithDevTools(applyMiddleware(...middleware))
 );
-export  const persistedstore=persistStore(store)
+
+export default store;
