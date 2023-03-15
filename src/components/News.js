@@ -37,7 +37,7 @@ function News() {
       <Card.Text>
       {newsItem.short_description}
       </Card.Text>
-      <Button variant="primary" href={newsItem.target_link}>Read More</Button>
+      <Button variant="primary" href={newsItem.target_link} target="_blank">Read More</Button>
       </Col>
         </Row>
         )) : <Message variant="danger">Something's Broke</Message>
