@@ -16,8 +16,8 @@ function LeaveStatus(props) {
     (state) => state.employeeLeaveDeleted
   );
   const { leavedeleted } = employeeLeaveDeleted;
-
-
+ 
+  const data=employeeleavestatus && employeeleavestatus.filter((ele)=>ele.status===false && ele.rejected === false)
 
   useEffect(() => {
     const userData = localStorage.getItem("userInfo");
@@ -35,12 +35,6 @@ function LeaveStatus(props) {
 
   return (
     <Container className="mt-4">
-      {error && (
-        <Message variant="danger">
-          Something's Broke But You Are Lucky Its Not Your Heart So We Can Fix
-          It
-        </Message>
-      )}
       {loading && <Loader />}
       <Row
         md={6}
@@ -68,8 +62,13 @@ function LeaveStatus(props) {
               </tr>
             </thead>
             <tbody>
-              {Array.isArray(employeeleavestatus) ? (
-                employeeleavestatus.filter((ele)=>ele.status===false && ele.rejected === false).map((each) => (
+              {error ? (
+                <Message>
+                Something's Broke But You Are Lucky Its Not Your Heart So We Can Fix
+                It
+              </Message>
+              ):(
+              data&&data.length !==0  ?data.map((each) => (
                   <tr key={each.id}>
                     <td>
                       {each.leave_type === "1" && each.half_day === true
@@ -111,12 +110,12 @@ function LeaveStatus(props) {
                       </Button>
                     </td>
                   </tr>
-                ))
-              ) : (
-                <Message variant="danger">
-                  Backend Server Down Contact The Admin
+                )
+                 ): (
+                <Message variant="info">
+                  No pending leaves
                 </Message>
-              )}
+              ))}
             </tbody>
           </Table>
         </Col>
