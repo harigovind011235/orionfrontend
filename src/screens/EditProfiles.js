@@ -16,6 +16,7 @@ function EditProfiles() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const employeeList = useSelector((state) => state.employeeList);
+
   const { error, loading, employees } = employeeList;
 
   const employee_array =
@@ -28,13 +29,14 @@ function EditProfiles() {
       return element1.name >= element2.name ? 1 : -1;
     });
 
+
   if (
     employee_array &&
     totalEmployeeCount &&
     employeelist.length < totalEmployeeCount && searchData.length===0
   ) {
     employeelist.push(...sortingData);
-    searchData.push(...employeelist)
+    searchData.push(...sortingData)
   }
   const totalPage = Math.ceil(parseInt(totalEmployeeCount) / 20);
   const handlePagination = (data) => {
@@ -60,6 +62,7 @@ function EditProfiles() {
 
   useEffect(() => {
     setEmployeeList([]);
+    setSearchData([])
     dispatch(listEmployees(page));
   }, [dispatch, page]);
 
