@@ -112,6 +112,7 @@ function LeaveStatus(props) {
                   </tr>
                 )
                  ): (
+                  loading===false &&
                 <Message variant="info">
                   No pending leaves
                 </Message>
