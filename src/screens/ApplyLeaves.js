@@ -3,12 +3,21 @@ import Header from "../components/Header";
 import { Col, Container, Row, Button, Form, Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { EmployeeLeaveApply } from "../actions/employeeActions";
+import { EmployeeLeaveApply,listRemainingLeaves  } from "../actions/employeeActions";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
 
 function ApplyLeaves() {
   const navigate = useNavigate();
+  const RemainingLeaves = useSelector((state) => state.employeeRemainingLeaves)
+  const { employeeremainingleaves } = RemainingLeaves
+
+  const leaves_array = ["casual_leave","sick_leave","emergency_leave","comp_off","optional_holidays"]
+ 
+
+  useEffect(()=>{
+    dispatch(listRemainingLeaves())
+    },[])
 
   useEffect(() => {
     const userData = localStorage.getItem("userInfo");
@@ -24,12 +33,16 @@ function ApplyLeaves() {
   const [leaveNotes, setLeaveNotes] = useState("");
   const [noofleaves, setNoOfLeave] = useState(1);
   const [leaveapplied, setLeaveApplyStatus] = useState(false);
+  const [errormsg,setErrormsg]=useState("")
   const dispatch = useDispatch();
   const applyLeaveStatus = useSelector((state) => state.employeeLeaveApply);
   const { loading, error, employeeleaveapplied } = applyLeaveStatus;
   const submitHandler = (event) => {
     event.preventDefault();
-    if (leaveDate && EndleaveDate && leaveType && leaveNotes && noofleaves) {
+    if(Object.keys(employeeremainingleaves).filter((ele)=> ele === leaves_array[parseInt(leaveType)-1]).map((el)=>employeeremainingleaves[el] === 0)[0]===true){
+      setErrormsg(`you don't have ${leaves_array[parseInt(leaveType)-1].replace("_"," ")}`)
+    }
+    else {
       dispatch(
         EmployeeLeaveApply(
           leaveType,
@@ -46,6 +59,7 @@ function ApplyLeaves() {
       setLeaveNotes("");
       setNoOfLeave(1);
       setHalfday(false);
+      setErrormsg("")
     }
   };
   
@@ -129,6 +143,7 @@ function ApplyLeaves() {
                   <option value="4">Comp OFF</option>
                   <option value="5">Optional Holiday</option>
                 </Form.Select>
+                 <p style={{color:"red",fontSize:"14px",marginTop:"10px"}} class="text-capitalize">{errormsg}</p>
               </Form.Group>
               <Form.Group className="mb-3 col-md-6">
                 <br />
