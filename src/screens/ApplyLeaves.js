@@ -49,12 +49,17 @@ function ApplyLeaves() {
     }
   };
   
+  setTimeout(()=>{
+    if(leaveapplied===true){
+      setLeaveApplyStatus(false)
+      window.location.reload()
+    }
+  },2000)
   useEffect(() => {
     if (employeeleaveapplied && employeeleaveapplied.status === 200) {
       setLeaveApplyStatus(true);
     }
-  }, [leaveapplied, employeeleaveapplied]);
-
+  }, [leaveapplied,employeeleaveapplied]);
   return (
     <Container>
       <Header />
