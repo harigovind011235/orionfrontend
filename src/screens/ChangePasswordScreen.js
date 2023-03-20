@@ -19,12 +19,11 @@ function ChangePasswordScreen() {
 
   const [current_password, setCurrentPassword] = useState("");
   const [new_password, setNewPassword] = useState("");
+  const [showMessage,setShowMessage]=useState(false)
   const [confirm_password, setConfirmPassword] = useState("");
   const[showPassword,setShowPassword]=useState({current_password:false,new_password:false,confirm_password:false})
-
   const changedPassword = useSelector((state) => state.changedPassWord);
   const { error, loading, changedpassword } = changedPassword;
-
   const dispatch = useDispatch();
 
   const handleClick=(name)=>{
@@ -50,7 +49,20 @@ function ChangePasswordScreen() {
     setConfirmPassword("");
    setShowPassword({current_password:false,new_password:false,confirm_password:false})
   };
+ 
+  setTimeout(() => {
+    if(showMessage==true){
+      setShowMessage(false)
+    }
+  }, 2000);
 
+  useEffect(()=>{
+    if(changedpassword==true){
+      console.log("good")
+      setShowMessage(true)
+     }
+  },[dispatch,changedpassword])
+  
   return (
     <Container>
       <Header />
@@ -61,7 +73,7 @@ function ChangePasswordScreen() {
       >
         <Col lg="4" md="4">
           {error && <Message variant="danger">{error}</Message>}
-          {changedpassword && (
+          {showMessage===true && (
             <Message variant="success">Password Changed</Message>
           )}
           {loading && <Loader />}
