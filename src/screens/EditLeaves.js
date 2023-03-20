@@ -24,13 +24,16 @@ function EditLeaves() {
   const totalEmployeeCount =
     employees && employees["count"] ? employees["count"] : null;
 
+    const sortedData = employee_array&&employee_array.sort((element1,element2)=>
+    element1["name"].toLowerCase()<element2["name"].toLowerCase()?-1:1)
+
+
   if (
     employee_array &&
     totalEmployeeCount &&
-    employeelist.length < totalEmployeeCount
+    employeelist.length < totalEmployeeCount && employeelist.length ===0
   ) {
-    console.log(totalEmployeeCount);
-    employeelist.push(...employee_array);
+    employeelist.push(...sortedData);
   }
 
   const totalPage = Math.ceil(parseInt(totalEmployeeCount) / 20);
@@ -42,14 +45,13 @@ function EditLeaves() {
   const handleEditButton = (id) => {
     navigate(`/employee-editleaves/${id}`)
   }
-  const sortedData = employeelist.sort((element1,element2)=>
-  element1["name"].toLowerCase()<element2["name"].toLowerCase()?-1:1)
+
 
   const handleSearch = (e) => {
     setSearchdata(e.target.value)
     }
 
-  const filterdata = sortedData.filter((item)=>item.name.toLowerCase().startsWith(searchdata.toLowerCase()))
+  const filterdata = employeelist && employeelist.filter((item)=>item.name.toLowerCase().startsWith(searchdata.toLowerCase()))
   
   useEffect(() => {
     setEmployeeList([]);
