@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { listEmployees } from "../actions/employeeActions";
+import { allListEmployees } from "../actions/employeeActions";
 import {
   OverlayTrigger,
   Tooltip,
@@ -21,10 +21,10 @@ function UpcomingWorkAnniversary({
   const [employeelist, setEmployeeList] = useState([]);
   const data = [];
   const dispatch = useDispatch();
-  const employeeList = useSelector((state) => state.employeeList);
-  const { loading, error, employees } = employeeList;
+  const employeeList = useSelector((state) => state. allEmployeeList);
+  const { loading, error, allemployees } = employeeList;
   const employee_array =
-    employees && employees["results"] ? employees["results"] : null;
+    allemployees && allemployees["results"] ? allemployees["results"] : null;
   const date = new Date();
   const month = [
     "January",
@@ -95,7 +95,7 @@ function UpcomingWorkAnniversary({
 
   useEffect(() => {
     setEmployeeList([]);
-    dispatch(listEmployees(page));
+    dispatch(allListEmployees(page));
   }, [dispatch, page]);
   return (
     <>

@@ -62,10 +62,11 @@ export default function UpcomingHolidays({
                 <p class="card-text" style={{marginLeft:"35px"}}>
                   <br/>
                 {filteredUpcomingDate &&
-                        filteredUpcomingDate.slice(0, 2).map((el) => {
+                        filteredUpcomingDate.slice(0, 2).map((el,index) => {
                           return (
                             <>
                               <p
+                              key={index}
                                 style={{
                                   color: "#55595c",
                                   textAlign: "left",

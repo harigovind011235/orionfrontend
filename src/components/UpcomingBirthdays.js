@@ -4,7 +4,7 @@ import {OverlayTrigger, Tooltip } from "react-bootstrap";
 import CardHeader from "react-bootstrap/esm/CardHeader";
 import { useDispatch, useSelector } from "react-redux";
 
-import { listEmployees } from "../actions/employeeActions";
+import { allListEmployees} from "../actions/employeeActions";
 
 const baseURL = process.env.REACT_APP_BACKEND_BASEURL;
 
@@ -30,11 +30,11 @@ export default function UpcomingBirthdays({
   ];
   const [employeeList, setEmployeeList] = useState([]);
   const dispatch = useDispatch();
-  const listOfemployees = useSelector((state) => state.employeeList);
-  const { loading, error, employees } = listOfemployees;
+  const listOfemployees = useSelector((state) => state.allEmployeeList);
+  const { loading, error, allemployees } = listOfemployees;
 
   const employee_array =
-    employees && employees["results"] ? employees["results"] : null;
+    allemployees && allemployees["results"] ? allemployees["results"] : null;
   const date = new Date();
 
   const filteredUpcomingMonth =
@@ -85,7 +85,7 @@ export default function UpcomingBirthdays({
 
   useEffect(() => {
     setEmployeeList([]);
-    dispatch(listEmployees(1));
+    dispatch(allListEmployees(1));
   }, [dispatch]);
 
   return (
