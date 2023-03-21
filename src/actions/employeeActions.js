@@ -20,7 +20,10 @@ import {
   EMPLOYEE_LEAVEAPPLY_FAIL,
   EMPLOYEE_DELETELEAVE_REQUEST,
   EMPLOYEE_DELETELEAVE_SUCCESS,
-  EMPLOYEE_DELETELEAVE_FAIL
+  EMPLOYEE_DELETELEAVE_FAIL,
+  ALL_EMPLOYEE_LIST_REQUEST,
+  ALL_EMPLOYEE_LIST_SUCCESS,
+  ALL_EMPLOYEE_LIST_FAIL
 } from "../constants/employeeConstants";
 
 const baseURL = process.env.REACT_APP_BACKEND_BASEURL;
@@ -45,6 +48,28 @@ export const listEmployees = (page) => async (dispatch) => {
     });
   }
 };
+
+export const allListEmployees = (page) => async (dispatch) => {
+  try {
+    
+    dispatch({ type: ALL_EMPLOYEE_LIST_REQUEST });
+    const { data } = await axios.get(`${baseURL}/api/user/all?page=${page.toString()}&&page_size=100`);
+  
+    dispatch({
+      type: ALL_EMPLOYEE_LIST_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: ALL_EMPLOYEE_LIST_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
 
 
 export const listRemainingLeaves = () => async (dispatch) => {

@@ -19,7 +19,10 @@ import {
     EMPLOYEE_LEAVEAPPLY_FAIL,
     EMPLOYEE_DELETELEAVE_REQUEST,
     EMPLOYEE_DELETELEAVE_SUCCESS,
-    EMPLOYEE_DELETELEAVE_FAIL
+    EMPLOYEE_DELETELEAVE_FAIL,
+    ALL_EMPLOYEE_LIST_REQUEST,
+    ALL_EMPLOYEE_LIST_SUCCESS,
+    ALL_EMPLOYEE_LIST_FAIL
 
  } from '../constants/employeeConstants'
 
@@ -34,6 +37,26 @@ import {
             return {loading:false,employees:action.payload}
         
         case EMPLOYEE_LIST_FAIL:
+            return {loading:false,error:action.payload}
+        
+        default:
+            return state
+
+    }
+
+}
+
+export const allEmployeeListReducer = (state={allemployees:[]},action) => {
+    
+    switch(action.type){
+
+        case ALL_EMPLOYEE_LIST_REQUEST:
+            return {loading:true,allemployees:[]}
+        
+        case ALL_EMPLOYEE_LIST_SUCCESS:
+            return {loading:false,allemployees:action.payload}
+         
+        case ALL_EMPLOYEE_LIST_FAIL:
             return {loading:false,error:action.payload}
         
         default:

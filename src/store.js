@@ -9,6 +9,7 @@ import {
   employeeHolidaysReducer,
   employeeLeaveApplyReducer,
   employeeDeleteLeaveReducer,
+  allEmployeeListReducer
 } from "./reducers/employeeReducer";
 import {
   blogsListReducer,
@@ -33,6 +34,7 @@ import {
 
 const reducer = combineReducers({
   employeeList: employeeListReducer,
+  allEmployeeList:  allEmployeeListReducer,
   blogList: blogsListReducer,
   newsList: newsListReducer,
   userLogin: userLoginReducer,
