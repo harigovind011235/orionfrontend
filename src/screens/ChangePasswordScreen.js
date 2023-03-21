@@ -53,12 +53,12 @@ function ChangePasswordScreen() {
   setTimeout(() => {
     if(showMessage==true){
       setShowMessage(false)
+      window.location.reload()
     }
   }, 2000);
 
   useEffect(()=>{
     if(changedpassword==true){
-      console.log("good")
       setShowMessage(true)
      }
   },[dispatch,changedpassword])
