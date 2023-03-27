@@ -34,7 +34,7 @@ import {
             return {loading:true,employees:[]}
         
         case EMPLOYEE_LIST_SUCCESS:
-            return {loading:false,employees:action.payload}
+            return {loading:false,employees:action.payload,hasMoreItems:action.payload.next}
         
         case EMPLOYEE_LIST_FAIL:
             return {loading:false,error:action.payload}
