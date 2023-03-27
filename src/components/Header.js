@@ -62,7 +62,7 @@ export default function Header() {
   };
  
   return (
-    <MDBNavbar expand="lg">
+    <MDBNavbar class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
       <MDBContainer>
         <LinkContainer to={"/home"}>
           <MDBNavbarBrand>Orion</MDBNavbarBrand>

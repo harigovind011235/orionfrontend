@@ -34,13 +34,13 @@ function LeaveStatus(props) {
   };
 
   return (
-    <Container className="mt-4">
+    <Container className="p-4 mt-4">
       {loading && <Loader />}
       <Row
         md={6}
         className="justify-content-lg-center justify-content-md-center"
       >
-        <Col lg="4" md="3" className="offset-lg-1">
+        <Col lg="4" md="3" className="offset-lg-1 p-5 mt-4">
           <h2>Leave Status</h2>
         </Col>
       </Row>

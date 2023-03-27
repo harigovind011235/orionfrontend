@@ -61,7 +61,7 @@ function TeamTable() {
   // console.log(`page=${page},hasmore->${hasMore},employees->${employee_results && employee_results.length}`)
 
   return (
-    <Container className="mt-4">
+    <Container className="p-4 mt-4">
       <Row
         md={6}
         lg={6}

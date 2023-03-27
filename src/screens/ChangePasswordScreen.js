@@ -64,7 +64,7 @@ function ChangePasswordScreen() {
   },[dispatch,changedpassword])
   
   return (
-    <Container>
+    <Container style={{marginTop:"10%"}}>
       <Header />
       <Row
         md={12}

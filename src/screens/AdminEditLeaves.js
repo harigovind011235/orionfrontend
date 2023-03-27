@@ -50,14 +50,14 @@ function AdminEditLeaves() {
     return (
         <>
             <Header />
-            <Container className="mt-4">
+            <Container className="p-5 mt-4">
                 {error && <Message>Something's Broke But You Are Lucky Its Not Your Heart So We Can Fix It</Message>}
                 {loading && <Loader />}
                 <Row
                     md={6}
                     className="justify-content-lg-center justify-content-md-center"
                 >
-                    <Col lg="4" md="3" className="offset-lg-1">
+                    <Col lg="4" md="3" className="offset-lg-1 p-4 mt-4">
                         <h2>Remaining Leaves</h2>
                     </Col>
                 </Row>

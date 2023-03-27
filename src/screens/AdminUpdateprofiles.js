@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Container } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
@@ -122,8 +123,9 @@ export default function AdminUpdateprofiles() {
   }, [dispatch, getApicall]);
 
   return (
-    <div class="row">
+    <div class="row p-5 mt-4">
       <Header />
+      <Container className="p-4 mt-4">
       {error && (
         <Message>
           Something's Broke But You Are Lucky Its Not Your Heart So We Can Fix
@@ -422,6 +424,7 @@ export default function AdminUpdateprofiles() {
           </div>
         </div>
       </div>
+      </Container>
     </div>
   );
 }

@@ -74,7 +74,7 @@ function AdminLeaveTable() {
   }, [dispatch, updatedleave]);
 
   return (
-    <Container className="mt-4">
+    <Container style={{marginTop:"9%"}}>
       <Row>
         <Col lg="2" md="3" className="mt-4">
           <Form.Select
