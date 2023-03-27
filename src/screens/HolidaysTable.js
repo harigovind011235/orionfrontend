@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { Table } from "react-bootstrap";
+import { Container, Table } from "react-bootstrap";
 
 import { EmployeeHolidays } from "../actions/employeeActions";
 import Header from "../components/Header";
@@ -34,6 +34,7 @@ export default function HolidaysTable() {
   return (
     <>
       <Header />
+      <Container className="p-5 mt-4">
       <center>
         <Table
           striped
@@ -83,6 +84,7 @@ export default function HolidaysTable() {
           </tbody>
         </Table>
       </center>
+      </Container>
     </>
   );
 }

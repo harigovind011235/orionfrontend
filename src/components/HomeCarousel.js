@@ -5,7 +5,7 @@ import labglocover1 from '../assets/images/labglocover1.png'
 
 function HomeCarousel() {
   return (
-    <Container>
+    <Container style={{marginTop:"7%"}}>
       <Row className='p-4'>
         <Col lg={12} md={12}>
         <Carousel>

@@ -75,13 +75,13 @@ function ApplyLeaves() {
     }
   }, [leaveapplied,employeeleaveapplied]);
   return (
-    <Container>
+    <Container className="p-4 mt-4">
       <Header />
       <Row
         md={6}
         className="justify-content-lg-center justify-content-md-center"
       >
-        <Col lg="3" md="3" className="offset-lg-1 mt-2">
+        <Col lg="3"  className=" p-5 mt-4">
           <h2>Apply Leave</h2>
         </Col>
       </Row>

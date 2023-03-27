@@ -72,7 +72,7 @@ function EditProfiles() {
       <div class="row height d-flex justify-content-center align-items-center">
         <div
           class="input-group"
-          style={{ maxWidth: "300px", marginLeft: "690px" }}
+          style={{ maxWidth: "300px", marginLeft: "690px" ,marginTop:"9%"}}
         >
           <input
             type="search"

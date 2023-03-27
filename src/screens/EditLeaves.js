@@ -61,7 +61,7 @@ function EditLeaves() {
     <div>
       <Header />
       <br />
-    <div class= "d-flex justify-content-around" style={{marginLeft:"700px"}}>
+    <div class= "d-flex justify-content-around" style={{marginLeft:"700px",marginTop:"7%"}}>
       <div class="input-group" style={{maxWidth:"250px"}}>
         <input
           type="search"

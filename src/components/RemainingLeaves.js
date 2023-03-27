@@ -7,14 +7,14 @@ function RemainingLeaves(props) {
   const employeeRemainingLeaves = props.employeeRemainingLeaves;
   const { error, loading, employeeremainingleaves } = employeeRemainingLeaves;
   return (
-    <Container className="mt-4">
-      {error && <Message>Something's Broke But You Are Lucky Its Not Your Heart So We Can Fix It</Message>}
+    <Container className=" p-4 mt-4">
+   
       {loading && <Loader/>}
       <Row
         md={6}
         className="justify-content-lg-center justify-content-md-center"
       >
-        <Col lg="4" md="3" className="offset-lg-1">
+        <Col lg="4" md="3" className="offset-lg-1 p-5 mt-4">
           <h2>Remaining Leaves</h2>
         </Col>
       </Row>
@@ -33,6 +33,9 @@ function RemainingLeaves(props) {
               </tr>
             </thead>
             <tbody>
+            {error ?<Message>Something's Broke But You Are Lucky Its Not Your Heart So We Can Fix It</Message>
+            :
+            <>
               <tr>
                 <td>Casual</td>
                 <td>{employeeremainingleaves ? employeeremainingleaves.casual_leave : null}</td>
@@ -53,6 +56,8 @@ function RemainingLeaves(props) {
                 <td>Optional Holidays</td>
                 <td>{employeeremainingleaves ? employeeremainingleaves.optional_holidays : null}</td>
               </tr>
+              </>
+}
             </tbody>
           </Table>
         </Col>

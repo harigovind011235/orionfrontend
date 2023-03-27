@@ -52,7 +52,7 @@ function DailyHourTable() {
     // }
   }, [dispatch, page]);
   return (
-    <Container className="p-2 mt-4">
+    <Container className="p-4 mt-4">
       <Row md={6} lg={6} className="mt-4">
         <Col lg={12} md={12}>
           {/* <InfiniteScroll
