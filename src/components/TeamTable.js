@@ -94,55 +94,52 @@ function TeamTable() {
               </tr>
             </MDBTableHead>
             <MDBTableBody>
-              {loading ? (
-                <Loader />
-              ) : error ? (
-                <Message variant="danger">
-                  Something Wrong Admin To The Rescue
-                </Message>
-              ) : employeelist ? (
-                employeelist.map((employee) => (
-                  <tr key={employee.id}>
-                    <td>
-                      <div className="d-flex align-items-center">
-                        <img
-                          src={`${baseURL}${employee.profile_image}`}
-                          alt=""
-                          style={{ width: "55px", height: "55px",borderRadius:"55px" }}
-                          className="rounded-circle"
-                          class="images"
-                        />
-                        <div className="ms-3">
-                          <p className="fw-bold mb-1">{employee.name}</p>
-                          <p className="text-muted mb-0">{employee.email}</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <p className="fw-normal mb-1">{employee.designation}</p>
-                      <p className="text-muted mb-0">{employee.location}</p>
-                    </td>
-                    <td>
-                      {employee && employee.status === true ? (
-                        <MDBBadge color="success" pill>
-                          Active
-                        </MDBBadge>
-                      ) : (
-                        <MDBBadge color="primary" pill>
-                          OnBoarding
-                        </MDBBadge>
-                      )}
-                    </td>
-                    <td>{employee.date_of_joining}</td>
-                    <td>{employee.contact_no}</td>
-                  </tr>
-                ))
-              ) : (
-                <Message variant="danger">
-                  Something Wrong Admin To The Rescue
-                </Message>
-              )}
-            </MDBTableBody>
+  {loading ? (
+    <Loader />
+  ) : error ? (
+    <Message variant="danger">
+      Something Wrong Admin To The Rescue
+    </Message>
+  ) : employeelist ? (
+    employeelist
+      .filter((employee) => employee.status === true)
+      .map((employee) => (
+        <tr key={employee.id}>
+          <td>
+            <div className="d-flex align-items-center">
+              <img
+                src={`${baseURL}${employee.profile_image}`}
+                alt=""
+                style={{ width: "55px", height: "55px", borderRadius: "55px" }}
+                className="rounded-circle"
+                class="images"
+              />
+              <div className="ms-3">
+                <p className="fw-bold mb-1">{employee.name}</p>
+                <p className="text-muted mb-0">{employee.email}</p>
+              </div>
+            </div>
+          </td>
+          <td>
+            <p className="fw-normal mb-1">{employee.designation}</p>
+            <p className="text-muted mb-0">{employee.location}</p>
+          </td>
+          <td>
+            <MDBBadge color="success" pill>
+              Active
+            </MDBBadge>
+          </td>
+          <td>{employee.date_of_joining}</td>
+          <td>{employee.contact_no}</td>
+        </tr>
+      ))
+  ) : (
+    <Message variant="danger">
+      Something Wrong Admin To The Rescue
+    </Message>
+  )}
+</MDBTableBody>
+
           </MDBTable>
           {/* </InfiniteScroll> */}
           <ReactPaginate
