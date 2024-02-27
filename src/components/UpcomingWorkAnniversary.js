@@ -21,7 +21,7 @@ function UpcomingWorkAnniversary({
   const [employeelist, setEmployeeList] = useState([]);
   const data = [];
   const dispatch = useDispatch();
-  const employeeList = useSelector((state) => state. allEmployeeList);
+  const employeeList = useSelector((state) => state.allEmployeeList);
   const { loading, error, allemployees } = employeeList;
   const employee_array =
     allemployees && allemployees["results"] ? allemployees["results"] : null;
@@ -61,9 +61,9 @@ function UpcomingWorkAnniversary({
     sortingmonth.sort(
       (a, b) =>
         new Date(a.date_of_joining).getMonth() ===
-          new Date(b.date_of_joining).getMonth() &&
+        new Date(b.date_of_joining).getMonth() &&
         new Date(a.date_of_joining).getDate() -
-          new Date(b.date_of_joining).getDate()
+        new Date(b.date_of_joining).getDate()
     );
 
   const filtering =
@@ -83,14 +83,18 @@ function UpcomingWorkAnniversary({
     data.filter(
       (e, index) =>
         new Date(data[0].date_of_joining).getMonth() ===
-          new Date(e.date_of_joining).getMonth() &&
+        new Date(e.date_of_joining).getMonth() &&
         new Date(data[0].date_of_joining).getDate() ===
-          new Date(e.date_of_joining).getDate()
+        new Date(e.date_of_joining).getDate()
     );
 
   useEffect(() => {
+    const activeEmployees = employee_array && employee_array.filter(employee => employee.status === true);
+
     setWorkAnniversary({ loading: loading, error: error });
-    setEmployeeList(employee_array);
+    setEmployeeList(activeEmployees);
+
+    // setEmployeeList(employee_array);
   }, [employeeList]);
 
   useEffect(() => {
@@ -189,7 +193,7 @@ function UpcomingWorkAnniversary({
                                                           <img
                                                             src={
                                                               el.profile_image ===
-                                                              null
+                                                                null
                                                                 ? "https://static.vecteezy.com/system/resources/thumbnails/009/734/564/small/default-avatar-profile-icon-of-social-media-user-vector.jpg"
                                                                 : `${baseURL}${el.profile_image}`
                                                             }
@@ -269,8 +273,8 @@ function UpcomingWorkAnniversary({
 
                 <p class="card-text">
                   {date.getDate() ===
-                  (samedate[0] &&
-                    new Date(samedate[0].date_of_joining).getDate()) ? (
+                    (samedate[0] &&
+                      new Date(samedate[0].date_of_joining).getDate()) ? (
                     <p
                       class="card-body text-center card-title font-weight-bold card-text"
                       style={{ color: "#55595c", marginTop: "-35px" }}
