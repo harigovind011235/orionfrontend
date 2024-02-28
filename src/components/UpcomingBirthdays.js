@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 
-import {OverlayTrigger, Tooltip } from "react-bootstrap";
+import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import CardHeader from "react-bootstrap/esm/CardHeader";
 import { useDispatch, useSelector } from "react-redux";
 
-import { allListEmployees} from "../actions/employeeActions";
+import { allListEmployees } from "../actions/employeeActions";
 
 const baseURL = process.env.REACT_APP_BACKEND_BASEURL;
 
@@ -73,13 +73,15 @@ export default function UpcomingBirthdays({
     filteredUpcomingDate.filter(
       (dt, index) =>
         new Date(filteredUpcomingDate[0].dob).getMonth() ===
-          new Date(dt.dob).getMonth() &&
+        new Date(dt.dob).getMonth() &&
         new Date(filteredUpcomingDate[0].dob).getDate() ===
-          new Date(dt.dob).getDate()
+        new Date(dt.dob).getDate()
     );
 
   useEffect(() => {
-    setEmployeeList(employee_array && employee_array);
+    const activeEmployees = employee_array && employee_array.filter(employee => employee.status === true);
+    setEmployeeList(activeEmployees);
+
     setBirthday({ loading: loading, error: error });
   }, [listOfemployees]);
 
@@ -152,9 +154,9 @@ export default function UpcomingBirthdays({
                   <p class="card-text" style={{ textAlign: "center" }}>
                     <p class="card-text">
                       {Upcomingdate[0] &&
-                      new Date(Upcomingdate[0].dob).getDate() ===
+                        new Date(Upcomingdate[0].dob).getDate() ===
                         date.getDate() &&
-                      new Date(Upcomingdate[0].dob).getMonth() ===
+                        new Date(Upcomingdate[0].dob).getMonth() ===
                         date.getMonth() ? (
                         <>
                           <p class="card-text">
@@ -186,7 +188,7 @@ export default function UpcomingBirthdays({
                                 <i class="fa fa-calendar"></i> &nbsp;
                                 {
                                   month[
-                                    new Date(Upcomingdate[0].dob).getMonth()
+                                  new Date(Upcomingdate[0].dob).getMonth()
                                   ]
                                 }&nbsp;
                                 {new Date(Upcomingdate[0].dob).getDate()}
